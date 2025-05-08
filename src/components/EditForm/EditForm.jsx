@@ -13,14 +13,16 @@ function EditForm() {
     const [description, setDescription] = useState('');
 
     //PRICE, CATEGORY, DIFFICULTY need to be using a dropdown. this is just a sample.
-
+    
+    //i wasnt sure if i was supposed to code or anything so i threw this in here but feel free to delete it
     return (
       <>
         <h2>Edit</h2>
         <p>This is the edit form / modal</p>
         <p>sample form inputs below</p>
 
-    <form onSubmit={FUNCTION-HERE}>
+
+    {/* <form onSubmit={FUNCTION-HERE}>
         <input
         type="text"
         id="adventure-title"
@@ -72,7 +74,7 @@ function EditForm() {
             <button type='submit'>
                 Submit
             </button>
-    </form>
+    </form> */}
         
       </>
     );
