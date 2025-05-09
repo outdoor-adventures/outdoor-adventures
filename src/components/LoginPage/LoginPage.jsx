@@ -6,8 +6,10 @@ function LoginPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const logIn = useStore((state) => state.logIn)
+  const register = useStore((state) => state.register);
   const errorMessage = useStore((state) => state.authErrorMessage);
   const setAuthErrorMessage = useStore((state) => state.setAuthErrorMessage);
+const logOut = useStore((state) => state.logOut);
 
   useEffect(() => {
     // Clear the auth error message when the component unmounts:
@@ -24,10 +26,13 @@ function LoginPage() {
       password: password,
     })
   };
+  const handleRegister= () => {
+    register(username, password);
+  }
 
   return (
     <>
-      <h2>Login Page</h2>
+      <h2>Welcome To OutDoor Adventure!</h2>
       <form onSubmit={handleLogIn}>
         <label htmlFor="username">Username:</label>
         <input
