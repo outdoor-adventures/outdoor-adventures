@@ -14,6 +14,9 @@ const passport = require('./strategies/user.strategy');
 // Require router files:
 const userRouter = require('./routes/user.router');
 
+//require adventure router file
+const adventureRouter = require('./routes/adventure.router');
+
 // Apply middleware:
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
@@ -24,6 +27,9 @@ app.use(passport.session());
 
 // Apply router files:
 app.use('/api/user', userRouter);
+
+// apply adventure router
+app.use('/api/adventures', adventureRouter);
 
 // Start the server:
 app.listen(PORT, () => {
