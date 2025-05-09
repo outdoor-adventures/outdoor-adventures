@@ -10,6 +10,7 @@ import Nav from '../Nav/Nav';
 import HomePage from '../HomePage/HomePage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
+import BrowseAdventuresPage from '../BrowseAdventuresPage/BrowseAdventuresPage';
 
 
 function App() {
@@ -32,7 +33,7 @@ function App() {
             exact path="/"
             element={
               user.id ? (
-                <HomePage /> // Render HomePage for authenticated user.
+                <BrowseAdventuresPage /> // Render HomePage for authenticated user.
               ) : (
                 <Navigate to="/login" replace /> // Redirect unauthenticated user.
               )
