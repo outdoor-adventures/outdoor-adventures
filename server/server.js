@@ -29,7 +29,7 @@ app.use(passport.session());
 app.use('/api/user', userRouter);
 
 // apply adventure router
-app.use('/api/adventure', adventureRouter);
+app.use('/api/adventures', adventureRouter);
 
 // Start the server:
 app.listen(PORT, () => {

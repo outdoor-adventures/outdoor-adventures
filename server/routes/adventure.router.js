@@ -2,7 +2,7 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 
-//GET ALL ADVENTURES
+//GET ALL ADVENTURES 
 router.get('/', (req, res) => {
     const sqlText = 'SELECT * FROM "adventures";';
 
@@ -18,7 +18,6 @@ router.get('/', (req, res) => {
         res.sendStatus(500);
     })
 }); // END GET
-
 
 
 module.exports = router;
