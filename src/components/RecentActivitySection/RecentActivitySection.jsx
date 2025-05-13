@@ -1,5 +1,3 @@
-import React from 'react';
-
 const RecentActivitySection = () => {
     //  TODO: Replace placeholder with real data from backend once available
     const adventures = [];
@@ -9,7 +7,7 @@ const RecentActivitySection = () => {
         <section className="recent-activity">
             <h2 className="ra-title">Recent Activity</h2>
 
-            {/* Cards container: challenge backend team to populate "adventures" array */}
+            {/* Cards container: request backend team to populate "adventures" array */}
             <div className="ra-cards">
                 {adventures.map((item) => (
                     <div key={item.id} className="ra-card">
