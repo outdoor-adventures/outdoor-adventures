@@ -29,11 +29,15 @@ const logOut = useStore((state) => state.logOut);
   const handleRegister= () => {
     register(username, password);
   }
+  const handleLogOut = () => {
+    logOut();
+  };
 
   return (
     <>
       <h2>Welcome To OutDoor Adventure!</h2>
       <form onSubmit={handleLogIn}>
+        <div>
         <label htmlFor="username">Username:</label>
         <input
           type="text"
@@ -42,6 +46,8 @@ const logOut = useStore((state) => state.logOut);
           value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
+        </div>
+        <div>
         <label htmlFor="password">Password:</label>
         <input
           type="password"
@@ -50,10 +56,18 @@ const logOut = useStore((state) => state.logOut);
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
+        </div>
+
         <button type="submit">
           Log In
         </button>
+        <button type="button" onClick={handleRegister}>Register</button>
       </form>
+      <div>
+        <p>You are logged in as {username}</p>
+        <button onClick={handleLogOut}>Log Out</button>
+      </div>
+      
       { // Conditionally render login error:
         errorMessage && (
           <h3>{errorMessage}</h3>
