@@ -1,39 +1,16 @@
 import { NavLink } from 'react-router-dom';
 import useStore from '../../zustand/store';
-
+import logo from '../../../public/images/HomeIcon.png';
+import './Nav.css';
 
 function Nav() {
   const user = useStore((store) => store.user);
 
   return (
     <nav>
-      <ul>
-      { // User is not logged in, render these links:
-        !user.id && (
-          <>
-            <li>
-              <NavLink to="/login">Login</NavLink>
-            </li>
-            <li>
-              <NavLink to="/registration">Register</NavLink>
-            </li>
-          </>
-        )
-      }
-      { // User is logged in, render these links:
-        user.id && (
-          <>
-            <li>
-              <NavLink to="/">Home</NavLink>
-            </li>
-          </>
-        )
-      }
-      {/* Show these links regardless of auth status: */}
-        <li>
-          <NavLink to="/about">About</NavLink>
-        </li>
-      </ul>
+      <div className='nav-container'>
+        <img src={logo} className='nav-logo' style={{width: '10%', marginTop: '20px'  }}/>
+      </div>
     </nav>
   );
 }
