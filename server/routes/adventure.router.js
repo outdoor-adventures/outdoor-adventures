@@ -8,47 +8,43 @@ router.get('/', (req, res) => {
 
     pool.query(sqlText)
 
-    .then ((result) => {
+    .then((result) => {
         console.log('result of adventure GET is:', result)
         console.log(`query ${sqlText} was successful`)
             res.send(result.rows);
     })
-    .catch ((error) => {
+    .catch((error) => {
         console.log(`query ${sqlText} failed with error: ${error}`)
         res.sendStatus(500);
     });
 }); // END GET
 
-//IN THE WORKS
-//POST ADVENTURE
-router.post('/', (req, res) => {
-    console.log('adventure sent to post is:', req.body);
-    const sqlText = `INSERT INTO "adventures" 
-                    (SQL, COLUMNS, HERE) 
-                    VALUES
-                    ($1, CONTINUING AS MANY AS NEEDED);`;
 
-    const sqlValues = [
-        // VALUES HERE
-    ];
-
-    pool.query(sqlText, sqlValues)
-    
-    .then((result) => {
-        res.sendStatus(201);
-    })
-    .catch((error) => {
-        console.log('error in adventure POST', error);
-        res.sendStatus(500);
-    });
-}); //END POST
 
 //GET SINGLE ADVENTURE
+router.get('/:id', (req, res) => {
+    let id = req.params.id;
+    const sqlText = 'SELECT * FROM "adventures" WHERE "id" = $1;';
 
-// search / filter queries
+    pool.query(sqlText, [id])
+
+    .then((result) => {
+        console.log('got single adventure')
+        console.log(`query ${sqlText} was successful`)
+        res.send(result.rows)
+    })
+    .catch((error) => {
+        console.log(`query ${sqlText} failed with error: ${error}`)
+        res.sendStatus(500);
+    })
+})
 
 
-//admin only
+
+//IN THE WORKS
+
+//QUERIES BELOW NEED TO BE UPDATED WHEN DATABASE IS FINALIZED
+
 //PUT
 router.put('/:id', (req, res) => {
     let { id } = req.params;
