@@ -2,7 +2,11 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 
-//GET ALL ADVENTURES 
+
+
+//NEED conditional rendering or queries to only get adventures with a status of accepted?
+
+//GET ALL ADVENTURES
 router.get('/', (req, res) => {
     const sqlText = 'SELECT * FROM "adventures";';
 
@@ -36,21 +40,10 @@ router.get('/:id', (req, res) => {
     .catch((error) => {
         console.log(`query ${sqlText} failed with error: ${error}`)
         res.sendStatus(500);
-    })
-})
+    });
+});//END GET SINGLE ADVENTURE
 
 
-
-//IN THE WORKS
-
-//QUERIES BELOW NEED TO BE UPDATED WHEN DATABASE IS FINALIZED
-
-//PUT
-router.put('/:id', (req, res) => {
-    let { id } = req.params;
-    // const { VALUES } = req.body
-    console.log()
-})
 
 //DELETE
 router.delete('/:id', (req, res) => {
@@ -68,6 +61,18 @@ router.delete('/:id', (req, res) => {
         res.sendStatus(500);
     });
 }); //END DELETE
+
+//IN THE WORKS
+
+//PUT
+
+//POST
+
+//STILL NEED FILTERS / SEARCH 
+
+//ADMIN ONLY ?
+
+
 
 
 
