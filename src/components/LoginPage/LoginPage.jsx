@@ -9,7 +9,7 @@ function LoginPage() {
   const register = useStore((state) => state.register);
   const errorMessage = useStore((state) => state.authErrorMessage);
   const setAuthErrorMessage = useStore((state) => state.setAuthErrorMessage);
-const logOut = useStore((state) => state.logOut);
+
 
   useEffect(() => {
     // Clear the auth error message when the component unmounts:
@@ -29,9 +29,7 @@ const logOut = useStore((state) => state.logOut);
   const handleRegister= () => {
     register(username, password);
   }
-  const handleLogOut = () => {
-    logOut();
-  };
+
 
   return (
     <>
@@ -63,10 +61,7 @@ const logOut = useStore((state) => state.logOut);
         </button>
         <button type="button" onClick={handleRegister}>Register</button>
       </form>
-      <div>
-        <p>You are logged in as {username}</p>
-        <button onClick={handleLogOut}>Log Out</button>
-      </div>
+     
       
       { // Conditionally render login error:
         errorMessage && (

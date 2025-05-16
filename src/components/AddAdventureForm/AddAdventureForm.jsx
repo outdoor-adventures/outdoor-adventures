@@ -41,16 +41,12 @@ return (
         {/* Adventure Details */}
         <div>
             <label htmlFor="photo">Price:</label>
-            <select id="price" value={price} onChange={(e) => setPrice(e.target.value)}>
-                <option value="">Select Price Level</option>
-                <option value="1">$</option>
-                <option value="2">$$</option>
-                <option value="3">$$$</option>
-                <option value="4">$$$$</option>
-                <option value="5">$$$$$</option>
-                </select>
+          
 
                 <label htmlFor="category">Category:</label>
-                
+                <select id="category" value={category} onChange={(e) => setCategory(e.target.value)}>
+
+                </select>
+
         </div>
         </form>
