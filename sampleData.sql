@@ -79,22 +79,22 @@ VALUES
 
 --CREATE ADVENTURE TABLE
 --adventure table
-	CREATE TABLE IF NOT EXISTS "adventures" (
+CREATE TABLE IF NOT EXISTS "adventures" (
 	"id" serial NOT NULL UNIQUE,
 	"activity_name" VARCHAR(255) NOT NULL,
-	"category_id" INTEGER NOT NULL,
-	"ability_level_id" INTEGER NOT NULL,
-	"cost_level_id" INTEGER NOT NULL,
+	"category_id" INTEGER NOT NULL REFERENCES "category_table"(id),
+	"ability_level_id" INTEGER NOT NULL REFERENCES "ability_table"(id),
+	"cost_level_id" INTEGER NOT NULL REFERENCES "cost_table"(id),
 	"photo" VARCHAR(255) NOT NULL,
-	"link" VARCHAR(255),
-	"description" VARCHAR(255),
+	"link" VARCHAR(255) NOT NULL,
+	"description" VARCHAR(255) NOT NULL,
 	"city" VARCHAR(255) NOT NULL,
 	"state" VARCHAR(255) NOT NULL,
 	"zip" VARCHAR(255) NOT NULL,
 	"latitude" double precision NOT NULL,
 	"longitude" double precision NOT NULL,
 	"created_at" TIMESTAMPTZ NOT NULL DEFAULT now(),
-	"created_by" INTEGER NOT NULL,
+	"created_by" INTEGER NOT NULL REFERENCES "user"(id),
 	"status" VARCHAR(255) NOT NULL,
 	PRIMARY KEY ("id")
 );
