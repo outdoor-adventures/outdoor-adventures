@@ -7,7 +7,7 @@ import HomePage from '../HomePage/HomePage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import BrowseAdventuresPage from '../BrowseAdventuresPage/BrowseAdventuresPage';
-import MyAdventures from '../MyAdventuresView/MyAdventuresViews';
+import MyAdventuresViews from '../MyAdventuresViews/MyAdventuresViews';
 import AddAdventure from '../AddAdventure/AddAdventure';
 import PendingAdventure from '../PendingAdventure/PendingAdventure';
 import ContactUs from '../ContactUs/ContactUs';
@@ -53,7 +53,7 @@ function App() {
                         path="/my-adventures"
                         element={
                             user.id ? (
-                                <MyAdventures />
+                                <MyAdventuresViews />
                             ) : (
                                 <Navigate to="/login" replace />
                             )
