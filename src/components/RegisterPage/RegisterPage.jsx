@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import useStore from '../../zustand/store';
+import Nav from '../Nav/Nav';
 
 
-function RegisterPage() {
+function RegisterPage(pageTitle) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const register = useStore((state) => state.register)
@@ -27,6 +28,7 @@ function RegisterPage() {
 
   return (
     <>
+      <Nav pageTitle="Register Page" />
       <h2>Register Page</h2>
       <form onSubmit={handleRegister}>
         <label htmlFor="username">Username:</label>

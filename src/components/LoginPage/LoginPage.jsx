@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import useStore from '../../zustand/store';
+import Nav from '../Nav/Nav';
 
 
-function LoginPage() {
+function LoginPage(props) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const logIn = useStore((state) => state.logIn)
@@ -27,7 +28,8 @@ function LoginPage() {
 
   return (
     <>
-      <h2>Login Page</h2>
+      <Nav pageTitle="Login Page" />
+
       <form onSubmit={handleLogIn}>
         <label htmlFor="username">Username:</label>
         <input
