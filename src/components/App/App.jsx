@@ -25,7 +25,7 @@ function App() {
     <>
       <header>
         {/* <h1>Prime Solo Project</h1> */}
-        <Nav />
+        {/* <Nav pageTitle="Outdoor Adventures"/> */}
       </header>
       <main>
         <Routes>
