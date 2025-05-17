@@ -9,24 +9,92 @@ CREATE TABLE "user" (
   "updated_at" TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
+--CREATE CATEGORY TABLE
+CREATE TABLE IF NOT EXISTS "category_table" (
+	"id" serial NOT NULL UNIQUE,
+	"category_name" VARCHAR(255) NOT NULL,
+	PRIMARY KEY ("id")
+);
+
+--ADD SAMPLE CATEGORIES
+INSERT INTO "category_table"
+("category_name")
+VALUES
+('Hiking & Nature Walks'),
+('Biking'),
+('Camping'),
+('Paddling'),
+('Fishing'),
+('Snow Activities'),
+('Nature Scavenger Hunts'),
+('Horseback Riding'),
+('Wildlife Watching'),
+('Climbing & Bouldering'),
+('Stargazing'),
+('Picnicking'),
+('Backyard Bonfires'),
+('Dog-Friendly Adventures'),
+('Playgrounds & Nature Play Areas'),
+('Adventure Parks & Ropes Courses'),
+('Beach & Lake Days'),
+('Farm Visits & Corn Mazes'),
+('Foraging & Plant ID'),
+('Geocashing');
+
+--CREATE ABILITY LEVEL TABLE
+CREATE TABLE IF NOT EXISTS "ability_table" (
+	"id" serial NOT NULL UNIQUE,
+	"ability_level" VARCHAR NOT NULL,
+	PRIMARY KEY ("id")
+);
+
+--ADD SAMPLE LEVELS
+INSERT INTO "ability_table"
+("ability_level")
+VALUES
+('Very Easy'),
+('Easy'),
+('Moderate'),
+('Hard'),
+('Very Challenging');
+
+--CREATE COST LEVEL TABLE
+CREATE TABLE IF NOT EXISTS "cost_table" (
+	"id" serial NOT NULL UNIQUE,
+	"cost_level" VARCHAR NOT NULL,
+	PRIMARY KEY ("id")
+);
+
+--ADD SAMPLE LEVELS
+INSERT INTO "cost_table"
+("cost_level")
+VALUES
+('Free'),
+('Low'),
+('Moderate'),
+('High'),
+('Very High');
+
+
+
 --CREATE ADVENTURE TABLE
 --adventure table
-	CREATE TABLE IF NOT EXISTS "adventures" (
+CREATE TABLE IF NOT EXISTS "adventures" (
 	"id" serial NOT NULL UNIQUE,
 	"activity_name" VARCHAR(255) NOT NULL,
-	"category_id" INTEGER NOT NULL,
-	"ability_level_id" INTEGER NOT NULL,
-	"cost_level_id" INTEGER NOT NULL,
+	"category_id" INTEGER NOT NULL REFERENCES "category_table"(id),
+	"ability_level_id" INTEGER NOT NULL REFERENCES "ability_table"(id),
+	"cost_level_id" INTEGER NOT NULL REFERENCES "cost_table"(id),
 	"photo" VARCHAR(255) NOT NULL,
-	"link" VARCHAR(255),
-	"description" VARCHAR(255),
+	"link" VARCHAR(255) NOT NULL,
+	"description" VARCHAR(255) NOT NULL,
 	"city" VARCHAR(255) NOT NULL,
 	"state" VARCHAR(255) NOT NULL,
 	"zip" VARCHAR(255) NOT NULL,
 	"latitude" double precision NOT NULL,
 	"longitude" double precision NOT NULL,
 	"created_at" TIMESTAMPTZ NOT NULL DEFAULT now(),
-	"created_by" INTEGER NOT NULL,
+	"created_by" INTEGER NOT NULL REFERENCES "user"(id),
 	"status" VARCHAR(255) NOT NULL,
 	PRIMARY KEY ("id")
 );
@@ -36,11 +104,19 @@ INSERT INTO "adventures"
 ("activity_name", "category_id", "ability_level_id", "cost_level_id", "photo",
  "link", "description", "city", "state", "zip", "latitude", "longitude", "created_by", "status")
 VALUES 
-('mount kato', '1', '1', '1', 'img.png', 'https://mountkato.com', 
+('mount kato', '6', '1', '3', 'img.png', 'https://mountkato.com', 
 'Easy Ski runs. not busy on weekdays.', 'mankato', 'minnesota', '56001', '44.1331', '94.0334', '1', 'pending'),
-('jay cooke state park', '2', '1', '3', 'img.png',
+('jay cooke state park', '3', '2', '2', 'img.png',
  'https://www.dnr.state.mn.us/state_parks/park.html?id=spk00187#homepage',
-  'pretty park. nice camper cabins', 'carlton', 'minnesota', '55718', '46.6523', '92.3503', '3', 'accepted'),
-('Split rock lighthouse', '1', '2', '3', 'img.png',
+  'pretty park. nice camper cabins', 'carlton', 'minnesota', '55718', '46.6523', '92.3503', '1', 'accepted'),
+('Split rock lighthouse', '1', '2', '2', 'img.png',
  'https://www.mnhs.org/splitrock?location=splitrock', 'Super pretty in the fall!',
-  'Two harbors', 'minnesota', '55802', '46.711681', '-92.007843', '2', 'canceled');
+  'Two harbors', 'minnesota', '55802', '46.711681', '-92.007843', '1', 'canceled');
+
+  --CREATE FAVORITE ADVENTURES TABLE
+CREATE TABLE IF NOT EXISTS "favorite_adventures" (
+	"id" serial NOT NULL UNIQUE,
+	"user_id" INTEGER NOT NULL REFERENCES "user"(id),
+	"adventure_id" INTEGER NOT NULL REFERENCES "adventures"(id),
+	PRIMARY KEY ("id")
+);
