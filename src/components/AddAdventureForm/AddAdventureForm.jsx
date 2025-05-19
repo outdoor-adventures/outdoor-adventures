@@ -55,3 +55,20 @@ const AddAdventureForm = () => {
 // sends the data to backend when submit is pushed
   const handleSubmit = async (e) => {
     e.preventDefault(); 
+
+    setLoading(true);
+    setMessage('');   
+
+    const form = new FormData();
+    form.append('photo', formData.photo);
+    form.append('price', formData.price); 
+    form.append('category', formData.category);
+    form.append('difficulty', formData.difficulty); 
+    form.append('location', formData.location);
+    form.append('link', formData.link);
+    form.append('description', formData.description);
+
+    try {
+        const response = await axios.post('/api/adventures', form, {
+            headers: { 'Content-Type': 'multipart/form-data' },
+        });
