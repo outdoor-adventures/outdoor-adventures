@@ -21,3 +21,12 @@ const AddAdventureForm = () => {
       const [loading, setLoading] = useState(false);
 
       const [message, setMessage] = useState('');
+
+      useEffect(() => {
+        const fetchOptions = async () => {
+            try {
+                const [priceRes, categoryRes, difficultyRes] = await Promise.all([
+                    axios.get('/api/adventures/options/price'),
+                    axios.get('/api/adventures/options/category'),
+                    axios.get('/api/adventures/options/difficulty'),
+                  ]);
