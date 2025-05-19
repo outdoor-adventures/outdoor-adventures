@@ -44,8 +44,8 @@ function LoginPage() {
           value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
-        </div>
-        <div>
+        
+       
         <label htmlFor="password">Password:</label>
         <input
           type="password"
@@ -66,7 +66,7 @@ function LoginPage() {
           <h3>{errorMessage}</h3>
         )
       }
-      </div>
+      
     </>
   );
 }
