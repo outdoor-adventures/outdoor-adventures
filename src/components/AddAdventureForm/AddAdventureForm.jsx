@@ -12,3 +12,8 @@ const AddAdventureForm = () => {
       photo: null,
     });
     
+    const [options, setOptions] = useState({
+        price: [],
+        category: [],
+        difficulty: [],
+      });
