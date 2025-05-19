@@ -4,7 +4,7 @@ import './LoginPage.css';
 import Nav from '../Nav/Nav';
 
 
-function LoginPage(props) {
+function LoginPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const logIn = useStore((state) => state.logIn)
@@ -29,9 +29,12 @@ function LoginPage(props) {
 
   return (
     <>
-      <Nav pageTitle="Login Page" />
-
-      <form onSubmit={handleLogIn}>
+      <div className="banner">
+        <Nav pageTitle="Outdoor Adventures" />
+      </div>
+      <div className="banner-transparent-strip"></div>
+      <div className="login-container">
+      <form className="login-box" onSubmit={handleLogIn}>
         <label htmlFor="username">Username:</label>
         <input
           type="text"
@@ -48,7 +51,7 @@ function LoginPage(props) {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button type="submit">
+        <button className="button-login" type="submit">
           Log In
         </button>
       </form>
@@ -57,6 +60,7 @@ function LoginPage(props) {
           <h3>{errorMessage}</h3>
         )
       }
+      </div>
     </>
   );
 }
