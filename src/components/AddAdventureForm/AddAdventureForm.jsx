@@ -17,3 +17,7 @@ const AddAdventureForm = () => {
         category: [],
         difficulty: [],
       });
+
+      const [loading, setLoading] = useState(false);
+
+      const [message, setMessage] = useState('');
