@@ -30,3 +30,21 @@ const AddAdventureForm = () => {
                     axios.get('/api/adventures/options/category'),
                     axios.get('/api/adventures/options/difficulty'),
                   ]);
+                  //updated the fetch option 
+                  setOptions({
+                    price: priceRes.data,
+                    category: categoryRes.data,
+                    difficulty: difficultyRes.data,
+                  });
+                } catch (error) {
+                    console.error('Error loading dropdown options:', error);
+                  }
+                };
+                fetchOptions(); 
+            }, []);
+            //updates the form data 
+            
+            const handleChange = (e) => {
+                const { name, value } = e.target;
+                setFormData((prev) => ({ ...prev, [name]: value }));
+            };
