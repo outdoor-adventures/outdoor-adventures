@@ -2,7 +2,7 @@ import React from 'react';
 import { APIProvider, Map, Marker } from "@vis.gl/react-google-maps";
 
 //declares center (this can be aything)
-const center = { lat: 47.2000, lng: -91.3670 } //example: slit rock lighthouse minnesota
+const defaultLocation = { lat: 47.2000, lng: -91.3670 } //example: slit rock lighthouse minnesota
 
 function MapExample() {
 
@@ -15,13 +15,13 @@ function MapExample() {
                     <div style={{ height: '400px', width: '100%'}}>
                         <Map
                         // Sets a default center
-                        defaultCenter={center}
+                        defaultCenter={defaultLocation}
                         // Sets default zoom
                         defaultZoom={13}
                         //this makes the actual map the same size as the div
                         style={{ width: '100$%', height: '100%' }}
                         >
-                            <Marker position={center} />
+                            <Marker position={defaultLocation} />
                         </Map>
                     </div>
                 </APIProvider>
