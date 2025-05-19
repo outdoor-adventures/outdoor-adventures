@@ -43,8 +43,15 @@ const AddAdventureForm = () => {
                 fetchOptions(); 
             }, []);
             //updates the form data 
-            
+
             const handleChange = (e) => {
                 const { name, value } = e.target;
                 setFormData((prev) => ({ ...prev, [name]: value }));
             };
+            //update the photos when user select photo
+            const handleFileChange = (e) => {
+                setFormData((prev) => ({ ...prev, photo: e.target.files[0] }));
+  };
+// sends the data to backend when submit is pushed
+  const handleSubmit = async (e) => {
+    e.preventDefault(); 
