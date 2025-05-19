@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import useStore from '../../zustand/store';
 import './LoginPage.css';
+import { useNavigate } from 'react-router-dom';
+
 
 
 function LoginPage() {
@@ -9,7 +11,7 @@ function LoginPage() {
   const logIn = useStore((state) => state.logIn)
   const errorMessage = useStore((state) => state.authErrorMessage);
   const setAuthErrorMessage = useStore((state) => state.setAuthErrorMessage);
-
+  const navigate = useNavigate();
   useEffect(() => {
     // Clear the auth error message when the component unmounts:
     return () => {
@@ -19,11 +21,13 @@ function LoginPage() {
 
   const handleLogIn = (event) => {
     event.preventDefault();
-
     logIn({
       username: username,
       password: password,
-    })
+    });
+  };
+  const handleRegisterClick = () => {
+    navigate('/register');
   };
 
   return (
@@ -53,12 +57,19 @@ function LoginPage() {
         <button className="button-login" type="submit">
           Log In
         </button>
+        <div className="register-link">
+          <p>Don't have an account?</p>
+          <button className="button-register" onClick={handleRegisterClick}>
+            Register
+            </button>
+            </div>
       </form>
       { // Conditionally render login error:
         errorMessage && (
           <h3>{errorMessage}</h3>
         )
       }
+       
       </div>
     </>
   );
