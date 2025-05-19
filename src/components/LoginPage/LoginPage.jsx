@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import useStore from '../../zustand/store';
+import './LoginPage.css';
 
 
 function LoginPage() {
@@ -33,9 +34,8 @@ function LoginPage() {
 
   return (
     <>
-      <h2>Welcome To OutDoor Adventure!</h2>
+      <h2>Login Page</h2>
       <form onSubmit={handleLogIn}>
-        <div>
         <label htmlFor="username">Username:</label>
         <input
           type="text"
@@ -54,8 +54,6 @@ function LoginPage() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        </div>
-
         <button type="submit">
           Log In
         </button>
@@ -68,6 +66,7 @@ function LoginPage() {
           <h3>{errorMessage}</h3>
         )
       }
+      </div>
     </>
   );
 }
