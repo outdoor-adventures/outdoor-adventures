@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import useStore from '../../zustand/store';
+import './LoginPage.css';
 import Nav from '../Nav/Nav';
 
 

@@ -23,10 +23,10 @@ function App() {
 
   return (
     <>
-      <header>
-        {/* <h1>Prime Solo Project</h1> */}
-        {/* <Nav pageTitle="Outdoor Adventures"/> */}
-      </header>
+      {/* <header>
+        <h1>Prime Solo Project</h1> 
+      </header> */}
+      
       <main>
         <Routes>
           <Route 
