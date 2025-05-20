@@ -67,6 +67,43 @@ router.delete('/:id', (req, res) => {
 //PUT
 
 //POST
+router.post('/', (req, res) => {
+    // const { id } = req.params;
+    const category_id = req.body.category_id;
+    const activity_name = req.body.activity_name;
+    const ability_level_id = req.body.ability_level_id;
+    const cost_level_id = req.body.cost_level_id;
+    const photo = req.body.photo;
+    const link = req.body.link;
+    const description = req.body.description;
+    const city = req.body.city;
+    const state = req.body.state;
+    const zip = req.body.zip; 
+    const latitude = req.body.latitude;
+    const longitude = req.body.longitude;
+    const created_by = 1;
+    // not completed , hard coded the created_by user
+    const status = req.body.status;
+
+
+    console.log(`testing in the post route in adventure.router.js ${created_by}`)
+
+    const sqlText = `INSERT INTO "adventures" 
+    ( "category_id", "activity_name", "ability_level_id", "cost_level_id", "photo", "link", "description", "city", "state", "zip", "latitude", "longitude", "created_by", "status")
+    VALUES
+    ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14);`
+
+    const sqlValues = [category_id, activity_name, ability_level_id, cost_level_id, photo, link, description, city, state, zip, latitude, longitude, created_by, status]
+
+    pool.query(sqlText, sqlValues)
+    .then(() => {
+        res.sendStatus(201)
+    })
+    .catch((dbErr) => {
+        console.log('POST route not working', dbErr);
+        res.sendStatus(500)
+    })
+})
 
 //STILL NEED FILTERS / SEARCH 
 
