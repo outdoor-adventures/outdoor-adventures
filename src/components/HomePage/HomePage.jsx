@@ -10,12 +10,14 @@ function HomePage(props) {
 
     return (
         <>
+
               <Nav pageTitle="Outdoor Adventures" />
             <h1>Home Page Test - Pat</h1>
             <h2>Home Page</h2>
             <p>Your username is: {user.username}</p>
             <p>Your ID is: {user.id}</p>
             <button onClick={logOut}>Log Out</button>
+
 
             {/* Home Page Sections (Components) */}
             <HeroSection />
