@@ -131,7 +131,7 @@ function AddressSearch() {
           <ul>
             {adventures.map(adventure => (
               <li key={adventure.id}>
-                {adventure.activity_name} - {adventure.city}, {adventure.state}
+                {adventure.activity_name} - {adventure.address},
                 {adventure.distance && ` - ${adventure.distance.toFixed(1)} miles`}
               </li>
             ))}
