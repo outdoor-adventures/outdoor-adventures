@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import axios from 'axios';
 import { GoogleMap, LoadScript, Marker, Circle, StandaloneSearchBox } from '@react-google-maps/api';
 
-// Map container style
+// Map container style sets size of map component
 const mapContainerStyle = {
   width: '100%',
   height: '400px'
@@ -22,32 +22,33 @@ const circleOptions = {
 };
 
 function AddressSearch() {
-  const [address, setAddress] = useState('');
+  const [address, setAddress] = useState(''); //stores entered address
   const [center, setCenter] = useState({ lat: 44.977753, lng: -93.265011 }); // Default to Minneapolis
-  const [adventures, setAdventures] = useState([]);
+  const [adventures, setAdventures] = useState([]); //stores nearby adventures
   const [radius] = useState(32187); // 20 miles in meters
-  const [isLoading, setIsLoading] = useState(false);
-  const searchBoxRef = useRef(null);
+  const [isLoading, setIsLoading] = useState(false); //indicates loading state
+  const searchBoxRef = useRef(null); //references the google maps api autocomplete search bar
 
-  // Google Maps API Key 
+  // Google Maps API Key //DOUBLE CHECK THIS IS SECURE
   const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
   
-  // Libraries to load with Google Maps
+  // places library 
   const libraries = ["places"];
   
-  // Handle place selection from autocomplete
+  // Handles selection from autocomplete library
   const onPlacesChanged = () => {
     if (searchBoxRef.current) {
-      const places = searchBoxRef.current.getPlaces();
+      const places = searchBoxRef.current.getPlaces(); //gets selected places
       if (places && places.length > 0) {
-        const place = places[0];
-        setAddress(place.formatted_address);
+        const place = places[0]; //gets first result from autocomplete section
+        setAddress(place.formatted_address); //update the useState with the formatted address
         
-        // Get location from the first place
+        // Get lat and lng from selected place/address
         const location = place.geometry.location;
         const lat = location.lat();
         const lng = location.lng();
         
+        //changes center to selected location
         setCenter({ lat, lng });
       }
     }
@@ -56,20 +57,20 @@ function AddressSearch() {
   // Function to search for adventures near the selected location
   const handleSearch = async (e) => {
     e.preventDefault();
-    setIsLoading(true);
+    setIsLoading(true); //shows loading indicator while getting data
     
     try {
       console.log('Searching with coordinates:', center);
       // Fetch adventures within radius using the current center coordinates
       const adventuresResponse = await axios.get(`/api/adventures/nearby?lat=${center.lat}&lng=${center.lng}&radius=20`);
       console.log('Response:', adventuresResponse.data);
-      setAdventures(adventuresResponse.data);
+      setAdventures(adventuresResponse.data); //update useState with retrieved data
     } catch (error) {
-      console.error('Error searching adventures:', error);
-      // Show empty results instead of error
+      console.error('Error searching adventures:', error); //testing console.error cuz ive never used it before
+      // Show empty results with error
       setAdventures([]);
     } finally {
-      setIsLoading(false);
+      setIsLoading(false); //stop loading indicator at the end of try
     }
   };
 
@@ -77,9 +78,9 @@ function AddressSearch() {
     <div className="location-search">
       <LoadScript googleMapsApiKey={apiKey} libraries={libraries}>
         <div className="search-box-container">
-          <StandaloneSearchBox
+          <StandaloneSearchBox //allows user to enter an address
             onLoad={ref => searchBoxRef.current = ref}
-            onPlacesChanged={onPlacesChanged}
+            onPlacesChanged={onPlacesChanged} //handle place selection
           >
             <input
               type="text"
@@ -89,7 +90,7 @@ function AddressSearch() {
               className="autocomplete-input"
             />
           </StandaloneSearchBox>
-          <button 
+          <button //on click api call to get adventures
             onClick={handleSearch} 
             disabled={isLoading}
             className="search-button"
@@ -97,22 +98,22 @@ function AddressSearch() {
             {isLoading ? 'Searching...' : 'Find Adventures'}
           </button>
         </div>
-        <GoogleMap
+        <GoogleMap //actual map component
           mapContainerStyle={mapContainerStyle}
-          center={center}
-          zoom={10}
+          center={center} //center map on selected address
+          zoom={10} //zoom in a lil so u can see
         >
-          {/* Center marker */}
+          {/* sets center marker */}
           <Marker position={center} />
           
           {/* 20-mile radius circle */}
           <Circle
-            center={center}
-            radius={radius}
-            options={circleOptions}
+            center={center} //center circle on selected address
+            radius={radius} //set radius to pre-determined radius size
+            options={circleOptions} //sets circle options STILL IN PROGRESS
           />
           
-          {/* Adventure markers */}
+          {/* adventure markers mapped out on the map */}
           {adventures.map(adventure => (
             <Marker
               key={adventure.id}
@@ -123,6 +124,7 @@ function AddressSearch() {
         </GoogleMap>
       </LoadScript>
       
+      {/* SAMPLE MAPPED OUT ADVENTURES */}
       {adventures.length > 0 && (
         <div className="adventure-list">
           <h3>Adventures within 20 miles</h3>
