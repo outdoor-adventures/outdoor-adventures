@@ -25,48 +25,6 @@ router.get('/', (req, res) => {
 
 
 
-// GET NEARBY ADVENTURES
-router.get('/nearby', (req, res) => {
-    const { lat, lng, radius } = req.query;
-    
-    console.log('Searching for adventures near:', { lat, lng, radius });
-    
-    const sqlText = `
-        SELECT *, 
-            (((latitude - $1) * (latitude - $1)) + 
-             ((longitude - $2) * (longitude - $2))) AS distance_squared
-        FROM "adventures"
-        ORDER BY distance_squared
-        LIMIT 10;
-    `;
-    
-    pool.query(sqlText, [lat, lng])
-    .then((result) => {
-        // Filter client-side to ensure we get results
-        const filteredResults = result.rows.map(row => {
-            // Calculate approximate distance in miles
-            const latDiff = 69.1 * (row.latitude - lat);
-            const lngDiff = 55.0 * (row.longitude - lng);
-            const distanceMiles = Math.sqrt(latDiff * latDiff + lngDiff * lngDiff);
-            
-            return {
-                ...row,
-                distance: distanceMiles
-            };
-        }).filter(row => row.distance <= radius);
-        
-        console.log(`Found ${filteredResults.length} adventures within ${radius} miles`);
-        res.send(filteredResults);
-    })
-    .catch((error) => {
-        console.log(`Nearby adventures query failed with error:`, error);
-        // Return empty array instead of 500 error
-        res.send([]);
-    });
-}); // END GET NEARBY
-
-
-
 //GET SINGLE ADVENTURE
 router.get('/:id', (req, res) => {
     let id = req.params.id;
@@ -150,6 +108,11 @@ router.post('/', (req, res) => {
 //STILL NEED FILTERS / SEARCH 
 
 //ADMIN ONLY ?
+
+
+
+
+
 
 
 module.exports = router;

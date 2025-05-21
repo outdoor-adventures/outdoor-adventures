@@ -6,7 +6,6 @@
     "node": ">=18.x"
   },
   "dependencies": {
-    "@react-google-maps/api": "^2.20.6",
     "@vis.gl/react-google-maps": "^1.5.2",
     "axios": "^1.6.8",
     "bcryptjs": "^2.4.3",
