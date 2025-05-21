@@ -8,7 +8,7 @@ const mapContainerStyle = {
   height: '400px'
 };
 
-// Circle options for 20-mile radius
+// Circle options for 20-mile radius IN PROGRESS
 const circleOptions = {
   strokeColor: '#FF0000',
   strokeOpacity: 0.8,
