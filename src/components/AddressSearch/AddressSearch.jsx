@@ -30,6 +30,7 @@ function AddressSearch() {
   const [isLoading, setIsLoading] = useState(false); //indicates loading state
   const searchBoxRef = useRef(null); //references the google maps api autocomplete search bar
 
+  //YOU ARE NOT INSANE THIS IS SUPPOSED TO BE HERE
   const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
   
   // places library 
