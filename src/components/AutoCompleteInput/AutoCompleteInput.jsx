@@ -1,10 +1,14 @@
 import React, { useState, useRef } from 'react';
 import { LoadScript, StandaloneSearchBox } from '@react-google-maps/api';
 
+const libraries = ["places"];
+
 function AutoCompleteInput() {
     const [address, setAddress] = useState(''); //store selected address
+    const [latitude, setLatitude] = useState(''); //store selected addresses latitude
+    const [longitude, setLongitude] = useState(''); //store longitude of selected address
     const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY; //import api key 
-    const libraries = ["places"]; //select places library from google places api
+     //select places library from google places api
     const searchBoxRef = useRef(null); //references the google maps autocomplete search bar
 
     const onPlacesChanged = () => {
@@ -16,8 +20,14 @@ function AutoCompleteInput() {
 
                 // now get lat and lng from the selected place
                 const location = place.geometry.location; //this gets the full location of the selected place
-                const lat = location.lat(); //this sets our nee varibale "lat" to the lat value of the full location
+                const lat = location.lat(); //this sets our variable "lat" to the lat value of the full location
                 const lng = location.lng(); //this does the same as one above but for lng
+
+                //set useStates to store lat and lng *IN PROGRESS*
+                setLatitude(lat);
+                setLongitude(lng);
+                console.log('latitude', lat);
+                console.log('longitude', lng);
             }
         }
     } //end onPlacesChanged
@@ -33,7 +43,7 @@ function AutoCompleteInput() {
                         <input 
                         type="text"
                         value={address}
-                        onChange={(event) => setAddress(event.target.value)}
+                        onChange={(e) => setAddress(e.target.value)}
                         placeholder="Enter an Address"
                         className="autocomplete-input"/>
                         
