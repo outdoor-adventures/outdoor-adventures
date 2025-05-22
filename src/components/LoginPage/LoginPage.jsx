@@ -10,6 +10,7 @@ function LoginPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const logIn = useStore((state) => state.logIn)
+  const register = useStore((state) => state.register);
   const errorMessage = useStore((state) => state.authErrorMessage);
   const setAuthErrorMessage = useStore((state) => state.setAuthErrorMessage);
   const navigate = useNavigate();
@@ -30,6 +31,10 @@ function LoginPage() {
   const handleRegisterClick = () => {
     navigate('/register');
   };
+  const handleRegister= () => {
+    register(username, password);
+  }
+
 
   return (
     <>
@@ -47,6 +52,8 @@ function LoginPage() {
           value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
+        
+       
         <label htmlFor="password">Password:</label>
         <input
           type="password"
@@ -55,7 +62,7 @@ function LoginPage() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button className="button-login" type="submit">
+        <button type="submit">
           Log In
         </button>
         <div className="register-link">
@@ -65,6 +72,8 @@ function LoginPage() {
             </button>
             </div>
       </form>
+     
+      
       { // Conditionally render login error:
         errorMessage && (
           <h3>{errorMessage}</h3>
