@@ -5,8 +5,8 @@ const libraries = ["places"];
 
 function AutoCompleteInput() {
     const [address, setAddress] = useState(''); //store selected address
-    const [latitude, setLatitude] = useState(''); //store selected addresses latitude
-    const [longitude, setLongitude] = useState(''); //store longitude of selected address
+    const [latitude, setLatitude] = useState(''); //store selected addresses latitude *IN PROGRESS*
+    const [longitude, setLongitude] = useState(''); //store longitude of selected address *IN PROGRESS*
     const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY; //import api key 
      //select places library from google places api
     const searchBoxRef = useRef(null); //references the google maps autocomplete search bar
