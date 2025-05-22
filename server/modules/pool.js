@@ -21,6 +21,7 @@ else {
     host: 'localhost',
     port: 5432,
     database: 'outdoor-adventures',   // 👈 Change this to the name of your database!
+    
   });
 }
 

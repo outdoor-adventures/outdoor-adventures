@@ -3,6 +3,7 @@ import useStore from '../../zustand/store';
 import './LoginPage.css';
 import { useNavigate } from 'react-router-dom';
 
+import Nav from '../Nav/Nav';
 
 
 function LoginPage() {
@@ -33,7 +34,7 @@ function LoginPage() {
   return (
     <>
       <div className="banner">
-        <h1>Outdoor Adventures</h1>
+        <Nav pageTitle="Outdoor Adventures" />
       </div>
       <div className="banner-transparent-strip"></div>
       <div className="login-container">
