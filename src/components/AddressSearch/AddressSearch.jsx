@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import axios from 'axios';
 import { GoogleMap, LoadScript, Marker, Circle, StandaloneSearchBox } from '@react-google-maps/api';
 
+
 // Map container style sets size of map component
 const mapContainerStyle = {
   width: '100%',
@@ -29,7 +30,6 @@ function AddressSearch() {
   const [isLoading, setIsLoading] = useState(false); //indicates loading state
   const searchBoxRef = useRef(null); //references the google maps api autocomplete search bar
 
-  // Google Maps API Key //DOUBLE CHECK THIS IS SECURE
   const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
   
   // places library 

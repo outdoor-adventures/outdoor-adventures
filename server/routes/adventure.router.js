@@ -3,7 +3,6 @@ const pool = require('../modules/pool');
 const router = express.Router();
 
 
-
 //NEED conditional rendering or queries to only get adventures with a status of accepted?
 
 //GET ALL ADVENTURES
@@ -35,7 +34,7 @@ router.get('/nearby', (req, res) => {
         SELECT *, 
             (((latitude - $1) * (latitude - $1)) + 
              ((longitude - $2) * (longitude - $2))) AS distance_squared
-        FROM "adventures"
+        FROM "adventures" WHERE "status" = 'accepted'
         ORDER BY distance_squared
         LIMIT 10;
     `;
