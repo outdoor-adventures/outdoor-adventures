@@ -77,9 +77,8 @@ INSERT INTO "cost_table"
 	('Very High: $80+');
 
 
-
 --CREATE ADVENTURE TABLE
-CREATE TABLE IF NOT EXISTS "adventures" (
+	CREATE TABLE IF NOT EXISTS "adventures" (
 	"id" serial NOT NULL UNIQUE,
 	"activity_name" VARCHAR(255),
 	"category_id" INTEGER REFERENCES "category_table"(id),
@@ -89,8 +88,8 @@ CREATE TABLE IF NOT EXISTS "adventures" (
 	"link" VARCHAR(255),
 	"description" VARCHAR(255),
 	"address" VARCHAR(255),
-	"latitude" DECIMAL,
-	"longitude" DECIMAL,
+	"latitude" double precision,
+	"longitude" double precision,
 	"created_at" TIMESTAMPTZ NOT NULL DEFAULT now(),
 	"created_by" INTEGER REFERENCES "user"(id),
 	"status" VARCHAR(255),
