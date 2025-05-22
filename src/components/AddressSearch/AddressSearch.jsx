@@ -2,6 +2,8 @@ import React, { useState, useRef } from 'react';
 import axios from 'axios';
 import { GoogleMap, LoadScript, Marker, Circle, StandaloneSearchBox } from '@react-google-maps/api';
 
+// places library 
+const libraries = ["places"];
 
 // Map container style sets size of map component
 const mapContainerStyle = {
@@ -33,8 +35,7 @@ function AddressSearch() {
   //YOU ARE NOT INSANE THIS IS SUPPOSED TO BE HERE
   const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
   
-  // places library 
-  const libraries = ["places"];
+
   
   // Handles selection from autocomplete library
   const onPlacesChanged = () => {
