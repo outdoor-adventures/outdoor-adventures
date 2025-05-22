@@ -65,6 +65,47 @@ router.delete('/:id', (req, res) => {
 //IN THE WORKS
 
 //PUT
+router.put('/:id', (req, res) => {
+    const { id } = req.params;
+
+    const { activity_name, category_id, ability_level_id,
+    cost_level_id, photo, link, description,
+    city, state, zip, latitude, longitude, status } = req.body;
+
+
+    //working on this put request. 
+    console.log(`testing in the PUT route in adventure.router.js ${id}`)
+
+    const sqlText = `
+    UPDATE "adventures"
+    SET 
+    "category_id" = $1,
+    "activity_name" = $2,
+    "ability_level_id" = $3,
+    "cost_level_id" = $4,
+    "photo" = $5,
+    "link" = $6,
+    "description" = $7,
+    "city" = $8,
+    "state" = $9,
+    "zip" = $10,
+    "latitude" = $11,
+    "longitude" = $12,
+    "status" = $13
+    WHERE "id" = $14;`
+
+    const sqlValues = [category_id, activity_name, ability_level_id, cost_level_id, photo, link, description, city, state, zip, latitude, longitude, status, id]
+
+    pool.query(sqlText, sqlValues)
+    .then(() => {
+        res.sendStatus(201)
+    })
+    .catch((dbErr) => {
+        console.log('PUT route not working', dbErr);
+        res.sendStatus(500)
+    })
+})
+
 
 //POST
 router.post('/', (req, res) => {
