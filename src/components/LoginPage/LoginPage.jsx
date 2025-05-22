@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react';
 import useStore from '../../zustand/store';
 import './LoginPage.css';
+import { useNavigate } from 'react-router-dom';
+
+import Nav from '../Nav/Nav';
 
 
 function LoginPage() {
@@ -10,8 +13,7 @@ function LoginPage() {
   const register = useStore((state) => state.register);
   const errorMessage = useStore((state) => state.authErrorMessage);
   const setAuthErrorMessage = useStore((state) => state.setAuthErrorMessage);
-
-
+  const navigate = useNavigate();
   useEffect(() => {
     // Clear the auth error message when the component unmounts:
     return () => {
@@ -21,11 +23,13 @@ function LoginPage() {
 
   const handleLogIn = (event) => {
     event.preventDefault();
-
     logIn({
       username: username,
       password: password,
-    })
+    });
+  };
+  const handleRegisterClick = () => {
+    navigate('/register');
   };
   const handleRegister= () => {
     register(username, password);
@@ -34,8 +38,12 @@ function LoginPage() {
 
   return (
     <>
-      <h2>Login Page</h2>
-      <form onSubmit={handleLogIn}>
+      <div className="banner">
+        <Nav pageTitle="Outdoor Adventures" />
+      </div>
+      <div className="banner-transparent-strip"></div>
+      <div className="login-container">
+      <form className="login-box" onSubmit={handleLogIn}>
         <label htmlFor="username">Username:</label>
         <input
           type="text"
@@ -57,7 +65,12 @@ function LoginPage() {
         <button type="submit">
           Log In
         </button>
-        <button type="button" onClick={handleRegister}>Register</button>
+        <div className="register-link">
+          <p>Don't have an account?</p>
+          <button className="button-register" onClick={handleRegisterClick}>
+            Register
+            </button>
+            </div>
       </form>
      
       
@@ -66,7 +79,8 @@ function LoginPage() {
           <h3>{errorMessage}</h3>
         )
       }
-      
+       
+      </div>
     </>
   );
 }

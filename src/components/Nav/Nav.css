@@ -1,0 +1,24 @@
+.nav-container {
+  display: flex;
+  align-items: center;
+  justify-content:space-evenly;
+  gap: 5rem;
+  width: 100%;
+  list-style: none;
+  /* padding: 10px; */
+}
+
+header {
+    width: 100%;
+}
+
+h1.page-title {
+    width: 80%;
+    font-size: 2rem;
+}
+
+.profile-image {
+  margin-bottom: 10px;
+}
+
+
