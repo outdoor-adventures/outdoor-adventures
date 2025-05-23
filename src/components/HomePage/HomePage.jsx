@@ -3,10 +3,13 @@ import HeroSection from '../HeroSection/HeroSection';
 import HowItWorksSection from '../HowItWorksSection/HowItWorksSection';
 import RecentActivitySection from '../RecentActivitySection/RecentActivitySection';
 import Nav from '../Nav/Nav';
+import Modal from '../MAVP/Modal';
+import useModal from '../MAVP/useModal';
 
 function HomePage(props) {
     const user = useStore((state) => state.user);
     const logOut = useStore((state) => state.logOut);
+    const {isShowing, toggle} = useModal();
 
     return (
         <>
@@ -17,8 +20,12 @@ function HomePage(props) {
             <p>Your username is: {user.username}</p>
             <p>Your ID is: {user.id}</p>
             <button onClick={logOut}>Log Out</button>
-
-
+            <button onClick={toggle
+            }>Show Modal</button>
+            <Modal 
+                isShowing={isShowing}
+                hide={toggle}
+            />
             {/* Home Page Sections (Components) */}
             <HeroSection />
             <HowItWorksSection />
