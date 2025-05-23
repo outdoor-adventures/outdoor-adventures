@@ -48,17 +48,14 @@ router.get('/:id', (req, res) => {
 
 //GET 3 RECENTS APPROVED ADVENTURES
 // almost finished however we need to get the 3 accepted from status. do we create a table named accepted instead?
-router.get('/:recent', (req, res) => {
-    // const created_by = 1;
-    // const { status } = req.body
+router.get('/recents/recent', (req, res) => {
+
 
     const sqlText = `
     SELECT * FROM "adventures"
     WHERE "status" = 'accepted'
     ORDER BY "created_at" DESC
     LIMIT 3;`;
-
-    // const sqlValues = [created_by, status]
 
     pool.query(sqlText)
 
