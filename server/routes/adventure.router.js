@@ -33,7 +33,7 @@ router.get('/:id', (req, res) => {
     pool.query(sqlText, [id])
 
     .then((result) => {
-        console.log('got single adventure')
+        console.log(`got single adventure from ${id}`)
         console.log(`query ${sqlText} was successful`)
         res.send(result.rows)
     })
@@ -42,6 +42,36 @@ router.get('/:id', (req, res) => {
         res.sendStatus(500);
     });
 });//END GET SINGLE ADVENTURE
+
+
+
+
+//GET 3 RECENTS APPROVED ADVENTURES
+// almost finished however we need to get the 3 accepted from status. do we create a table named accepted instead?
+router.get('/:recent', (req, res) => {
+    // const created_by = 1;
+    // const { status } = req.body
+
+    const sqlText = `
+    SELECT * FROM "adventures"
+    WHERE "status" = 'accepted'
+    ORDER BY "created_at" DESC
+    LIMIT 3;`;
+
+    // const sqlValues = [created_by, status]
+
+    pool.query(sqlText)
+
+    .then((result) => {
+        console.log('got three recent adventures')
+        console.log(`query ${sqlText} was successful`)
+        res.send(result.rows)
+    })
+    .catch((error) => {
+        console.log(`query ${sqlText} failed with error: ${error}`)
+        res.sendStatus(500);
+    });
+});
 
 
 
