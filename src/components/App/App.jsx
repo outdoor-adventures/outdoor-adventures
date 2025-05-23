@@ -8,11 +8,11 @@ import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import BrowseAdventuresPage from '../BrowseAdventuresPage/BrowseAdventuresPage';
 import MyAdventuresViews from '../MyAdventuresViews/MyAdventuresViews';
-import AddAdventure from '../AddAdventure/AddAdventure';
 import PendingAdventure from '../PendingAdventure/PendingAdventure';
 import ContactUs from '../ContactUs/ContactUs';
 import NewsletterSignUp from '../NewsletterSignUp/NewsletterSignUp';
 import AboutUs from '../AboutUs/AboutUs';
+import AddAdventureForm from '../AddAdventure/AddAdventureForm';
 
 function App() {
     const user = useStore((state) => state.user);
@@ -36,12 +36,13 @@ function App() {
                         path="/browse"
                         element={<BrowseAdventuresPage />}
                     />
+
                     <Route
                         exact
                         path="/add-adventure"
                         element={
                             user.id ? (
-                                <AddAdventure />
+                                <AddAdventureForm />
                             ) : (
                                 <Navigate to="/login" replace />
                             )
