@@ -84,13 +84,17 @@ router.get('/:id', (req, res) => {
     });
 });//END GET SINGLE ADVENTURE
 
+//GET users adventures
+
+
+//GET users favorited adventures basued off user_id
 
 
 
 //GET 3 RECENTS APPROVED ADVENTURES
-// almost finished however we need to get the 3 accepted from status. do we create a table named accepted instead?
+//we use this as a test http://localhost:5173/api/adventures/recents/recent
 router.get('/recents/recent', (req, res) => {
-
+    // 
 
     const sqlText = `
     SELECT * FROM "adventures"
@@ -133,12 +137,13 @@ router.delete('/:id', (req, res) => {
 //IN THE WORKS
 
 //PUT
+//UPDATED PUT ROUTE FOR DB 5/24
 router.put('/:id', (req, res) => {
     const { id } = req.params;
 
-    const { activity_name, category_id, ability_level_id,
-    cost_level_id, photo, link, description,
-    city, state, zip, latitude, longitude, status } = req.body;
+    const {  category_id, ability_level_id,
+    cost_level_id, photo, link, activity_name, description,
+    latitude, longitude, created_at, status, address } = req.body;
 
 
     //working on this put request. 
@@ -148,25 +153,25 @@ router.put('/:id', (req, res) => {
     UPDATE "adventures"
     SET 
     "category_id" = $1,
-    "activity_name" = $2,
-    "ability_level_id" = $3,
-    "cost_level_id" = $4,
-    "photo" = $5,
-    "link" = $6,
+    "ability_level_id" = $2,
+    "cost_level_id" = $3,
+    "photo" = $4,
+    "link" = $5,
+    "activity_name" = $6,
     "description" = $7,
-    "city" = $8,
-    "state" = $9,
-    "zip" = $10,
-    "latitude" = $11,
-    "longitude" = $12,
-    "status" = $13
-    WHERE "id" = $14;`
+    "latitude" = $8,
+    "longitude" = $9,
+    "created_at" = $10,
+    "status" = $11,
+    "address" = $12
+    WHERE "id" = $13;`
 
-    const sqlValues = [category_id, activity_name, ability_level_id, cost_level_id, photo, link, description, city, state, zip, latitude, longitude, status, id]
+    const sqlValues = [category_id, ability_level_id, cost_level_id, photo, link, activity_name, description, latitude, longitude, created_at, status, address, id]
 
     pool.query(sqlText, sqlValues)
     .then(() => {
         res.sendStatus(201)
+        console.log()
     })
     .catch((dbErr) => {
         console.log('PUT route not working', dbErr);
@@ -176,21 +181,14 @@ router.put('/:id', (req, res) => {
 
 
 //POST
-router.post('/', (req, res) => {
+//UPDATED TO LATEST DB
+router.post('/:createdby', (req, res) => {
     // const { id } = req.params;
-    const category_id = req.body.category_id;
-    const activity_name = req.body.activity_name;
-    const ability_level_id = req.body.ability_level_id;
-    const cost_level_id = req.body.cost_level_id;
-    const photo = req.body.photo;
-    const link = req.body.link;
-    const description = req.body.description;
-    const city = req.body.city;
-    const state = req.body.state;
-    const zip = req.body.zip; 
-    const latitude = req.body.latitude;
-    const longitude = req.body.longitude;
-    const created_by = 1;
+    const { category_id, activity_name, ability_level_id , cost_level_id 
+    , photo , link , description, latitude, longitude, created_at, 
+    address} = req.body;
+
+    const created_by = req.params.createdby; 
     // not completed , hard coded the created_by user
     const status = req.body.status;
 
@@ -198,15 +196,16 @@ router.post('/', (req, res) => {
     console.log(`testing in the post route in adventure.router.js ${created_by}`)
 
     const sqlText = `INSERT INTO "adventures" 
-    ( "category_id", "activity_name", "ability_level_id", "cost_level_id", "photo", "link", "description", "city", "state", "zip", "latitude", "longitude", "created_by", "status")
+    ( "category_id", "ability_level_id", "cost_level_id", "photo", "link", "activity_name", "description", "latitude", "longitude", "created_at", "created_by", "status", "address")
     VALUES
-    ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14);`
+    ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13);`
 
-    const sqlValues = [category_id, activity_name, ability_level_id, cost_level_id, photo, link, description, city, state, zip, latitude, longitude, created_by, status]
+    const sqlValues = [category_id, ability_level_id, cost_level_id, photo, link, activity_name, description, latitude, longitude, created_at, created_by, status, address]
 
     pool.query(sqlText, sqlValues)
-    .then(() => {
+    .then((result) => {
         res.sendStatus(201)
+        console.log(result)
     })
     .catch((dbErr) => {
         console.log('POST route not working', dbErr);
@@ -214,9 +213,15 @@ router.post('/', (req, res) => {
     })
 })
 
+// post the favorite adventures, make a query on this.
+// get user, id, and adventure id onto this table
+
+
+
 //STILL NEED FILTERS / SEARCH 
 
 //ADMIN ONLY ?
+//admin put request to change the status of a post
 
 
 
