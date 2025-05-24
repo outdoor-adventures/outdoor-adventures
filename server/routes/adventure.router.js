@@ -183,11 +183,7 @@ router.put('/:id', (req, res) => {
 //POST
 
 
-//URGENT!!
-//UPDATE TO LATEST DB
-//LATEST , HARD CODING WORKED FOR THE DB.
-//NEED TO IMPLEMENT ID NOW
-
+//UPDATED TO LATEST DB
 router.post('/:createdby', (req, res) => {
     // const { id } = req.params;
     const { category_id, activity_name, ability_level_id , cost_level_id 
