@@ -137,7 +137,7 @@ router.delete('/:id', (req, res) => {
 //IN THE WORKS
 
 //PUT
-//update to latest DB
+//UPDATED PUT ROUTE FOR DB 5/24
 router.put('/:id', (req, res) => {
     const { id } = req.params;
 
