@@ -12,7 +12,7 @@ import PendingAdventure from '../PendingAdventure/PendingAdventure';
 import ContactUs from '../ContactUs/ContactUs';
 import NewsletterSignUp from '../NewsletterSignUp/NewsletterSignUp';
 import AboutUs from '../AboutUs/AboutUs';
-import AddAdventureForm from '../AddAdventure/AddAdventureForm';
+import AddAdventureForm from '../AddAdventureForm/AddAdventureForm';
 
 function App() {
     const user = useStore((state) => state.user);
