@@ -92,9 +92,9 @@ router.get('/:id', (req, res) => {
 
 
 //GET 3 RECENTS APPROVED ADVENTURES
-// almost finished however we need to get the 3 accepted from status. do we create a table named accepted instead?
+//we use this as a test http://localhost:5173/api/adventures/recents/recent
 router.get('/recents/recent', (req, res) => {
-
+    // 
 
     const sqlText = `
     SELECT * FROM "adventures"
@@ -171,6 +171,7 @@ router.put('/:id', (req, res) => {
     pool.query(sqlText, sqlValues)
     .then(() => {
         res.sendStatus(201)
+        console.log()
     })
     .catch((dbErr) => {
         console.log('PUT route not working', dbErr);
@@ -182,22 +183,18 @@ router.put('/:id', (req, res) => {
 //POST
 
 
-//update to latest DB
-router.post('/', (req, res) => {
+//URGENT!!
+//UPDATE TO LATEST DB
+//LATEST , HARD CODING WORKED FOR THE DB.
+//NEED TO IMPLEMENT ID NOW
+
+router.post('/:createdby', (req, res) => {
     // const { id } = req.params;
-    const category_id = req.body.category_id;
-    const activity_name = req.body.activity_name;
-    const ability_level_id = req.body.ability_level_id;
-    const cost_level_id = req.body.cost_level_id;
-    const photo = req.body.photo;
-    const link = req.body.link;
-    const description = req.body.description;
-    const city = req.body.city;
-    const state = req.body.state;
-    const zip = req.body.zip; 
-    const latitude = req.body.latitude;
-    const longitude = req.body.longitude;
-    const created_by = 1;
+    const { category_id, activity_name, ability_level_id , cost_level_id 
+    , photo , link , description, latitude, longitude, created_at, 
+    address} = req.body;
+
+    const created_by = req.params.createdby; 
     // not completed , hard coded the created_by user
     const status = req.body.status;
 
@@ -205,15 +202,16 @@ router.post('/', (req, res) => {
     console.log(`testing in the post route in adventure.router.js ${created_by}`)
 
     const sqlText = `INSERT INTO "adventures" 
-    ( "category_id", "activity_name", "ability_level_id", "cost_level_id", "photo", "link", "description", "city", "state", "zip", "latitude", "longitude", "created_by", "status")
+    ( "category_id", "ability_level_id", "cost_level_id", "photo", "link", "activity_name", "description", "latitude", "longitude", "created_at", "created_by", "status", "address")
     VALUES
-    ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14);`
+    ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13);`
 
-    const sqlValues = [category_id, activity_name, ability_level_id, cost_level_id, photo, link, description, city, state, zip, latitude, longitude, created_by, status]
+    const sqlValues = [category_id, ability_level_id, cost_level_id, photo, link, activity_name, description, latitude, longitude, created_at, created_by, status, address]
 
     pool.query(sqlText, sqlValues)
-    .then(() => {
+    .then((result) => {
         res.sendStatus(201)
+        console.log(result)
     })
     .catch((dbErr) => {
         console.log('POST route not working', dbErr);
