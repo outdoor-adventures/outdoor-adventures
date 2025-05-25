@@ -1,10 +1,10 @@
 
 body {
   font-family: 'Rockwell', serif;
-  color: rgb(18, 37, 72); /* Dark Blue Font Color */
-  margin: 0; /* Remove default margin */
-  padding: 0; /* Remove default padding */
-  overflow-x: hidden; /* Prevent horizontal scroll */
+  color: rgb(18, 37, 72);
+  margin: 0; 
+  padding: 0; 
+  overflow-x: hidden;
 }
 
 /* Banner and Footer Styles */
