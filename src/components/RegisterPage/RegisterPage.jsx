@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import useStore from '../../zustand/store';
 import Nav from '../Nav/Nav';
-
+import './RegisterPage.css';
 
 function RegisterPage(pageTitle) {
   const [username, setUsername] = useState('');
@@ -28,9 +28,13 @@ function RegisterPage(pageTitle) {
 
   return (
     <>
+    <div className="banner">
       <Nav pageTitle="Register Page" />
-      <h2>Register Page</h2>
-      <form onSubmit={handleRegister}>
+      </div>
+      <div className="banner-transparent-strip"></div>
+      <div className="register-container">
+      {/* <h2>Register Page</h2> */}
+      <form className="register-box" onSubmit={handleRegister}>
         <label htmlFor="username">Username:</label>
         <input
           type="text"
@@ -47,10 +51,11 @@ function RegisterPage(pageTitle) {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button type="submit">
+        <button className="button-register2" type="submit">
           Register 
         </button>
       </form>
+      </div>
       { // Conditionally render registration error:
         errorMessage && (
           <h3>{errorMessage}</h3>
