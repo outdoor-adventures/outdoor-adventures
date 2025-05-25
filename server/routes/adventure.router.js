@@ -84,7 +84,32 @@ router.get('/:id', (req, res) => {
     });
 });//END GET SINGLE ADVENTURE
 
+
+
 //GET users adventures
+//FINISHED, WORKS WELL
+router.get('/:createdby/adventures' ,(req,res) => {
+    const created_by = req.params.createdby; 
+    const sqlText = `SELECT * FROM "adventures"
+    WHERE "created_by" = $1;`;
+
+    const sqlValues = [created_by]
+
+    pool.query(sqlText, sqlValues)
+    .then((result) => {
+        console.log(`got adventures from user id: ${created_by}`)
+        res.send(result.rows)
+    })
+    .catch((error) => {
+        console.log(`query ${sqlText} failed with error: ${error}`)
+        res.sendStatus(500);
+    });
+})
+
+
+
+
+
 
 
 //GET users favorited adventures basued off user_id
