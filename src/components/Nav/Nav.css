@@ -1,11 +1,33 @@
+.banner {
+  width: 100%;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
 .nav-container {
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  padding: 0 2rem;
-  position: relative;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 0 1rem;
   box-sizing: border-box;
+}
+
+.nav-left,
+.nav-center,
+.nav-right {
+  display: flex;
+  align-items: center;
+}
+
+.nav-center {
+  flex: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
 /* Left side: logo */
@@ -15,41 +37,41 @@
   align-items: center;
 }
 
-/* Center: page title */
-.nav-center {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  text-align: center;
-}
-
-.page-title {
+.banner .page-title {
   margin: 0;
-  font-size: 2.2rem;
+  font-size: 4rem;
   font-weight: bold;
   font-family: 'Rockwell', serif;
+  white-space: nowrap;
+  line-height: 1;
+  display: flex;
+  align-items: center;
 }
 
 /* Right side: login/register or profile */
 .nav-right {
   flex: 1;
   display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  gap: 1rem;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: flex-end;
+  height: 100%
 }
 
 /* Login/Register buttons */
-.nav-right a {
+.nav-right a:not(.profile-image) {
   font-family: 'Rockwell', serif;
   background-color: rgb(18, 37, 72);
   color: rgb(210, 224, 250);
   border: 1px solid rgb(210, 224, 250);
   padding: 0.5em 1em;
-  border-radius: 6px;
+  border-radius: 4px;
   text-decoration: none;
-  font-size: 1em;
+  font-size: 0.95em;
   transition: all 0.3s ease;
+  display: inline-block;
+  width: 120px;
+  text-align: center;
 }
 
 .nav-right a:hover {
@@ -70,14 +92,14 @@
   border-radius: 8px;
 }
 
-/* General reset helpers */
-.nav-right ul,
-.nav-container ul {
+.nav-right ul {
   list-style: none;
   margin: 0;
   padding: 0;
   display: flex;
-  gap: 1rem;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: flex-end;
 }
 
 

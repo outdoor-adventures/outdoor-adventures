@@ -14,31 +14,27 @@ body {
   justify-content: center;
   background-color: rgb(210, 224, 250);
   color: rgb(18, 37, 72);
-  padding: 2em 20px;
+  padding: 1em 1.5em;
+  height: auto;
   position: fixed;
   width: 100%;
   top: 0;
   z-index: 999;
 }
 
-.banner h1 {
-  margin: 0;
-  font-size: 3em;
-  font-weight: bold;
-
-  margin: 0;
-  font-size: 2em;
-}
-
 .banner-transparent-strip {
   background-color: rgba(210, 224, 250, 0.4);
   height: 15px;
-  backdrop-filter: blur(5px);
-  position: fixed;
+  backdrop-filter: blur(3px);
   width: 100%;
-  top: 102px;
+  position: fixed;
+  top: calc(100px + 4.4em);
   z-index: 998;
 }
+
+
+
+
 
 /* Box-Sizing Fix: */
   /* https://css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice/ */

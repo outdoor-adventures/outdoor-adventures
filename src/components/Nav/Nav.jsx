@@ -9,17 +9,17 @@ function Nav({pageTitle}) {
   const user = useStore((store) => store.user);
 
   return (
+    <>
     <nav className="banner">
-      <div className="banner-transparent-strip"></div>
 
       <div className='nav-container'>
-        
-        <li className="nav-left">
+
+        <div className="nav-left">
           {/* <NavLink to="/" className='logo'><a href="" className="logo"><img src={logo} alt="" style={{width: '100px', marginTop: '10px'  }} /></a></NavLink> */}
           <NavLink to="/" className="logo" >
             <img src={logo} alt="" style={{width: '113px', marginTop: '20px'}} />
           </NavLink>
-        </li>
+        </div>
 
           <div className="nav-center">
             <h1 className='page-title'>{pageTitle}</h1>
@@ -52,6 +52,8 @@ function Nav({pageTitle}) {
       </div>
     </div>
     </nav>
+    <div className="banner-transparent-strip"></div>
+    </>
   );
 }
 
