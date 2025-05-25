@@ -1,24 +1,84 @@
 .nav-container {
   display: flex;
   align-items: center;
-  justify-content:space-evenly;
-  gap: 5rem;
+  justify-content: space-between;
   width: 100%;
-  list-style: none;
-  /* padding: 10px; */
+  padding: 0 2rem;
+  position: relative;
+  box-sizing: border-box;
 }
 
-header {
-    width: 100%;
+/* Left side: logo */
+.nav-left {
+  flex: 1;
+  display: flex;
+  align-items: center;
 }
 
-h1.page-title {
-    width: 80%;
-    font-size: 2rem;
+/* Center: page title */
+.nav-center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
 }
 
+.page-title {
+  margin: 0;
+  font-size: 2.2rem;
+  font-weight: bold;
+  font-family: 'Rockwell', serif;
+}
+
+/* Right side: login/register or profile */
+.nav-right {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Login/Register buttons */
+.nav-right a {
+  font-family: 'Rockwell', serif;
+  background-color: rgb(18, 37, 72);
+  color: rgb(210, 224, 250);
+  border: 1px solid rgb(210, 224, 250);
+  padding: 0.5em 1em;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 1em;
+  transition: all 0.3s ease;
+}
+
+.nav-right a:hover {
+  background-color: rgb(210, 224, 250);
+  color: rgb(18, 37, 72);
+}
+
+/* Profile image styling (no button look) */
 .profile-image {
-  margin-bottom: 10px;
+  background: none;
+  padding: 0;
+  border: none;
 }
+
+.profile-image img {
+  width: 50px;
+  margin-top: 10px;
+  border-radius: 8px;
+}
+
+/* General reset helpers */
+.nav-right ul,
+.nav-container ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 1rem;
+}
+
 
 
