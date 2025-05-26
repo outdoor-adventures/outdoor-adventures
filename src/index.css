@@ -32,6 +32,24 @@ body {
   z-index: 998;
 }
 
+/* Background color for main page sections */
+.home-background {
+  background-color: rgb(0, 83, 21);
+  padding-top: 140px;
+  padding-bottom: 2em;
+}
+
+/* Shared box style */
+.shared-box {
+  background-color: rgba(210, 224, 250, 0.9);
+  border: 1px solid rgba(18, 37, 72, 0.4);
+  border-radius: 8px;
+  padding: 1em;
+  text-align: center;
+  font-family: 'Rockwell', serif;
+  color: rgb(18, 37, 72);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
 
 
 
