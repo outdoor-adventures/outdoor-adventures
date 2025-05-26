@@ -1,5 +1,18 @@
+
+import React, { useState, useEffect } from 'react';
+import './PendingAdventure.css';
+
+
 const PendingAdventure = () => {
-    return <div>PendingAdventure</div>;
+    const [adventures, setAdventures] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    
+    return (
+        <>
+            <div>PendingAdventure</div>
+        </>
+    );
 };
 
 export default PendingAdventure;
