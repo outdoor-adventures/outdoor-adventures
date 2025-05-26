@@ -10,7 +10,7 @@ const RecentActivitySection = () => {
 
     // Fetch the 3 most recent adventures when component mounts
     useEffect(() => {
-        fetch('/api/adventures/recent')
+        fetch('/api/adventures/recents/recent')
             .then((res) => {
                 if (!res.ok) {
                     throw new Error(`Server error: ${res.status}`);
