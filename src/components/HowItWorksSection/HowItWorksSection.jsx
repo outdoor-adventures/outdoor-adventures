@@ -1,5 +1,7 @@
 import React from 'react';
+import StaticMap from '../StaticMap/StaticMap';
 import './HowItWorksSection.css';
+
 
 const HowItWorksSection = () => {
     return (
@@ -21,6 +23,10 @@ const HowItWorksSection = () => {
                             Use your location to search for outdoor activities
                             in your area.
                         </p>
+                    </div>
+                    {/* Map size can be changed in the "mapContainerStyle" section of the component */}
+                    <div className='static-map-div'>
+                        <StaticMap />
                     </div>
 
                     {/* Card 2: Add Your Own Adventure */}
