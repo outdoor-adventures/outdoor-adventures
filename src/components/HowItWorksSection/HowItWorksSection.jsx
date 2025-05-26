@@ -1,4 +1,5 @@
 import React from 'react';
+import StaticMap from '../StaticMap/StaticMap';
 
 const HowItWorksSection = () => {
     return (
@@ -20,6 +21,9 @@ const HowItWorksSection = () => {
                             Use your location to search for outdoor activities
                             in your area.
                         </p>
+                    </div>
+                    <div className='static-map-div'>
+                        <StaticMap />
                     </div>
 
                     {/* Card 2: Add Your Own Adventure */}
