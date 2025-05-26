@@ -11,7 +11,7 @@ function HomePage(props) {
 
     return (
         <>
-
+        <div className="home-background">
               <Nav pageTitle="Outdoor Adventures" />
             {/* <h1>Home Page Test - Pat</h1>
             <h2>Home Page</h2>
@@ -24,6 +24,7 @@ function HomePage(props) {
             <HeroSection />
             <HowItWorksSection />
             <RecentActivitySection />
+        </div>
         </>
     );
 }

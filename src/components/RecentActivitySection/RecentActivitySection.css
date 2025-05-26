@@ -1,8 +1,9 @@
 .recent-activity {
     background-color: rgb(0, 83, 21);
-    padding: 3em 2em;
-    font-family: 'Rockwell', serif;
+    padding: 0 0 2em 0;
     color: rgb(210, 224, 250);
+    font-family: 'Rockwell', serif;
+    margin: 0;
   }
   
   .ra-title {
@@ -57,4 +58,20 @@
     border-radius: 4px;
     font-weight: bold;
   }
-  
+
+/* Shared section title style */
+.section-header {
+    background-color: rgb(210, 224, 250);
+    color: rgb(18, 37, 72);
+    font-family: 'Rockwell', serif;
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-align: center;
+    padding: 0.5em 0;
+    border-bottom: 4px solid rgba(210, 224, 250, 0.4);
+    margin: 0 0 1.5em 0;
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+  }
