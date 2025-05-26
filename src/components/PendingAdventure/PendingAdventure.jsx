@@ -25,6 +25,42 @@ const PendingAdventure = () => {
                 setLoading(false);
             });
     }, []);
+
+    //Render loading state
+    if (loading) {
+        return (
+            <div className="pending-page">
+                <header className="pending-header">
+                    <h1>Pending Adventures</h1>
+                </header>
+                <p>Loading pending adventures…</p>
+            </div>
+        );
+    }
+
+    //Render error state
+    if (error) {
+        return (
+            <div className="pending-page">
+                <header className="pending-header">
+                    <h1>Pending Adventures</h1>
+                </header>
+                <p>Error loading adventures: {error}</p>
+            </div>
+        );
+    }
+    //Render empty state
+    if (adventures.length === 0) {
+        return (
+            <div className="pending-page">
+                <header className="pending-header">
+                    <h1>Pending Adventures</h1>
+                </header>
+                <p>No pending adventures at the moment.</p>
+            </div>
+        );
+    }
+    // Page Layout - Render the grid of pending cards
     return (
         <>
             <div>PendingAdventure</div>
