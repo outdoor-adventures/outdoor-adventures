@@ -239,6 +239,35 @@ router.post('/:createdby', (req, res) => {
 })
 
 // post the favorite adventures, make a query on this.
+// this working on this
+// hopefully finish by today
+
+router.post('/:createdby/:adventure_id',(req, res) => {
+    console.log('testing the favorite adventures POST route')
+    const created_by = req.params.createdby;
+    const adventure_id = req.body.adventure_id;
+
+    console.log('MOVING ONTO THE POST ROUTE SQLTEXT')
+
+    const sqlText = `
+    INSERT INTO "favorite_adventures"
+    ("user_id", "adventure_id")
+    VALUES ($1, $2);`;
+    const sqlValues = [created_by, adventure_id]
+    pool.query(sqlText, sqlValues)
+    .then((result) => {
+        res.sendStatus(201)
+        console.log(result)
+    })
+    .catch((dbErr) => {
+        console.log('POST ROUTE NOT WORKING', dbErr);
+        res.sendStatus(500)
+    })
+
+})
+
+
+
 // get user, id, and adventure id onto this table
 
 
