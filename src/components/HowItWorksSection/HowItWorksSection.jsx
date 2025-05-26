@@ -22,6 +22,7 @@ const HowItWorksSection = () => {
                             in your area.
                         </p>
                     </div>
+                    {/* Map size can be changed in the "mapContainerStyle" section of the component */}
                     <div className='static-map-div'>
                         <StaticMap />
                     </div>
