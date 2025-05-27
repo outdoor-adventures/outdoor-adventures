@@ -1,7 +1,6 @@
-
-
 import React from 'react'
 import "./BrowseAdventures.css";
+import AddressSearch from '../AddressSearch/AddressSearch';
 
 export default function BrowseAdventuresPage() {
   return (
@@ -19,7 +18,7 @@ export default function BrowseAdventuresPage() {
     </div>
 
     <div className='map-list-container'>
-      {/* Map / List Container */}
+      <AddressSearch />
 
         <div className='map-container'>
           Map Container
