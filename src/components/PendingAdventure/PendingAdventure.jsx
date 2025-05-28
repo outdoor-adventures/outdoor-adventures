@@ -8,7 +8,7 @@ const PendingAdventure = () => {
     const [error, setError] = useState(null);
 
     // Fetch pending adventures when component mounts
-    // TODO! verify endpoint with the backend team
+    // TODO: verify endpoint with the backend team
     useEffect(() => {
         fetch('/api/adventures/pending')
             .then((res) => {
@@ -26,46 +26,125 @@ const PendingAdventure = () => {
             });
     }, []);
 
-    //Render loading state
+    // Loading state
     if (loading) {
         return (
-            <div className="pending-page">
+            <section className="pending-page">
                 <header className="pending-header">
                     <h1>Pending Adventures</h1>
                 </header>
                 <p>Loading pending adventures…</p>
-            </div>
+            </section>
         );
     }
 
-    //Render error state
+    // Error state
     if (error) {
         return (
-            <div className="pending-page">
+            <section className="pending-page">
                 <header className="pending-header">
                     <h1>Pending Adventures</h1>
                 </header>
                 <p>Error loading adventures: {error}</p>
-            </div>
+            </section>
         );
     }
-    //Render empty state
+
+    // Empty state
     if (adventures.length === 0) {
         return (
-            <div className="pending-page">
+            <section className="pending-page">
                 <header className="pending-header">
                     <h1>Pending Adventures</h1>
                 </header>
                 <p>No pending adventures at the moment.</p>
-            </div>
+            </section>
         );
     }
-    // Page Layout - Render the grid of pending cards
+
+    // Main grid
     return (
-        <>
-            <div>PendingAdventure</div>
-            <div></div>
-        </>
+        <section className="pending-page">
+            <header className="pending-header">
+                <h1>Pending Adventures</h1>
+            </header>
+            <div className="pending-stripe" />
+            <div className="pending-grid">
+                {adventures.map((adv) => (
+                    <div className="pending-card" key={adv.id}>
+                        <div className="card-title">{adv.title}</div>
+
+                        <div className="card-top">
+                            <div className="card-top-left">
+                                <img src={adv.photo} alt={adv.title} />
+                            </div>
+                            <div className="card-top-right">
+                                <div className="card-top-right-box">
+                                    <div className="field">
+                                        <label htmlFor={`price-${adv.id}`}>
+                                            Price
+                                        </label>
+                                        <select
+                                            id={`price-${adv.id}`}
+                                            defaultValue={adv.price}
+                                        >
+                                            <option>{adv.price}</option>
+                                        </select>
+                                    </div>
+                                    <div className="field">
+                                        <label htmlFor={`category-${adv.id}`}>
+                                            Category
+                                        </label>
+                                        <select
+                                            id={`category-${adv.id}`}
+                                            defaultValue={adv.category}
+                                        >
+                                            <option>{adv.category}</option>
+                                        </select>
+                                    </div>
+                                    <div className="field">
+                                        <label htmlFor={`difficulty-${adv.id}`}>
+                                            Difficulty
+                                        </label>
+                                        <select
+                                            id={`difficulty-${adv.id}`}
+                                            defaultValue={adv.difficulty}
+                                        >
+                                            <option>{adv.difficulty}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="field">
+                            <label>Location</label>
+                            <input type="text" readOnly value={adv.location} />
+                        </div>
+                        <div className="field">
+                            <label>Link (Optional)</label>
+                            <input type="text" readOnly value={adv.link} />
+                        </div>
+                        <div className="field description">
+                            <label>Description</label>
+                            <textarea
+                                readOnly
+                                rows="3"
+                                value={adv.description}
+                            />
+                        </div>
+
+                        <div className="card-buttons">
+                            <button className="btn accept">Accept</button>
+                            <button className="btn return">
+                                Return for Revision
+                            </button>
+                            <button className="btn delete">Delete</button>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </section>
     );
 };
 
