@@ -1,3 +1,21 @@
+.photo-section {
+    background-color: rgb(232, 240, 255);
+    border: 1px solid rgba(18, 37, 72, 0.4);
+    padding: 2em 1em;
+    border-radius: 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 150px;
+  }
+  
+
+.add-adventure-page {
+    background-color: rgb(0, 83, 21);
+    padding-top: 150px;
+    min-height: 100vh;
+  }
+
 .add-adventure-form {
     background-color: rgb(210, 224, 250);
     padding: 2em;
@@ -33,13 +51,14 @@
     padding: 0.75em;
     border-radius: 6px;
     border: 1px solid rgb(18, 37, 72);
-    background-color: rgb(210, 224, 250);
+    background-color: rgb(232, 240, 255);
     font-family: 'Rockwell', serif;
     color: rgb(18, 37, 72);
   }
 
-  /* Description fills left side vertically */
+  /* Description fills left side */
 .description-box {
+    font-weight: bold;
     flex: 2;
     min-width: 300px;
     background-color: rgb(209, 222, 247);
@@ -47,15 +66,18 @@
     border-radius: 6px;
     display: flex;
     flex-direction: column;
+    height: 100%;
   }
   
   .description-box textarea {
-    flex-grow: 1;
-    resize: vertical;
+    resize: none;
+    overflow-y: auto;
+    height: 100%;
   }
   
-  /* Dropdowns stack in a column to the right */
+  /* Dropdowns in a column to the right */
   .dropdowns-box {
+    font-weight: bold;
     flex: 1;
     min-width: 250px;
     background-color: rgb(209, 222, 247);
@@ -70,7 +92,7 @@
     margin-bottom: 1em;
   }
   
-  /* Description and Dropdowns side-by-side */
+  /* Description and Dropdowns (making them be side by side) */
   .description-dropdowns {
     display: flex;
     align-items: stretch;
@@ -115,4 +137,29 @@
     background-color: rgb(210, 224, 250);
     color: rgb(18, 37, 72);
   }
+
+  .custom-file-label {
+    display: inline-block;
+    padding: 0.75em 2em;
+    background-color: rgb(18, 37, 72);
+    color: rgb(210, 224, 250);
+    border: 1px solid rgb(210, 224, 250);
+    border-radius: 6px;
+    font-family: 'Rockwell', serif;
+    font-size: 1.25rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: fit-content;
+  }
+  
+  .custom-file-label:hover {
+    background-color: rgb(210, 224, 250);
+    color: rgb(18, 37, 72);
+  }
+  
+  .custom-file-label input[type="file"] {
+    display: none;
+  }
+  
   

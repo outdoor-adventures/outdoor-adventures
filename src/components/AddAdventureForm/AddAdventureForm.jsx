@@ -103,9 +103,9 @@ const AddAdventureForm = () => {
           
           <form className="add-adventure-form" onSubmit={handleSubmit} encType="multipart/form-data">
             {/* File input for photo */}
-            <div className="form-section photo-section">
-            <label>
-              Photo:
+            <div className="photo-section">
+            <label className="custom-file-label">
+              Add Photo
               <input type="file" name="photo" accept="image/*" onChange={handleFileChange} required />
             </label>
             </div>
