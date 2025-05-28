@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
-import { GoogleMap, LoadScript, Marker, Circle, StandaloneSearchBox } from '@react-google-maps/api';
+import { GoogleMap, LoadScript, Marker, Circle, StandaloneSearchBox, InfoWindow } from '@react-google-maps/api';
 import './AddressSearch.css';
 
 // places library 
@@ -42,6 +42,9 @@ function AddressSearch() {
   const [categories, setCategories] = useState([]);
   const [abilities, setAbilities] = useState([]);
   const [costs, setCosts] = useState([]);
+
+  //used for infoOpen
+  const [infoOpen, setInfoOpen] = useState(false)
 
 useEffect(() => {
   axios.get('/api/dropdown/category')
@@ -171,11 +174,29 @@ useEffect(() => {
           
           {/* adventure markers mapped out on the map */}
           {adventures.map(adventure => (
+
+            // RETURN
+
+            //onMouseOver makes changes when a mouse is over the component its added too
+            //onMouseOut makes changes when the mouse moves off of the component its added too
             <Marker
               key={adventure.id}
               position={{ lat: adventure.latitude, lng: adventure.longitude }}
               title={adventure.activity_name}
-            />
+              onMouseOver={() => setInfoOpen(true)}
+              onMouseOut={() => setInfoOpen(false)}
+            >
+            {/* INFO BOX */}
+              {infoOpen && (
+                <InfoWindow onCloseClick={() => setInfoOpen(false)}>
+                  <div className='map-pin-info'>
+                    {adventure.activity_name} <br />
+                    {adventure.description} <br />
+                    {adventure.address}
+                  </div>
+                </InfoWindow>
+              )}
+            </Marker>
           ))}
         </GoogleMap>
         </div>
