@@ -2,39 +2,25 @@ import React, { useState, useEffect } from 'react';
 import './PendingAdventure.css';
 
 const PendingAdventure = () => {
-    // State for adventures, loading, and error
     const [adventures, setAdventures] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-
-    // State for dropdown options
     const [categories, setCategories] = useState([]);
     const [abilities, setAbilities] = useState([]);
     const [costLevels, setCostLevels] = useState([]);
 
-    useEffect(() => {
-        // 1) Fetch pending adventures
-        const fetchAdventures = fetch('/api/adventures/pending').then((res) => {
-            if (!res.ok) throw new Error(`Error: ${res.status}`);
-            return res.json();
-        });
-
-        // 2) Fetch lookup tables in parallel
-        const fetchCategories = fetch('/api/category_table').then((res) =>
-            res.json()
-        );
-        const fetchAbilities = fetch('/api/ability_table').then((res) =>
-            res.json()
-        );
-        const fetchCostLevels = fetch('/api/cost_table').then((res) =>
-            res.json()
-        );
+    // Unified data loader
+    const loadData = () => {
+        setLoading(true);
 
         Promise.all([
-            fetchAdventures,
-            fetchCategories,
-            fetchAbilities,
-            fetchCostLevels,
+            fetch('/api/adventures/pending').then((res) => {
+                if (!res.ok) throw new Error(`Error: ${res.status}`);
+                return res.json();
+            }),
+            fetch('/api/category_table').then((res) => res.json()),
+            fetch('/api/ability_table').then((res) => res.json()),
+            fetch('/api/cost_table').then((res) => res.json()),
         ])
             .then(([advs, cats, abils, costs]) => {
                 setAdventures(advs);
@@ -48,9 +34,39 @@ const PendingAdventure = () => {
                 setError(err.message);
                 setLoading(false);
             });
+    };
+
+    useEffect(() => {
+        loadData();
     }, []);
 
-    // Render loading, error, and empty states
+    const handleAccept = (id) => {
+        fetch(`/api/adventures/${id}/accept`, { method: 'PUT' })
+            .then((res) => {
+                if (!res.ok) throw new Error(`Accept failed: ${res.status}`);
+                loadData();
+            })
+            .catch((err) => console.error(err));
+    };
+
+    const handleReturn = (id) => {
+        fetch(`/api/adventures/${id}/return`, { method: 'PUT' })
+            .then((res) => {
+                if (!res.ok) throw new Error(`Return failed: ${res.status}`);
+                loadData();
+            })
+            .catch((err) => console.error(err));
+    };
+
+    const handleDelete = (id) => {
+        fetch(`/api/adventures/${id}`, { method: 'DELETE' })
+            .then((res) => {
+                if (!res.ok) throw new Error(`Delete failed: ${res.status}`);
+                loadData();
+            })
+            .catch((err) => console.error(err));
+    };
+
     if (loading) {
         return (
             <section className="pending-page">
@@ -61,6 +77,7 @@ const PendingAdventure = () => {
             </section>
         );
     }
+
     if (error) {
         return (
             <section className="pending-page">
@@ -71,6 +88,7 @@ const PendingAdventure = () => {
             </section>
         );
     }
+
     if (adventures.length === 0) {
         return (
             <section className="pending-page">
@@ -82,7 +100,6 @@ const PendingAdventure = () => {
         );
     }
 
-    // Main grid render
     return (
         <section className="pending-page">
             <header className="pending-header">
@@ -183,11 +200,24 @@ const PendingAdventure = () => {
 
                         {/* Action buttons */}
                         <div className="card-buttons">
-                            <button className="btn accept">Accept</button>
-                            <button className="btn return">
+                            <button
+                                className="btn accept"
+                                onClick={() => handleAccept(adv.id)}
+                            >
+                                Accept
+                            </button>
+                            <button
+                                className="btn return"
+                                onClick={() => handleReturn(adv.id)}
+                            >
                                 Return for Revision
                             </button>
-                            <button className="btn delete">Delete</button>
+                            <button
+                                className="btn delete"
+                                onClick={() => handleDelete(adv.id)}
+                            >
+                                Delete
+                            </button>
                         </div>
                     </div>
                 ))}
