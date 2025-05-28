@@ -1,0 +1,118 @@
+.add-adventure-form {
+    background-color: rgb(210, 224, 250);
+    padding: 2em;
+    border-radius: 8px;
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5em;
+    font-family: 'Rockwell', serif;
+    color: rgb(18, 37, 72);
+  }
+  
+  /* Top inputs (photo, location, link) */
+  .form-section {
+    background-color: rgb(209, 222, 247);
+    padding: 1em;
+    border-radius: 6px;
+  }
+  
+  .form-section label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 0.5em;
+  }
+  
+  input[type="text"],
+  input[type="url"],
+  input[type="file"],
+  textarea,
+  select {
+    width: 100%;
+    padding: 0.75em;
+    border-radius: 6px;
+    border: 1px solid rgb(18, 37, 72);
+    background-color: rgb(210, 224, 250);
+    font-family: 'Rockwell', serif;
+    color: rgb(18, 37, 72);
+  }
+
+  /* Description fills left side vertically */
+.description-box {
+    flex: 2;
+    min-width: 300px;
+    background-color: rgb(209, 222, 247);
+    padding: 1em;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .description-box textarea {
+    flex-grow: 1;
+    resize: vertical;
+  }
+  
+  /* Dropdowns stack in a column to the right */
+  .dropdowns-box {
+    flex: 1;
+    min-width: 250px;
+    background-color: rgb(209, 222, 247);
+    padding: 1em;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .dropdowns-box label {
+    margin-bottom: 1em;
+  }
+  
+  /* Description and Dropdowns side-by-side */
+  .description-dropdowns {
+    display: flex;
+    align-items: stretch;
+    gap: 2em;
+    flex-wrap: wrap;
+  }
+  
+  .description-box,
+  .dropdowns-box {
+    flex: 1;
+    min-width: 260px;
+    background-color: rgb(209, 222, 247);
+    padding: 1em;
+    border-radius: 6px;
+  }
+  
+  .dropdowns-box label {
+    display: block;
+    margin-bottom: 1em;
+  }
+  
+  /* Buttons */
+  .form-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1.5em;
+  }
+  
+  .form-buttons button {
+    font-family: 'Rockwell', serif;
+    background-color: rgb(18, 37, 72);
+    color: rgb(210, 224, 250);
+    border: 1px solid rgb(210, 224, 250);
+    padding: 0.75em 2em;
+    border-radius: 6px;
+    font-size: 1.25rem;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  
+  .form-buttons button:hover {
+    background-color: rgb(210, 224, 250);
+    color: rgb(18, 37, 72);
+  }
+  
