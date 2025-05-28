@@ -31,6 +31,7 @@ const PendingAdventure = () => {
             })
             .catch((err) => {
                 console.error(err);
+                alert(`Failed to load data: ${err.message}`);
                 setError(err.message);
                 setLoading(false);
             });
@@ -46,7 +47,10 @@ const PendingAdventure = () => {
                 if (!res.ok) throw new Error(`Accept failed: ${res.status}`);
                 loadData();
             })
-            .catch((err) => console.error(err));
+            .catch((err) => {
+                console.error(err);
+                alert(`Accept action failed: ${err.message}`);
+            });
     };
 
     const handleReturn = (id) => {
@@ -55,7 +59,10 @@ const PendingAdventure = () => {
                 if (!res.ok) throw new Error(`Return failed: ${res.status}`);
                 loadData();
             })
-            .catch((err) => console.error(err));
+            .catch((err) => {
+                console.error(err);
+                alert(`Return for Revision failed: ${err.message}`);
+            });
     };
 
     const handleDelete = (id) => {
@@ -64,7 +71,10 @@ const PendingAdventure = () => {
                 if (!res.ok) throw new Error(`Delete failed: ${res.status}`);
                 loadData();
             })
-            .catch((err) => console.error(err));
+            .catch((err) => {
+                console.error(err);
+                alert(`Delete action failed: ${err.message}`);
+            });
     };
 
     if (loading) {
@@ -117,7 +127,6 @@ const PendingAdventure = () => {
                             </div>
                             <div className="card-top-right">
                                 <div className="card-top-right-box">
-                                    {/* Price dropdown */}
                                     <div className="field">
                                         <label htmlFor={`price-${adv.id}`}>
                                             Price
@@ -136,8 +145,6 @@ const PendingAdventure = () => {
                                             ))}
                                         </select>
                                     </div>
-
-                                    {/* Category dropdown */}
                                     <div className="field">
                                         <label htmlFor={`category-${adv.id}`}>
                                             Category
@@ -156,8 +163,6 @@ const PendingAdventure = () => {
                                             ))}
                                         </select>
                                     </div>
-
-                                    {/* Difficulty dropdown */}
                                     <div className="field">
                                         <label htmlFor={`difficulty-${adv.id}`}>
                                             Difficulty
@@ -180,7 +185,6 @@ const PendingAdventure = () => {
                             </div>
                         </div>
 
-                        {/* Bottom fields */}
                         <div className="field">
                             <label>Location</label>
                             <input type="text" readOnly value={adv.location} />
@@ -198,7 +202,6 @@ const PendingAdventure = () => {
                             />
                         </div>
 
-                        {/* Action buttons */}
                         <div className="card-buttons">
                             <button
                                 className="btn accept"
