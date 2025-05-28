@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import { GoogleMap, LoadScript, Marker, Circle, StandaloneSearchBox } from '@react-google-maps/api';
+import './AddressSearch.css';
 
 // places library 
 const libraries = ["places"];
@@ -152,6 +153,7 @@ useEffect(() => {
             {isLoading ? 'Searching...' : 'Find Adventures'}
           </button>
         </div>
+        <div>
         <GoogleMap //actual map component
           mapContainerStyle={mapContainerStyle}
           center={center} //center map on selected address
@@ -176,6 +178,7 @@ useEffect(() => {
             />
           ))}
         </GoogleMap>
+        </div>
       </LoadScript>
       
       {/* SAMPLE MAPPED OUT ADVENTURES */}

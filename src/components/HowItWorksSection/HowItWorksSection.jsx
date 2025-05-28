@@ -24,10 +24,6 @@ const HowItWorksSection = () => {
                             in your area.
                         </p>
                     </div>
-                    {/* Map size can be changed in the "mapContainerStyle" section of the component */}
-                    <div className='static-map-div'>
-                        <StaticMap />
-                    </div>
 
                     {/* Card 2: Add Your Own Adventure */}
                     <div className="hiw-card">
@@ -43,6 +39,7 @@ const HowItWorksSection = () => {
                 {/* Right column: static map preview */}
                 <div className="hiw-map">
                     <img src="#" alt="Map preview" className="hiw-map-img" />
+                    <StaticMap />
                 </div>
             </div>
         </section>
