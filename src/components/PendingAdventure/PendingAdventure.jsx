@@ -7,16 +7,40 @@ const PendingAdventure = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    // Fetch pending adventures when component mounts
-    // TODO: verify endpoint with the backend team
+    // State for dropdown options
+    const [categories, setCategories] = useState([]);
+    const [abilities, setAbilities] = useState([]);
+    const [costLevels, setCostLevels] = useState([]);
+
     useEffect(() => {
-        fetch('/api/adventures/pending')
-            .then((res) => {
-                if (!res.ok) throw new Error(`Error: ${res.status}`);
-                return res.json();
-            })
-            .then((data) => {
-                setAdventures(data);
+        // 1) Fetch pending adventures
+        const fetchAdventures = fetch('/api/adventures/pending').then((res) => {
+            if (!res.ok) throw new Error(`Error: ${res.status}`);
+            return res.json();
+        });
+
+        // 2) Fetch lookup tables in parallel
+        const fetchCategories = fetch('/api/category_table').then((res) =>
+            res.json()
+        );
+        const fetchAbilities = fetch('/api/ability_table').then((res) =>
+            res.json()
+        );
+        const fetchCostLevels = fetch('/api/cost_table').then((res) =>
+            res.json()
+        );
+
+        Promise.all([
+            fetchAdventures,
+            fetchCategories,
+            fetchAbilities,
+            fetchCostLevels,
+        ])
+            .then(([advs, cats, abils, costs]) => {
+                setAdventures(advs);
+                setCategories(cats);
+                setAbilities(abils);
+                setCostLevels(costs);
                 setLoading(false);
             })
             .catch((err) => {
@@ -26,7 +50,7 @@ const PendingAdventure = () => {
             });
     }, []);
 
-    // Loading state
+    // Render loading, error, and empty states
     if (loading) {
         return (
             <section className="pending-page">
@@ -37,8 +61,6 @@ const PendingAdventure = () => {
             </section>
         );
     }
-
-    // Error state
     if (error) {
         return (
             <section className="pending-page">
@@ -49,8 +71,6 @@ const PendingAdventure = () => {
             </section>
         );
     }
-
-    // Empty state
     if (adventures.length === 0) {
         return (
             <section className="pending-page">
@@ -62,7 +82,7 @@ const PendingAdventure = () => {
         );
     }
 
-    // Main grid
+    // Main grid render
     return (
         <section className="pending-page">
             <header className="pending-header">
@@ -80,6 +100,7 @@ const PendingAdventure = () => {
                             </div>
                             <div className="card-top-right">
                                 <div className="card-top-right-box">
+                                    {/* Price dropdown */}
                                     <div className="field">
                                         <label htmlFor={`price-${adv.id}`}>
                                             Price
@@ -88,9 +109,18 @@ const PendingAdventure = () => {
                                             id={`price-${adv.id}`}
                                             defaultValue={adv.price}
                                         >
-                                            <option>{adv.price}</option>
+                                            {costLevels.map((c) => (
+                                                <option
+                                                    key={c.id}
+                                                    value={c.level || c.label}
+                                                >
+                                                    {c.level || c.label}
+                                                </option>
+                                            ))}
                                         </select>
                                     </div>
+
+                                    {/* Category dropdown */}
                                     <div className="field">
                                         <label htmlFor={`category-${adv.id}`}>
                                             Category
@@ -99,9 +129,18 @@ const PendingAdventure = () => {
                                             id={`category-${adv.id}`}
                                             defaultValue={adv.category}
                                         >
-                                            <option>{adv.category}</option>
+                                            {categories.map((c) => (
+                                                <option
+                                                    key={c.id}
+                                                    value={c.name}
+                                                >
+                                                    {c.name}
+                                                </option>
+                                            ))}
                                         </select>
                                     </div>
+
+                                    {/* Difficulty dropdown */}
                                     <div className="field">
                                         <label htmlFor={`difficulty-${adv.id}`}>
                                             Difficulty
@@ -110,13 +149,21 @@ const PendingAdventure = () => {
                                             id={`difficulty-${adv.id}`}
                                             defaultValue={adv.difficulty}
                                         >
-                                            <option>{adv.difficulty}</option>
+                                            {abilities.map((a) => (
+                                                <option
+                                                    key={a.id}
+                                                    value={a.level || a.name}
+                                                >
+                                                    {a.level || a.name}
+                                                </option>
+                                            ))}
                                         </select>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
+                        {/* Bottom fields */}
                         <div className="field">
                             <label>Location</label>
                             <input type="text" readOnly value={adv.location} />
@@ -134,6 +181,7 @@ const PendingAdventure = () => {
                             />
                         </div>
 
+                        {/* Action buttons */}
                         <div className="card-buttons">
                             <button className="btn accept">Accept</button>
                             <button className="btn return">
