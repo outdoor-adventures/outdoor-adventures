@@ -112,3 +112,12 @@ CREATE TABLE IF NOT EXISTS "favorite_adventures" (
 	"adventure_id" INTEGER NOT NULL REFERENCES "adventures"(id),
 	PRIMARY KEY ("id")
 );
+
+--SAMPLE DATA ADDITION
+INSERT INTO "adventures" 
+("activity_name", "category_id", "ability_level_id", "cost_level_id", "photo", "link", "description", "address", "latitude", "longitude", "created_by", "status")
+VALUES
+('Itasca State Park', '1', '2', '2', 'img.png', 'https://www.dnr.state.mn.us/state_parks/park.html?id=spk00293#homepage', 'Headwaters of the Mississippi', '36750 Main Pk Dr, Park Rapids, MN 56470, USA', '47.1944', '-95.1652', '2', 'accepted'),
+('Gooseberry Falls', '1', '2', '1', 'img.png', 'https://www.dnr.state.mn.us/state_parks/park.html?id=spk00174#homepage', 'Waterfalls and Lake Superior shoreline', '3206 MN-61, Two Harbors, MN 55616, USA', '47.1396', '-91.4731', '2', 'accepted'),
+('Tettegouche', '1', '3', '1', 'img.png', 'https://www.dnr.state.mn.us/state_parks/park.html?id=spk00281#homepage','Dramatic cliffs and inland trails', '5702 MN-61, Silver Bay, MN 55614, USA', '47.3393', '-91.1959', '2', 'accepted'),
+('Afton State Park', '1', '2', '1', 'img.png', 'https://www.dnr.state.mn.us/state_parks/park.html?id=spk00143#homepage', 'Hilly trails with scenic river views', '6959 Peller Ave S, Hastings, MN 55033, USA', '44.8467', '-92.7913', '2', 'pending');
