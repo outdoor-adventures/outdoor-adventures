@@ -52,6 +52,17 @@
     border: 1px solid rgba(18, 37, 72, 0.4);
   }
 
+  .hiw-map {
+    width: 1000px;
+    max-width: 100%;
+  }
+  
+  .hiw-map iframe,
+  .hiw-map div {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
   /* Shared section title style */
 .section-header {
     background-color: rgb(210, 224, 250);
