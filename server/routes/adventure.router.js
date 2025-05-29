@@ -292,6 +292,12 @@ router.post('/favorites/:userid/:adventureid',(req, res) => {
     })
 
 })
+//TEST LIKE THIS
+//http://localhost:5173/api/adventures/favorites/2/9
+//{
+//     "user_id": "2",
+//     "adventure_id": "9"
+// }
 
 // get user, id, and adventure id onto this table
 
