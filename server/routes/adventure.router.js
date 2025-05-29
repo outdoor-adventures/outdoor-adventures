@@ -98,7 +98,8 @@ router.get('/:id', (req, res) => {
 //FINISHED, WORKS WELL
 router.get('/:createdby/adventures' ,(req,res) => {
     const created_by = req.params.createdby; 
-    const sqlText = `SELECT * FROM "adventures"
+    const sqlText = `
+    SELECT * FROM "adventures"
     WHERE "created_by" = $1;`;
 
     const sqlValues = [created_by]
@@ -113,6 +114,7 @@ router.get('/:createdby/adventures' ,(req,res) => {
         res.sendStatus(500);
     });
 })
+//USE THIS AS AN EXAMPLE:  http://localhost:5173/api/adventures/2/adventures
 
 
 
