@@ -24,10 +24,8 @@ function App() {
 
     return (
         <>
-            <header>
-                <h1>Prime Solo Project</h1>
-                <Nav />
-            </header>
+            <Nav />
+
             <main>
                 <Routes>
                     <Route exact path="/" element={<HomePage />} />
@@ -107,9 +105,6 @@ function App() {
                     <Route path="*" element={<h2>404 Page</h2>} />
                 </Routes>
             </main>
-            <footer>
-                <p>Copyright © {new Date().getFullYear()}</p>
-            </footer>
         </>
     );
 }

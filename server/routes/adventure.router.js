@@ -26,26 +26,33 @@ router.get('/', (req, res) => {
 
 // GET NEARBY ADVENTURES
 router.get('/nearby', (req, res) => {
-    const { lat, lng, radius } = req.query;
+    const { lat, lng, radius, category, abilityLevel, costLevel } = req.query;
     
     console.log('Searching for adventures near:', { lat, lng, radius });
     
+    //if category is selected, filter by that selection. if not, dont filter.
+    //distance_squared orders by closest first 
     const sqlText = `
         SELECT *, 
             (((latitude - $1) * (latitude - $1)) + 
              ((longitude - $2) * (longitude - $2))) AS distance_squared
-        FROM "adventures" WHERE "status" = 'accepted'
-        ORDER BY distance_squared
-        LIMIT 10;
+                FROM "adventures" 
+                WHERE "status" = 'accepted'
+                AND ($3::INTEGER IS NULL OR "category_id" = $3::INTEGER)
+                AND ($4::INTEGER IS NULL OR "ability_level_id" = $4::INTEGER)
+                AND ($5::INTEGER IS NULL OR "cost_level_id" = $5::INTEGER)
+                ORDER BY distance_squared
+                LIMIT 10;
     `;
     
-    pool.query(sqlText, [lat, lng])
+    pool.query(sqlText, [lat, lng, category || null, abilityLevel || null, costLevel || null])
     .then((result) => {
         // Filter client-side to ensure we get results
         const filteredResults = result.rows.map(row => {
             // Calculate approximate distance in miles
             const latDiff = 69.1 * (row.latitude - lat);
             const lngDiff = 55.0 * (row.longitude - lng);
+            //math.sqrt returns the number that equals x when squared
             const distanceMiles = Math.sqrt(latDiff * latDiff + lngDiff * lngDiff);
             
             return {
@@ -55,6 +62,7 @@ router.get('/nearby', (req, res) => {
         }).filter(row => row.distance <= radius);
         
         console.log(`Found ${filteredResults.length} adventures within ${radius} miles`);
+        console.log('data recived in /recent is:', req.params.id);
         res.send(filteredResults);
     })
     .catch((error) => {
@@ -258,12 +266,11 @@ router.post('/:createdby', (req, res) => {
 
 
 // post the favorite adventures, make a query on this.
-// this working on this
-// hopefully finish by today
+// still not done
 
-router.post('/favorites',(req, res) => {
+router.post('/favorites/:userid/:adventureid',(req, res) => {
     console.log('testing the favorite adventures POST route')
-    const {user_id, adventure_id} = req.body;
+    const {userid, adventureid} = req.params;
 
     console.log('MOVING ONTO THE POST ROUTE SQLTEXT')
 
@@ -271,11 +278,13 @@ router.post('/favorites',(req, res) => {
     INSERT INTO "favorite_adventures"
     ("user_id", "adventure_id")
     VALUES ($1, $2);`;
-    const sqlValues = [user_id, adventure_id]
+
+    const sqlValues = [userid, adventureid]
+
     pool.query(sqlText, sqlValues)
     .then((result) => {
         res.sendStatus(201)
-        console.log(result)
+        console.log(result.rows)
     })
     .catch((dbErr) => {
         console.log('POST ROUTE NOT WORKING', dbErr);

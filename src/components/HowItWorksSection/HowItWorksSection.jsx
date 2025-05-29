@@ -1,5 +1,7 @@
 import React from 'react';
+import StaticMap from '../StaticMap/StaticMap';
 import './HowItWorksSection.css';
+
 
 const HowItWorksSection = () => {
     return (
@@ -37,6 +39,7 @@ const HowItWorksSection = () => {
                 {/* Right column: static map preview */}
                 <div className="hiw-map">
                     <img src="#" alt="Map preview" className="hiw-map-img" />
+                    <StaticMap />
                 </div>
             </div>
         </section>

@@ -1,23 +1,23 @@
-import useStore from '../../zustand/store';
 import HeroSection from '../HeroSection/HeroSection';
 import HowItWorksSection from '../HowItWorksSection/HowItWorksSection';
 import RecentActivitySection from '../RecentActivitySection/RecentActivitySection';
 import Nav from '../Nav/Nav';
 import './HomePage.css';
+import useStore from '../../zustand/store';
 
-function HomePage(props) {
+function HomePage() {
+
     const user = useStore((state) => state.user);
     const logOut = useStore((state) => state.logOut);
 
     return (
         <>
+
         <div className="home-background">
               <Nav pageTitle="Outdoor Adventures" />
-            {/* <h1>Home Page Test - Pat</h1>
-            <h2>Home Page</h2>
-            <p>Your username is: {user.username}</p>
-            <p>Your ID is: {user.id}</p> */}
+       
             <button onClick={logOut}>Log Out</button>
+
 
 
             {/* Home Page Sections (Components) */}

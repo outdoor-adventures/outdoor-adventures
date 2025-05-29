@@ -28,19 +28,20 @@
   .hiw-card {
     background-color: rgba(210, 224, 250, 0.9);
     border: 1px solid rgba(18, 37, 72, 0.4);
-    padding: 1em;
+    padding: 1.5em;
     border-radius: 8px;
     color: rgb(18, 37, 72);
     text-align: center;
-    width: 250px;
+    width: 320px;
+    font-size: 1.1rem;
   }
   
   .hiw-card-title {
     background-color: rgb(0, 83, 21);
     color: rgb(210, 224, 250);
-    font-size: 1rem;
-    margin-bottom: 0.5em;
-    padding: 0.2em 0.5em;
+    font-size: 1.2rem;
+    margin-bottom: 0.75em;
+    padding: 0.4em 0.75em;
     border-radius: 4px;
   }
   

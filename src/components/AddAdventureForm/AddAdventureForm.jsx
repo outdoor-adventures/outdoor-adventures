@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import './AddAdventureForm.css';
 
 const AddAdventureForm = () => {
     const [formData, setFormData] = useState({
@@ -94,42 +95,52 @@ const AddAdventureForm = () => {
       }
     };
     return (
-        <div>
-          <h2>Add New Adventure</h2>
+        <div className="add-adventure-page">
+          {/* <h2>Add New Adventure</h2> */}
           
           {/* Display success or error message */}
           {message && <p>{message}</p>}
           
-          <form onSubmit={handleSubmit} encType="multipart/form-data">
+          <form className="add-adventure-form" onSubmit={handleSubmit} encType="multipart/form-data">
             {/* File input for photo */}
-            <label>
-              Photo:
+            <div className="photo-section">
+            <label className="custom-file-label">
+              Add Photo
               <input type="file" name="photo" accept="image/*" onChange={handleFileChange} required />
             </label>
-            <br />
+            </div>
+            {/* <br /> */}
     
             {/* Input for location */}
+            <div className="form-section location-section">
             <label>
               Location:
               <input type="text" name="location" value={formData.location} onChange={handleChange} required />
             </label>
-            <br />
+            </div>
+            {/* <br /> */}
     
             {/* Input for link */}
+            <div className="form-section link-section">
             <label>
               Link:
               <input type="url" name="link" value={formData.link} onChange={handleChange} />
             </label>
-            <br />
+            </div>
+            {/* <br /> */}
     
             {/* Text area for description */}
+            <div className="description-dropdowns">
+            <div className="description-box">
             <label>
               Description:
               <textarea name="description" value={formData.description} onChange={handleChange} />
             </label>
-            <br />
+            </div>
+            {/* <br /> */}
     
             {/* Dropdown for price */}
+            <div className="dropdowns-box">
             <label>
               Price:
               <select name="price" value={formData.price} onChange={handleChange} required>
@@ -141,9 +152,12 @@ const AddAdventureForm = () => {
                 ))}
               </select>
             </label>
-            <br />
+            {/* </div>
+            </div>
+            <br /> */}
     
             {/* Dropdown for category */}
+            {/* <div> */}
             <label>
               Category:
               <select name="category" value={formData.category} onChange={handleChange} required>
@@ -155,9 +169,11 @@ const AddAdventureForm = () => {
                 ))}
               </select>
             </label>
-            <br />
+            {/* </div>
+            <br /> */}
     
             {/* Dropdown for difficulty */}
+            {/* <div> */}
             <label>
               Difficulty:
               <select name="difficulty" value={formData.difficulty} onChange={handleChange} required>
@@ -169,9 +185,12 @@ const AddAdventureForm = () => {
                 ))}
               </select>
             </label>
-            <br />
+            </div>
+            </div>
+            {/* <br /> */}
     
             {/* Submit button (disables when loading) */}
+            <div className="form-buttons">
             <button type="submit" disabled={loading}>
               {loading ? 'Submitting...' : 'Submit'}
             </button>
@@ -188,6 +207,7 @@ const AddAdventureForm = () => {
             })}>
               Cancel
             </button>
+            </div>
           </form>
         </div>
       );
