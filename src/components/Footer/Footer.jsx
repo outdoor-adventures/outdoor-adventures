@@ -14,6 +14,7 @@ const Footer = () => {
 
   return (
     <div className="footer">
+      <div className="footer-container">
         <ul>
             <li>
             <NavLink to="/contact" className="contact-button">Contact</NavLink>
@@ -51,6 +52,7 @@ const Footer = () => {
         
           )}
     
+     </div>
      </div>
   );
 };

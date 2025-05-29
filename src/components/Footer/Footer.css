@@ -3,14 +3,14 @@
     background-color: rgb(210, 224, 250);
     color: rgb(18, 37, 72);
     font-family: 'Rockwell', serif;
-    padding: 1em 1.5em;
+    padding: 0;
     box-sizing: border-box;
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
     border-top: 4px solid rgba(210, 224, 250, 0.4);
-    margin-top: 4em;
+    margin-top: 0 !important;
   }
   
   .footer ul {
@@ -20,9 +20,22 @@
     margin: 0;
     padding: 0;
   }
+
+  .footer-container {
+    max-width: 1600px;
+    margin: 0 auto;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5em 1.5em;
+    box-sizing: border-box;
+  }
   
   .footer li {
     margin: 0;
+    padding: 0;
+    line-height: 1;
   }
   
   .footer a,
