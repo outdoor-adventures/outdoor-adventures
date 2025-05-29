@@ -38,7 +38,7 @@ const HowItWorksSection = () => {
 
                 {/* Right column: static map preview */}
                 <div className="hiw-map">
-                    <img src="#" alt="Map preview" className="hiw-map-img" />
+                    {/* <img src="#" alt="Map preview" className="hiw-map-img" /> !!CSS comment out to remove title */}
                     <StaticMap />
                 </div>
             </div>
