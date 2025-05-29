@@ -237,15 +237,33 @@ router.post('/:createdby', (req, res) => {
         res.sendStatus(500)
     })
 })
+//^^^IN ORDER TO TEST THIS, USE THIS AS A REFERENCE
+// {
+//     "category_id": "3",
+//     "ability_level_id": "1",
+//     "cost_level_id": "3",
+//     "photo": "test",
+//     "link": "test.com",
+//     "activity_name": "test",
+//     "description": "test",
+//     "latitude": 22.333,
+//     "longitude": 11.222,
+//     "created_at": "2025-05-24T15:00:00Z",
+//     "created_by": 2,
+//     "status": "accepted",
+//     "address": "NYC"
+// }
+
+
+
 
 // post the favorite adventures, make a query on this.
 // this working on this
 // hopefully finish by today
 
-router.post('/:createdby/:adventure_id',(req, res) => {
+router.post('/favorites',(req, res) => {
     console.log('testing the favorite adventures POST route')
-    const created_by = req.params.createdby;
-    const adventure_id = req.body.adventure_id;
+    const {user_id, adventure_id} = req.body;
 
     console.log('MOVING ONTO THE POST ROUTE SQLTEXT')
 
@@ -253,7 +271,7 @@ router.post('/:createdby/:adventure_id',(req, res) => {
     INSERT INTO "favorite_adventures"
     ("user_id", "adventure_id")
     VALUES ($1, $2);`;
-    const sqlValues = [created_by, adventure_id]
+    const sqlValues = [user_id, adventure_id]
     pool.query(sqlText, sqlValues)
     .then((result) => {
         res.sendStatus(201)
@@ -265,8 +283,6 @@ router.post('/:createdby/:adventure_id',(req, res) => {
     })
 
 })
-
-
 
 // get user, id, and adventure id onto this table
 
