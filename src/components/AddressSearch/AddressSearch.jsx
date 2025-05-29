@@ -1,6 +1,7 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
-import { GoogleMap, LoadScript, Marker, Circle, StandaloneSearchBox } from '@react-google-maps/api';
+import { GoogleMap, LoadScript, Marker, Circle, StandaloneSearchBox, InfoWindow } from '@react-google-maps/api';
+import './AddressSearch.css';
 
 // places library 
 const libraries = ["places"];
@@ -32,10 +33,35 @@ function AddressSearch() {
   const [isLoading, setIsLoading] = useState(false); //indicates loading state
   const searchBoxRef = useRef(null); //references the google maps api autocomplete search bar
 
+  //FILTERS
+  //handle selected filter
+  const [selectedCategory, setSelectedCategory] = useState('');
+  const [selectedAbilityLevel, setSelectedAbilityLevel] = useState('');
+  const [selectedCostLevel, setSelectedCostLevel] = useState('');
+  //hold data from get request
+  const [categories, setCategories] = useState([]);
+  const [abilities, setAbilities] = useState([]);
+  const [costs, setCosts] = useState([]);
+
+  //used for infoOpen
+  const [infoOpen, setInfoOpen] = useState(false)
+
+useEffect(() => {
+  axios.get('/api/dropdown/category')
+        .then(response => {console.log('category data:', response.data)
+          setCategories(response.data)});
+
+  axios.get('/api/dropdown/ability')
+        .then(response => {console.log('ability data:', response.data)
+          setAbilities(response.data)});
+
+  axios.get('/api/dropdown/cost')
+        .then(response => {console.log('cost data:', response.data)
+          setCosts(response.data)});
+}, []);
+
   //YOU ARE NOT INSANE THIS IS SUPPOSED TO BE HERE
   const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
-  
-
   
   // Handles selection from autocomplete library
   const onPlacesChanged = () => {
@@ -60,11 +86,12 @@ function AddressSearch() {
   const handleSearch = async (e) => {
     e.preventDefault();
     setIsLoading(true); //shows loading indicator while getting data
+
     
     try {
       console.log('Searching with coordinates:', center);
       // Fetch adventures within radius using the current center coordinates
-      const adventuresResponse = await axios.get(`/api/adventures/nearby?lat=${center.lat}&lng=${center.lng}&radius=20`);
+      const adventuresResponse = await axios.get(`/api/adventures/nearby?lat=${center.lat}&lng=${center.lng}&radius=20&category=${selectedCategory}&abilityLevel=${selectedAbilityLevel}&costLevel=${selectedCostLevel}`);
       console.log('Response:', adventuresResponse.data);
       setAdventures(adventuresResponse.data); //update useState with retrieved data
     } catch (error) {
@@ -92,6 +119,35 @@ function AddressSearch() {
               className="autocomplete-input"
             />
           </StandaloneSearchBox>
+
+          {/* FILTERS  */}
+          <div className='category-filter'>
+            <select onChange={(e) => setSelectedCategory(e.target.value)}>
+              <option value=''>All Categories</option>
+              {categories.map(category => (
+                <option key={category.id} value={category.id}>{category.category_name}</option>
+              ))}
+            </select>
+          </div> {/*END CATEGORY FILTER*/}
+
+          <div className='ability-filter'>
+            <select onChange={(e) => setSelectedAbilityLevel(e.target.value)}>
+              <option value=''>All Ability Levels</option>
+              {abilities.map(ability => (
+                <option key={ability.id} value={ability.id}>{ability.ability_level}</option>
+              ))}
+            </select>
+          </div> {/*END ABILITY FILTER*/}
+
+          <div className='cost-filter'>
+            <select onChange={(e) => setSelectedCostLevel(e.target.value)}>
+              <option value=''>All Cost Levels</option>
+              {costs.map(cost => (
+                <option key={cost.id} value={cost.id}>{cost.cost_level}</option>
+              ))}
+            </select>
+          </div> {/*END COST FILTER*/}
+
           <button //on click api call to get adventures
             onClick={handleSearch} 
             disabled={isLoading}
@@ -100,6 +156,7 @@ function AddressSearch() {
             {isLoading ? 'Searching...' : 'Find Adventures'}
           </button>
         </div>
+        <div>
         <GoogleMap //actual map component
           mapContainerStyle={mapContainerStyle}
           center={center} //center map on selected address
@@ -117,13 +174,32 @@ function AddressSearch() {
           
           {/* adventure markers mapped out on the map */}
           {adventures.map(adventure => (
+
+            // RETURN
+
+            //onMouseOver makes changes when a mouse is over the component its added too
+            //onMouseOut makes changes when the mouse moves off of the component its added too
             <Marker
               key={adventure.id}
               position={{ lat: adventure.latitude, lng: adventure.longitude }}
               title={adventure.activity_name}
-            />
+              onMouseOver={() => setInfoOpen(true)}
+              onMouseOut={() => setInfoOpen(false)}
+            >
+            {/* INFO BOX */}
+              {infoOpen && (
+                <InfoWindow onCloseClick={() => setInfoOpen(false)}>
+                  <div className='map-pin-info'>
+                    {adventure.activity_name} <br />
+                    {adventure.description} <br />
+                    {adventure.address}
+                  </div>
+                </InfoWindow>
+              )}
+            </Marker>
           ))}
         </GoogleMap>
+        </div>
       </LoadScript>
       
       {/* SAMPLE MAPPED OUT ADVENTURES */}

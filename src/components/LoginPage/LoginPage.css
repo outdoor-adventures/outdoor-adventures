@@ -15,9 +15,9 @@
   .login-box {
     display: flex;
     flex-direction: column;
-    align-items: center; /* Centers everything horizontally */
-    justify-content: center; /* Centers everything vertically */
-    background-color: rgba(210, 224, 250, 0.8); /* Transparent box */
+    align-items: center; 
+    justify-content: center; 
+    background-color: rgba(210, 224, 250, 0.8);
     border-radius: 12px;
     padding: 2em;
     width: 320px;
@@ -62,6 +62,7 @@
   }
   
   .button-register {
+    font-family: 'Rockwell', serif;
     background-color: rgb(210, 224, 250);
     color: rgb(18, 37, 72);
     border: 1px solid rgb(18, 37, 72);
@@ -77,6 +78,7 @@
   }
   
   .button-login {
+    font-family: 'Rockwell', serif;
     background-color: rgb(18, 37, 72);
     color: rgb(210, 224, 250);
     border: 1px solid rgb(210, 224, 250);
@@ -90,4 +92,23 @@
     background-color: rgb(210, 224, 250);
     color: rgb(18, 37, 72);
   }
+
+  .button-login,
+  .button-register {
+    width: 100%;
+    max-width: 200px;
+    font-size: 1em;
+    padding: .5em 1em;
+  }
   
+  .register-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 1em;
+  }
+  
+  .register-link p {
+    margin: 0 0 0.5em 0;
+    font-family: 'Rockwell', serif;
+  }

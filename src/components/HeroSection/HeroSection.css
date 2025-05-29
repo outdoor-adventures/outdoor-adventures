@@ -1,0 +1,58 @@
+.hero-section {
+    background-image: url('/mountains-3661319_1920.png');
+    background-size: cover;
+    background-position: center 95%;
+    padding: 15em 2em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .cta-container {
+    display: flex;
+    gap: 2em;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .cta-card {
+    text-decoration: none;
+    background-color: rgba(210, 224, 250);
+    border: 1px solid rgba(18, 37, 72, 0.4);
+    padding: 1.5em;
+    width: 340px;
+    padding: 2.5em 2em;
+    border-radius: 12px;
+    text-align: center;
+    color: rgb(18, 37, 72);
+    font-family: 'Rockwell', serif;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+  }
+  
+  .cta-card:hover {
+    transform: scale(1.05);
+  }
+  
+  .cta-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+  
+  .cta-sub {
+    font-size: 0.9rem;
+    margin-top: 0.5em;
+  }
+  
+  .cta-icon {
+    font-size: 2rem;
+    margin-bottom: 0.5em;
+  }
+  
+  .scroll-indicator {
+    font-size: 2rem;
+    color: rgb(18, 37, 72);
+    margin-top: 1em;
+  }
+  
