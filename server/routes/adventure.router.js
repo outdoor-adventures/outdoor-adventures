@@ -92,7 +92,34 @@ router.get('/:id', (req, res) => {
     });
 });//END GET SINGLE ADVENTURE
 
+
+
 //GET users adventures
+//FINISHED, WORKS WELL
+router.get('/:createdby/adventures' ,(req,res) => {
+    const created_by = req.params.createdby; 
+    const sqlText = `
+    SELECT * FROM "adventures"
+    WHERE "created_by" = $1;`;
+
+    const sqlValues = [created_by]
+
+    pool.query(sqlText, sqlValues)
+    .then((result) => {
+        console.log(`got adventures from user id: ${created_by}`)
+        res.send(result.rows)
+    })
+    .catch((error) => {
+        console.log(`query ${sqlText} failed with error: ${error}`)
+        res.sendStatus(500);
+    });
+})
+//USE THIS AS AN EXAMPLE:  http://localhost:5173/api/adventures/2/adventures
+
+
+
+
+
 
 
 //GET users favorited adventures basued off user_id
@@ -220,8 +247,60 @@ router.post('/:createdby', (req, res) => {
         res.sendStatus(500)
     })
 })
+//^^^IN ORDER TO TEST THIS, USE THIS AS A REFERENCE
+// {
+//     "category_id": "3",
+//     "ability_level_id": "1",
+//     "cost_level_id": "3",
+//     "photo": "test",
+//     "link": "test.com",
+//     "activity_name": "test",
+//     "description": "test",
+//     "latitude": 22.333,
+//     "longitude": 11.222,
+//     "created_at": "2025-05-24T15:00:00Z",
+//     "created_by": 2,
+//     "status": "accepted",
+//     "address": "NYC"
+// }
+
+
+
 
 // post the favorite adventures, make a query on this.
+// still not done
+
+router.post('/favorites/:userid/:adventureid',(req, res) => {
+    console.log('testing the favorite adventures POST route')
+    const {userid, adventureid} = req.params;
+
+    console.log('MOVING ONTO THE POST ROUTE SQLTEXT')
+
+    const sqlText = `
+    INSERT INTO "favorite_adventures"
+    ("user_id", "adventure_id")
+    VALUES ($1, $2);`;
+
+    const sqlValues = [userid, adventureid]
+
+    pool.query(sqlText, sqlValues)
+    .then((result) => {
+        res.sendStatus(201)
+        console.log(result.rows)
+    })
+    .catch((dbErr) => {
+        console.log('POST ROUTE NOT WORKING', dbErr);
+        res.sendStatus(500)
+    })
+
+})
+//TEST LIKE THIS
+//http://localhost:5173/api/adventures/favorites/2/9
+//{
+//     "user_id": "2",
+//     "adventure_id": "9"
+// }
+
 // get user, id, and adventure id onto this table
 
 
