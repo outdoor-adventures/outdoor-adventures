@@ -27,9 +27,9 @@ const AddAdventureForm = () => {
         const fetchOptions = async () => {
             try {
                 const [priceRes, categoryRes, difficultyRes] = await Promise.all([
-                    axios.get('/api/adventures/options/price'),
-                    axios.get('/api/adventures/options/category'),
-                    axios.get('/api/adventures/options/difficulty'),
+                    axios.get('/api/dropdown/cost'),
+                    axios.get('/api/dropdown/category'),
+                    axios.get('/api/dropdowns/ability'),
                   ]);
                   //updated the fetch option 
                   setOptions({
