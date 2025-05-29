@@ -10,7 +10,7 @@ const RecentActivitySection = () => {
 
     // Fetch the 3 most recent adventures when component mounts
     useEffect(() => {
-        fetch('/api/adventures/recent')
+        fetch('/api/adventures/recents/recent')
             .then((res) => {
                 if (!res.ok) {
                     throw new Error(`Server error: ${res.status}`);
@@ -30,7 +30,7 @@ const RecentActivitySection = () => {
     if (loading) {
         return (
             <section className="recent-activity">
-                <h2 className="ra-title">Recent Activity</h2>
+                <h2 className="section-header">Recent Activity</h2>
                 <p>Loading recent adventures…</p>
             </section>
         );
@@ -39,7 +39,7 @@ const RecentActivitySection = () => {
     if (error) {
         return (
             <section className="recent-activity">
-                <h2 className="ra-title">Recent Activity</h2>
+                <h2 className="section-header">Recent Activity</h2>
                 <p>Error loading adventures: {error}</p>
             </section>
         );
@@ -48,7 +48,7 @@ const RecentActivitySection = () => {
     if (adventures.length === 0) {
         return (
             <section className="recent-activity">
-                <h2 className="ra-title">Recent Activity</h2>
+                <h2 className="section-header">Recent Activity</h2>
                 <p>No recent adventures found. Be the first to add one!</p>
             </section>
         );
@@ -56,7 +56,7 @@ const RecentActivitySection = () => {
     // render the grid of adventure cards
     return (
         <section className="recent-activity">
-            <h2 className="ra-title">Recent Activity</h2>
+            <h2 className="section-header">Recent Activity</h2>
             <div className="ra-cards">
                 {adventures.map((item) => (
                     <div key={item.id} className="ra-card">
