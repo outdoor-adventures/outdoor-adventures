@@ -2,6 +2,8 @@ import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import { GoogleMap, LoadScript, Marker, Circle, StandaloneSearchBox, InfoWindow } from '@react-google-maps/api';
 import './AddressSearch.css';
+import AdventureItem from '../BrowseAdventuresPage/AdventureItem/AdventureItem'
+
 
 // places library 
 const libraries = ["places"];
@@ -9,7 +11,7 @@ const libraries = ["places"];
 // Map container style sets size of map component
 const mapContainerStyle = {
   width: '100%',
-  height: '400px'
+  height: '50vw'
 };
 
 // Circle options for 20-mile radius IN PROGRESS
@@ -156,11 +158,12 @@ useEffect(() => {
             {isLoading ? 'Searching...' : 'Find Adventures'}
           </button>
         </div>
-        <div>
+        <div className='map-list-section'>
+        <div className='map-section'>
         <GoogleMap //actual map component
           mapContainerStyle={mapContainerStyle}
           center={center} //center map on selected address
-          zoom={10} //zoom in a lil so u can see
+          zoom={8} //zoom in a lil so u can see
         >
           {/* sets center marker */}
           <Marker position={center} />
@@ -200,22 +203,28 @@ useEffect(() => {
           ))}
         </GoogleMap>
         </div>
+        </div>
       </LoadScript>
       
+      <div className='list-column'>
       {/* SAMPLE MAPPED OUT ADVENTURES */}
       {adventures.length > 0 && (
         <div className="adventure-list">
           <h3>Adventures within 20 miles</h3>
           <ul>
             {adventures.map(adventure => (
-              <li key={adventure.id}>
-                {adventure.activity_name} - {adventure.address},
-                {adventure.distance && ` - ${adventure.distance.toFixed(1)} miles`}
-              </li>
+              <div key={adventure.id}>
+                {/* {adventure.activity_name} - {adventure.address},
+                <p>{adventure.cost_id}</p>   
+                {adventure.distance && ` - ${adventure.distance.toFixed(1)} miles`} */}
+                <AdventureItem key={adventure.id} adventure={adventure} />
+              </div>
+              
             ))}
           </ul>
         </div>
       )}
+    </div>
     </div>
   );
 }

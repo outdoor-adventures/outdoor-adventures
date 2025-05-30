@@ -1,4 +1,4 @@
-/* .browse-adventures-title {
+.browse-adventures-title {
     display: flex;
     border-style: solid;
     border-width: 1px;
@@ -6,7 +6,7 @@
     width: 100%;
     margin-top: 20px;
     margin-bottom: 50px;
-} */
+}
 
 /* body {
     min-width: 800px;
@@ -27,8 +27,6 @@
 .map-list-container {
     display: flex;
     flex-wrap: nowrap;
-    border-style: solid;
-    border-width: 5px;
     height: 1500px;
     width: 100%;
     margin-bottom: 50px;
@@ -54,7 +52,7 @@
     border-style: solid;
     border-width: 1px;
     height: 100%;;
-    width: 50%;
+    width: 100%;
     margin-top: 5px;
     margin-bottom: 50px;
     padding: 30px;

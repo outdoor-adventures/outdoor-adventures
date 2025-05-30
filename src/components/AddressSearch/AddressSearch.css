@@ -1,0 +1,35 @@
+.search-box-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+
+
+
+.adventure-list {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1rem;
+    margin: 1rem 0;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    background-color: #fff;
+}
+
+.map-list-section {
+    display: flex;
+    flex-direction: row;
+
+}
+
+.map-section {
+    width: 70vw;
+    flex: 3;
+}
+
+.list-column {
+    flex: 1;
+    width: 30vw;
+}
