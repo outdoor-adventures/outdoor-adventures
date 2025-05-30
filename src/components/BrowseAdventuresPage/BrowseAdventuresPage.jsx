@@ -6,7 +6,7 @@ import Footer from '../Footer/Footer';
 export default function BrowseAdventuresPage() {
   return (
     <>
-    <body>
+
     {/* <div className='browse-adventures-title'>BrowseAdventuresPage</div> */}
     <div className='browse-adventures-page'>
 
@@ -36,7 +36,7 @@ export default function BrowseAdventuresPage() {
 
 
     </div>
-    </body>
+
     </>
 
   )
