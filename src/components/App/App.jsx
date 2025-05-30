@@ -14,6 +14,7 @@ import NewsletterSignUp from '../NewsletterSignUp/NewsletterSignUp';
 import AboutUs from '../AboutUs/AboutUs';
 import AddAdventureForm from '../AddAdventureForm/AddAdventureForm';
 import UserPage from '../UserPage/UserPage';
+import Footer from '../Footer/Footer';
 
 function App() {
     const user = useStore((state) => state.user);
@@ -34,6 +35,12 @@ function App() {
                         exact
                         path="/browse"
                         element={<BrowseAdventuresPage />}
+                    />
+
+                    <Route
+                        exact
+                        path="/contact"
+                        element={<ContactUs />}
                     />
 
                     <Route
@@ -105,6 +112,7 @@ function App() {
                     <Route exact path="/user" element={<UserPage />} />
                     <Route path="*" element={<h2>404 Page</h2>} />
                 </Routes>
+                <Footer />
             </main>
         </>
     );

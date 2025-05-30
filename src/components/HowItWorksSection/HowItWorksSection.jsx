@@ -1,11 +1,14 @@
 import React from 'react';
+import StaticMap from '../StaticMap/StaticMap';
+import './HowItWorksSection.css';
+
 
 const HowItWorksSection = () => {
     return (
         // Top‐level section wrapper
         <section className="how-it-works">
             {/* Section heading */}
-            <h2 className="hiw-title">How it Works</h2>
+            <h2 className="section-header">How it Works</h2>
 
             {/* Flex container: holds the info cards on the left and the map on the right */}
             <div className="hiw-content">
@@ -35,7 +38,8 @@ const HowItWorksSection = () => {
 
                 {/* Right column: static map preview */}
                 <div className="hiw-map">
-                    <img src="#" alt="Map preview" className="hiw-map-img" />
+                    {/* <img src="#" alt="Map preview" className="hiw-map-img" /> !!CSS comment out to remove title */}
+                    <StaticMap />
                 </div>
             </div>
         </section>
