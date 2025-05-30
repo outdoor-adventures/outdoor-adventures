@@ -1,0 +1,37 @@
+.location-search {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  /* Match dropdown/input styles */
+  .location-search input[type="text"] {
+    background-color: rgb(232, 240, 255);
+    border: 1px solid rgb(18, 37, 72);
+    color: rgb(18, 37, 72);
+    font-family: 'Rockwell', serif;
+    padding: 0.5em 1em;
+    border-radius: 6px;
+    font-size: 1rem;
+    width: 1025px;
+  }
+  
+  /* Match button styles */
+  .location-search button {
+    font-family: 'Rockwell', serif;
+    background-color: rgb(18, 37, 72);
+    color: rgb(210, 224, 250);
+    border: 1px solid rgb(210, 224, 250);
+    padding: 0.5em 1em;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    width: 220px;
+  }
+  
+  .location-search button:hover {
+    background-color: rgb(210, 224, 250);
+    color: rgb(18, 37, 72);
+  }
+  

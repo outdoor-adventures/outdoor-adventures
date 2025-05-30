@@ -2,13 +2,13 @@
 .browse-adventures-page {
     background-color: rgb(0, 83, 21);
     min-height: 100vh;
-    padding-top: 130px;
+    padding-top: 170px;
     padding-left: 1rem;
     padding-right: 1rem;
+    padding-bottom: 20px;
     box-sizing: border-box;
   }
   
-  /* Horizontal bar under navbar for filters */
   .search-container {
     display: flex;
     justify-content: center;
@@ -31,9 +31,30 @@
     padding: 0.5em 1em;
     border-radius: 6px;
     font-size: 1rem;
+    width: 220px !important;
+  }
+
+  .search-container button,
+  .search-container .find-adventure-button  {
+    font-family: 'Rockwell', serif;
+    background-color: rgb(18, 37, 72);
+    color: rgb(210, 224, 250);
+    border: 1px solid rgb(210, 224, 250);
+    padding: 0.5em 1em;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    width: 220px;
   }
   
-  /* Map + List container (side by side) */
+  .search-container button:hover, 
+  .search-container .find-adventure-button  {
+    background-color: rgb(210, 224, 250);
+    color: rgb(18, 37, 72);
+  }
+  
+  /* Map + List container*/
   .map-list-container {
     display: flex;
     gap: 1.5rem;
@@ -46,7 +67,7 @@
   
   /* Map section */
   .map-container {
-    flex: 1;
+    flex: 3;
     background-color: rgb(208, 221, 245);
     padding: 1rem;
     border-radius: 8px;
@@ -65,7 +86,7 @@
   
   /* List section */
   .adventure-list-container {
-    flex: 1;
+    flex: 1.5;
     background-color: rgb(208, 221, 245);
     padding: 1rem;
     border-radius: 8px;
