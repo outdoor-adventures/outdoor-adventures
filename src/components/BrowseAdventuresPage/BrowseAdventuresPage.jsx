@@ -31,9 +31,7 @@ export default function BrowseAdventuresPage() {
 
     </div>
 
-    <div className='footer'>
-      <Footer />
-    </div>
+
 
 
 
