@@ -1,27 +1,28 @@
 import React from 'react'
 import "./BrowseAdventures.css";
 import AddressSearch from '../AddressSearch/AddressSearch';
+import Footer from '../Footer/Footer';
 
 export default function BrowseAdventuresPage() {
   return (
     <>
+    <body>
     {/* <div className='browse-adventures-title'>BrowseAdventuresPage</div> */}
     <div className='browse-adventures-page'>
 
-    <body>
+
 
     <div className='search-container'>
       Search / Filters Container
-
-      <div className='search-bar' input type="text" placeholder="Search.." name="search">
-      </div>
     </div>
+    
+
 
     <div className='map-list-container'>
-      <AddressSearch />
+
 
         <div className='map-container'>
-          Map Container
+          <AddressSearch />
         </div>
 
         <div className='adventure-list-container'>
@@ -31,12 +32,13 @@ export default function BrowseAdventuresPage() {
     </div>
 
     <div className='footer'>
-      Footer
+      <Footer />
     </div>
 
+
+
+    </div>
     </body>
-
-    </div>
     </>
 
   )

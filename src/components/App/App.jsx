@@ -37,6 +37,12 @@ function App() {
 
                     <Route
                         exact
+                        path="/contact"
+                        element={<ContactUs />}
+                    />
+
+                    <Route
+                        exact
                         path="/add-adventure"
                         element={
                             user.id ? (
