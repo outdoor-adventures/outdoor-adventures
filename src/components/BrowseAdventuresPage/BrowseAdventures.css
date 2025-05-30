@@ -1,3 +1,81 @@
+/* Background color for entire page */
+.browse-adventures-page {
+    background-color: rgb(0, 83, 21);
+    min-height: 100vh;
+    padding-top: 130px;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    box-sizing: border-box;
+  }
+  
+  /* Horizontal bar under navbar for filters */
+  .search-container {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    padding: 1rem;
+    background-color: rgb(210, 224, 250);
+    border: none;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+  }
+  
+  /* Drop-down styling */
+  .search-container select,
+  .search-container input[type="text"] {
+    background-color: rgb(232, 240, 255);
+    border: 1px solid rgb(18, 37, 72);
+    color: rgb(18, 37, 72);
+    font-family: 'Rockwell', serif;
+    padding: 0.5em 1em;
+    border-radius: 6px;
+    font-size: 1rem;
+  }
+  
+  /* Map + List container (side by side) */
+  .map-list-container {
+    display: flex;
+    gap: 1.5rem;
+    width: 100%;
+    height: auto;
+    border: none;
+    margin-bottom: 2rem;
+    box-sizing: border-box;
+  }
+  
+  /* Map section */
+  .map-container {
+    flex: 1;
+    background-color: rgb(208, 221, 245);
+    padding: 1rem;
+    border-radius: 8px;
+    border: none;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .map-container > div,
+  .map-container iframe,
+  .map-container .google-map {
+    flex-grow: 1;
+    width: 100%;
+    height: 100%;
+  }
+  
+  /* List section */
+  .adventure-list-container {
+    flex: 1;
+    background-color: rgb(208, 221, 245);
+    padding: 1rem;
+    border-radius: 8px;
+    border: none;
+    color: rgb(18, 37, 72);
+    font-family: 'Rockwell', serif;
+  }
+  
+
+/* I commented out previous css so I could see differences and not run into conflicts with mine -NK */
 /* .browse-adventures-title {
     display: flex;
     border-style: solid;
@@ -13,7 +91,7 @@
 
 } */
 
-.search-container {
+/* .search-container {
     display: flex;
     border-style: solid;
     border-width: 1px;
@@ -66,4 +144,4 @@
     height: 10rem;
     width: 100%;
     margin-top: 30px;
-}
+} */
