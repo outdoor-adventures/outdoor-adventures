@@ -1,0 +1,85 @@
+.register-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-image: url('/mountains-3661319_1920.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    padding-top: 120px;
+  }
+  
+  .register-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    justify-content: center; 
+    background-color: rgba(210, 224, 250, 0.8);
+    border-radius: 12px;
+    padding: 2em;
+    width: 320px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(210, 224, 250, 0.6);
+  }
+  
+  .register-box h2 {
+    text-align: center;
+    margin-bottom: 1em;
+    color: rgb(18, 37, 72);
+  }
+  
+  .register-box label {
+    width: 100%;
+    text-align: left;
+    margin-bottom: 0.5em;
+    color: rgb(18, 37, 72);
+  }
+  
+  .register-box input[type="text"],
+  .register-box input[type="password"] {
+    width: 100%;
+    padding: 0.75em;
+    margin-bottom: 1em;
+    border-radius: 6px;
+    border: 1px solid rgb(18, 37, 72);
+    background-color: rgb(210, 224, 250);
+    color: rgb(18, 37, 72);
+    font-family: 'Rockwell', serif;
+  }
+  
+  .register-box input::placeholder {
+    color: rgba(18, 37, 72, 0.5);
+  }
+  
+  /* Button Styles */
+  .button-group {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+  }
+  
+  .button-register2 {
+    font-family: 'Rockwell', serif;
+    background-color: rgb(18, 37, 72);
+    color: rgb(210, 224, 250);
+    border: 1px solid rgb(210, 224, 250);
+    padding: 0.75em 1.5em;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  
+  .button-register2:hover {
+    background-color: rgb(210, 224, 250);
+    color: rgb(18, 37, 72);
+  }
+
+  .button-register2 {
+    width: 100%;
+    max-width: 200px;
+    font-size: 1em;
+    padding: .5em 1em;
+  }
