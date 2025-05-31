@@ -44,7 +44,7 @@ function AddressSearch() {
   const [costs, setCosts] = useState([]);
 
   //used for infoOpen
-  const [infoOpen, setInfoOpen] = useState(false)
+  const [infoOpen, setInfoOpen] = useState({});
 
 useEffect(() => {
   axios.get('/api/dropdown/category')
@@ -183,21 +183,22 @@ useEffect(() => {
               key={adventure.id}
               position={{ lat: adventure.latitude, lng: adventure.longitude }}
               title={adventure.activity_name}
-              onMouseOver={() => setInfoOpen(true)}
-              onMouseOut={() => setInfoOpen(false)}
+              onMouseOver={() => setInfoOpen(prev => ({ ...prev, [adventure.id]: true }))}
+              onMouseOut={() => setInfoOpen(prev => ({ ...prev, [adventure.id]: false }))}
             >
             {/* INFO BOX */}
-              {infoOpen && (
-                <InfoWindow onCloseClick={() => setInfoOpen(false)}>
-                  <div className='map-pin-info'>
-                    {adventure.activity_name} <br />
-                    {adventure.description} <br />
-                    {adventure.address}
-                  </div>
-                </InfoWindow>
+                {infoOpen[adventure.id] && (
+                  <InfoWindow onCloseClick={() => setInfoOpen(prev => ({ ...prev, [adventure.id]: false }))}>
+                    <div className='map-pin-info'>
+                      {adventure.activity_name} <br />
+                      {adventure.description} <br />
+                      {adventure.address}
+                    </div>
+                  </InfoWindow>
               )}
             </Marker>
           ))}
+        
         </GoogleMap>
         </div>
       </LoadScript>
