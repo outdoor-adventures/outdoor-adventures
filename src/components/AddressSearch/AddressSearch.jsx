@@ -2,13 +2,14 @@ import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import { GoogleMap, LoadScript, Marker, Circle, StandaloneSearchBox, InfoWindow } from '@react-google-maps/api';
 import './AddressSearch.css';
+import AdventureItem from '../BrowseAdventuresPage/AdventureItem/AdventureItem';
 
 // places library 
 const libraries = ["places"];
 
 // Map container style sets size of map component
 const mapContainerStyle = {
-  width: '100%',
+  width: '70vw',
   height: '400px'
 };
 
@@ -156,11 +157,11 @@ useEffect(() => {
             {isLoading ? 'Searching...' : 'Find Adventures'}
           </button>
         </div>
-        <div>
+        <div className='map-list-container'>
         <GoogleMap //actual map component
           mapContainerStyle={mapContainerStyle}
           center={center} //center map on selected address
-          zoom={10} //zoom in a lil so u can see
+          zoom={8} //zoom in a lil so u can see
         >
           {/* sets center marker */}
           <Marker position={center} />
@@ -203,19 +204,31 @@ useEffect(() => {
       </LoadScript>
       
       {/* SAMPLE MAPPED OUT ADVENTURES */}
+      <div className='list-section'>
       {adventures.length > 0 && (
         <div className="adventure-list">
           <h3>Adventures within 20 miles</h3>
-          <ul>
+
             {adventures.map(adventure => (
-              <li key={adventure.id}>
-                {adventure.activity_name} - {adventure.address},
-                {adventure.distance && ` - ${adventure.distance.toFixed(1)} miles`}
-              </li>
+              
+              <div key={adventure.id} className='adventure-card'>
+                {/* <AdventureItem adventure={adventure}/> */}
+                <div className='adventure-info'>
+                {adventure.activity_name}
+                Category: {adventure.category_name}
+                Cost: {adventure.cost_level}
+                Ability Level: {adventure.ability_level}
+                {adventure.link}
+                {adventure.address}
+                 {/* - {adventure.address},
+                {adventure.distance && ` - ${adventure.distance.toFixed(1)} miles`} */}
+              </div>
+              </div>
             ))}
-          </ul>
+
         </div>
       )}
+    </div>
     </div>
   );
 }

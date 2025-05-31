@@ -33,17 +33,24 @@ router.get('/nearby', (req, res) => {
     //if category is selected, filter by that selection. if not, dont filter.
     //distance_squared orders by closest first 
     const sqlText = `
-        SELECT *, 
-            (((latitude - $1) * (latitude - $1)) + 
-             ((longitude - $2) * (longitude - $2))) AS distance_squared
-                FROM "adventures" 
-                WHERE "status" = 'accepted'
-                AND ($3::INTEGER IS NULL OR "category_id" = $3::INTEGER)
-                AND ($4::INTEGER IS NULL OR "ability_level_id" = $4::INTEGER)
-                AND ($5::INTEGER IS NULL OR "cost_level_id" = $5::INTEGER)
-                ORDER BY distance_squared
-                LIMIT 10;
-    `;
+    SELECT *, 
+    adventures.*,
+    category_table.category_name,
+    cost_table.cost_level,
+        (((latitude - $1) * (latitude - $1)) + 
+         ((longitude - $2) * (longitude - $2))) AS distance_squared
+            FROM "adventures" 
+            JOIN "category_table" ON "adventures"."category_id" = "category_table"."id"
+            JOIN "cost_table" ON "adventures"."cost_level_id" = "cost_table"."id"
+            JOIN "ability_table" ON "adventures"."ability_level_id" = "ability_table"."id"
+
+            WHERE "status" = 'accepted'
+            AND ($3::INTEGER IS NULL OR "category_id" = $3::INTEGER)
+            AND ($4::INTEGER IS NULL OR "ability_level_id" = $4::INTEGER)
+            AND ($5::INTEGER IS NULL OR "cost_level_id" = $5::INTEGER)
+            ORDER BY distance_squared
+            LIMIT 10;
+`;
     
     pool.query(sqlText, [lat, lng, category || null, abilityLevel || null, costLevel || null])
     .then((result) => {

@@ -1,20 +1,17 @@
 import React from 'react'
 import "./BrowseAdventures.css";
 import AddressSearch from '../AddressSearch/AddressSearch';
-import Footer from '../Footer/Footer';
+import Nav from '../Nav/Nav';
+
 
 export default function BrowseAdventuresPage() {
   return (
     <>
 
+    <Nav pageTitle="Browse Adventures" />
     {/* <div className='browse-adventures-title'>BrowseAdventuresPage</div> */}
     <div className='browse-adventures-page'>
 
-
-
-    <div className='search-container'>
-      Search / Filters Container
-    </div>
     
 
 
@@ -25,9 +22,7 @@ export default function BrowseAdventuresPage() {
           <AddressSearch />
         </div>
 
-        <div className='adventure-list-container'>
-          Adventure List Container
-        </div>
+
 
     </div>
 
