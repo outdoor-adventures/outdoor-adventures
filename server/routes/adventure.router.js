@@ -124,11 +124,6 @@ router.get('/:createdby/adventures' ,(req,res) => {
 //USE THIS AS AN EXAMPLE:  http://localhost:5173/api/adventures/2/adventures
 
 
-
-
-
-
-
 //GET users favorited adventures basued off user_id
 
 
@@ -176,7 +171,7 @@ router.delete('/:id', (req, res) => {
     });
 }); //END DELETE
 
-//IN THE WORKS
+
 
 //PUT
 //UPDATED PUT ROUTE FOR DB 5/24
@@ -222,6 +217,12 @@ router.put('/:id', (req, res) => {
 })
 
 
+
+
+
+
+
+
 //POST
 //UPDATED TO LATEST DB
 router.post('/:createdby', (req, res) => {
@@ -232,17 +233,16 @@ router.post('/:createdby', (req, res) => {
 
     const created_by = req.params.createdby; 
     // not completed , hard coded the created_by user
-    const status = req.body.status;
 
 
     console.log(`testing in the post route in adventure.router.js ${created_by}`)
 
     const sqlText = `INSERT INTO "adventures" 
-    ( "category_id", "ability_level_id", "cost_level_id", "photo", "link", "activity_name", "description", "latitude", "longitude", "created_at", "created_by", "status", "address")
+    ( "category_id", "ability_level_id", "cost_level_id", "photo", "link", "activity_name", "description", "latitude", "longitude", "created_at", "created_by", "address")
     VALUES
-    ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13);`
+    ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12);`
 
-    const sqlValues = [category_id, ability_level_id, cost_level_id, photo, link, activity_name, description, latitude, longitude, created_at, created_by, status, address]
+    const sqlValues = [category_id, ability_level_id, cost_level_id, photo, link, activity_name, description, latitude, longitude, created_at, created_by, address]
 
     pool.query(sqlText, sqlValues)
     .then((result) => {

@@ -12,6 +12,11 @@ export default function BrowseAdventuresPage() {
     {/* <div className='browse-adventures-title'>BrowseAdventuresPage</div> */}
     <div className='browse-adventures-page'>
 
+
+
+    <div className='search-container'>
+      {/* Search / Filters Container -- !Commented out to remove navbar conflicts for css */}
+    </div>
     
 
 

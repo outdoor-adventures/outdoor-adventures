@@ -13,6 +13,7 @@ import ContactUs from '../ContactUs/ContactUs';
 import NewsletterSignUp from '../NewsletterSignUp/NewsletterSignUp';
 import AboutUs from '../AboutUs/AboutUs';
 import AddAdventureForm from '../AddAdventureForm/AddAdventureForm';
+import UserPage from '../UserPage/UserPage';
 import Footer from '../Footer/Footer';
 
 function App() {
@@ -108,7 +109,7 @@ function App() {
                     />
                     {/* ----------- */}
                     <Route exact path="/about" element={<AboutUs />} />
-
+                    <Route exact path="/user" element={<UserPage />} />
                     <Route path="*" element={<h2>404 Page</h2>} />
                 </Routes>
                 <Footer />
