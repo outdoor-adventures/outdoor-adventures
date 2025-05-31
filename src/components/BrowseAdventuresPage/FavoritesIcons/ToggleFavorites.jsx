@@ -4,18 +4,30 @@ import React from 'react'
 import Liked from "../../../../liked.png"
 import Like from "../../../../like.png"
 
-export default function ToggleFavorites(liked) {
+export default function ToggleFavorites({ like, handleChangeFavorited }) {
   return (
     <>
     <div className='toggle-wrapper'>
-        {/* <FavoriteIcon className="not-liked"/>
-        <FavoritedIcon className="liked" /> */}
-        {liked ? (
-        <img className='like' src={Like} alt="like-button" style={{width: '6vw'}} />
+
+{/* setting the toggle for button to be liked/unliked. Images will change with onclick */}
+
+        {like ? (
+
+            <img className='liked' 
+            src={Liked} 
+            alt="liked-button" 
+            style={{width: '6vw'}} 
+            onClick={() => handleChangeFavorited} />
+
 
         ) : (
 
-        <img className='liked' src={Liked} alt="liked-button" style={{width: '6vw'}} />
+
+            <img className='like'
+            src={Like} 
+            alt="like-button" 
+            style={{width: '6vw'}}
+            onClick={() => handleChangeFavorited} />
 
         )}
 

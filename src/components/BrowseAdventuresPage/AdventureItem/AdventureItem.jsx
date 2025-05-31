@@ -2,15 +2,21 @@ import React from 'react';
 import './AdventureItem.css';
 import ToggleFavorites from '../FavoritesIcons/ToggleFavorites';
 import { useState } from 'react';
+import axios from 'axios';
 
 
 const AdventureItem = ({adventure}) => {
 
-  const [liked, setLiked] = useState(false);
+  const [like, setLike] = useState(false);
 
-  const handleChangeFavorited = () => {
-    setLiked((previousButton) => {
-      return !previousButton;
+  const handleChangeFavorited = (id) => {
+    axios.put(`/api/adventures/${id}`)
+    .then((response) => {
+      console.log('Adventure Liked');
+    })
+    .catch((error) => {
+      console.log('GET /api/adventures error:', error);
+      
     });
   }
 
@@ -22,7 +28,8 @@ const AdventureItem = ({adventure}) => {
         <p>{adventure.location}</p>   
         <p>Link: {adventure.link}</p>   
         <p>{adventure.difficulty}</p>   
-          <ToggleFavorites liked={liked} handleChangeFavorited={handleChangeFavorited} />
+          
+          <ToggleFavorites like={like} handleChangeFavorited={handleChangeFavorited(adventure.id)} />
 
         <div className='cost-category-difficulty-container'>
           <div className='cost'>
