@@ -13,7 +13,7 @@ export default function BrowseAdventuresPage() {
 
 
     <div className='search-container'>
-      Search / Filters Container
+      {/* Search / Filters Container -- !Commented out to remove navbar conflicts for css */}
     </div>
     
 
