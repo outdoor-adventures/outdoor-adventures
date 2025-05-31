@@ -1,11 +1,19 @@
 import React from 'react';
 import './AdventureItem.css';
 import ToggleFavorites from '../FavoritesIcons/ToggleFavorites';
+import { useState } from 'react';
 
 
 const AdventureItem = ({adventure}) => {
 
-    
+  const [liked, setLiked] = useState(false);
+
+  const handleChangeFavorited = () => {
+    setLiked((previousButton) => {
+      return !previousButton;
+    });
+  }
+
   return (
     <div className='adventure-card'>
 
@@ -14,7 +22,7 @@ const AdventureItem = ({adventure}) => {
         <p>{adventure.location}</p>   
         <p>Link: {adventure.link}</p>   
         <p>{adventure.difficulty}</p>   
-        <ToggleFavorites />
+          <ToggleFavorites liked={liked} handleChangeFavorited={handleChangeFavorited} />
 
         <div className='cost-category-difficulty-container'>
           <div className='cost'>

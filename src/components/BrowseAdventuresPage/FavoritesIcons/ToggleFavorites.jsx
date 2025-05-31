@@ -1,14 +1,24 @@
 import React from 'react'
-import FavoriteIcon from './FavoriteIcon';
-import FavoritedIcon from './FavoriteIcon';
+// import FavoriteIcon from './FavoriteIcon';
+// import FavoritedIcon from './FavoritedIcon';
+import Liked from "../../../../liked.png"
+import Like from "../../../../like.png"
 
-export default function ToggleFavorites() {
+export default function ToggleFavorites(liked) {
   return (
     <>
     <div className='toggle-wrapper'>
-        <img className="favorite-icon" src={FavoriteIcon} alt='unfavorited' />
+        {/* <FavoriteIcon className="not-liked"/>
+        <FavoritedIcon className="liked" /> */}
+        {liked ? (
+        <img className='like' src={Like} alt="like-button" style={{width: '6vw'}} />
 
-        <img className="favorited-icon" src={FavoritedIcon} alt='favorited' />
+        ) : (
+
+        <img className='liked' src={Liked} alt="liked-button" style={{width: '6vw'}} />
+
+        )}
+
     </div>
     </>
   )

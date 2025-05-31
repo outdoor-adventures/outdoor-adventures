@@ -3,7 +3,6 @@ import "./BrowseAdventures.css";
 import AddressSearch from '../AddressSearch/AddressSearch';
 import Footer from '../Footer/Footer';
 import Nav from '../Nav/Nav';
-import AdventuresList from './AdventuresList/AdventuresList';
 
 export default function BrowseAdventuresPage() {
 

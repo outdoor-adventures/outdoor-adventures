@@ -1,10 +1,10 @@
 import React from 'react';
-import LikeButton from '../../../../like.png'
+import like from '../../../../like.png'
 
 export default function FavoritedIcon() {
   return (
     <div>
-        <img src={LikeButton} className='favorite-icon'></img>
+        <img src={like} alt="favorite" className='favorite-icon' style={{ width: '5vw'}}></img>
     </div>
   )
 }
