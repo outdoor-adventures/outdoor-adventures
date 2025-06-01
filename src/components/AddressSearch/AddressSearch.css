@@ -29,9 +29,34 @@
     cursor: pointer;
     width: 220px;
   }
+
+  .list-section {
+    position: absolute;
+    width: 30%;
+    height: 100%;
+    background-color: antiquewhite;
+    right: 10px;
+    top: 210px;
+    padding: 30px;
+    align-items: center;
+    justify-content: center;
+  }
   
   .location-search button:hover {
     background-color: rgb(210, 224, 250);
     color: rgb(18, 37, 72);
   }
-  
+
+ .adventure-card {
+    height: 100vw;
+    position: absolute;
+    width: 100%;
+ }
+ 
+ .adventure-info {
+    display: block;
+ }
+
+ .map-list-container {
+    width: 65%;
+ }

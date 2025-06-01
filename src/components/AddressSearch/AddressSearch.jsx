@@ -6,7 +6,7 @@ import './AddressSearch.css';
 
 // Map container style sets size of map component
 const mapContainerStyle = {
-  width: '100%',
+  width: '60vw',
   height: '400px'
 };
 
@@ -154,13 +154,14 @@ useEffect(() => {
             {isLoading ? 'Searching...' : 'Find Adventures'}
           </button>
         </div>
-        <div>
-      
+
+        <div className='map-list-container'>
         <GoogleMap //actual map component
           mapContainerStyle={mapContainerStyle}
           center={centerRef.current} //center map on selected address
-          zoom={9} //zoom in a lil so u can see
+          zoom={8} //zoom in a lil so u can see
         >
+            
           {/* sets center marker */}
           <Marker position={centerRef.current} />
           
@@ -204,20 +205,36 @@ useEffect(() => {
         </GoogleMap>
         </div>
       
+      <div className='list-column'>
       {/* SAMPLE MAPPED OUT ADVENTURES */}
+      <div className='list-section'>
       {adventures.length > 0 && (
         <div className="adventure-list">
           <h3>Adventures within 20 miles</h3>
-          <ul>
+
             {adventures.map(adventure => (
-              <li key={adventure.id}>
-                {adventure.activity_name} - {adventure.address},
-                {adventure.distance && ` - ${adventure.distance.toFixed(1)} miles`}
-              </li>
+              
+              <div key={adventure.id} className='adventure-card'>
+                {/* <AdventureItem adventure={adventure}/> */}
+                <div className='adventure-info'>
+
+                    <p>{adventure.activity_name}</p>
+                    <p>Category: {adventure.category_name}</p>
+                    <p>Cost: {adventure.cost_level}</p>
+                    <p>Ability Level: {adventure.ability_level}</p>
+                    <p>{adventure.link}</p>
+                    <p>{adventure.address}</p>
+                    {/* <ToggleFavorites /> */}
+                    {/* - {adventure.address},
+                    {adventure.distance && ` - ${adventure.distance.toFixed(1)} miles`} */}
+
+                </div>
+              </div>
             ))}
-          </ul>
         </div>
       )}
+    </div>
+    </div>
     </div>
   );
 }

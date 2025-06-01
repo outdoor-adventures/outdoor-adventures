@@ -107,6 +107,7 @@ const PendingAdventure = () => {
     // Main render
     return (
         <section className="pending-page">
+            <span></span>
             <header className="pending-header">
                 <h1>Pending Adventures</h1>
             </header>
