@@ -51,6 +51,7 @@ const UserPage = () => {
 
     return (
         <section className="user-page">
+            <span></span>
             <Nav pageTitle="My Adventure Page" />
             <div className="user-page__home">
                 <Link to="/" aria-label="Home" className="home-button">
