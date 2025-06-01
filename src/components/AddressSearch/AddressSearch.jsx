@@ -1,10 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
-import { GoogleMap, LoadScript, Marker, Circle, StandaloneSearchBox, InfoWindow } from '@react-google-maps/api';
+import { GoogleMap, Marker, Circle, StandaloneSearchBox, InfoWindow } from '@react-google-maps/api';
 import './AddressSearch.css';
-
-// places library 
-const libraries = ["places"];
 
 // Map container style sets size of map component
 const mapContainerStyle = {
@@ -32,6 +29,7 @@ function AddressSearch() {
   const [radius] = useState(32187); // 20 miles in meters
   const [isLoading, setIsLoading] = useState(false); //indicates loading state
   const searchBoxRef = useRef(null); //references the google maps api autocomplete search bar
+  const centerRef = useRef(center); //looks weird but using to try and prevent google maps marker re-render
 
   //FILTERS
   //handle selected filter
@@ -71,13 +69,10 @@ useEffect(() => {
         const place = places[0]; //gets first result from autocomplete section
         setAddress(place.formatted_address); //update the useState with the formatted address
         
-        // Get lat and lng from selected place/address
-        const location = place.geometry.location;
-        const lat = location.lat();
-        const lng = location.lng();
-        
-        //changes center to selected location
-        setCenter({ lat, lng });
+        const newCenter = { lat: place.geometry.location.lat(), lng: place.geometry.location.lng() };
+
+        setCenter(newCenter); //update state
+        centerRef.current = newCenter; //updates the ref
       }
     }
   };
@@ -105,7 +100,6 @@ useEffect(() => {
 
   return (
     <div className="location-search">
-      <LoadScript googleMapsApiKey={apiKey} libraries={libraries}>
         <div className="search-box-container">
           <StandaloneSearchBox //allows user to enter an address
             onLoad={ref => searchBoxRef.current = ref}
@@ -157,13 +151,14 @@ useEffect(() => {
           </button>
         </div>
         <div>
+      
         <GoogleMap //actual map component
           mapContainerStyle={mapContainerStyle}
-          center={center} //center map on selected address
-          zoom={10} //zoom in a lil so u can see
+          center={centerRef.current} //center map on selected address
+          zoom={9} //zoom in a lil so u can see
         >
           {/* sets center marker */}
-          <Marker position={center} />
+          <Marker position={centerRef.current} />
           
           {/* 20-mile radius circle */}
           <Circle
@@ -183,7 +178,9 @@ useEffect(() => {
               key={adventure.id}
               position={{ lat: adventure.latitude, lng: adventure.longitude }}
               title={adventure.activity_name}
-              onMouseOver={() => setInfoOpen(prev => ({ ...prev, [adventure.id]: true }))}
+              onMouseOver={() => {
+                console.log('map center on mouse over', center);
+                setInfoOpen(prev => ({ ...prev, [adventure.id]: true }))}}
               onMouseOut={() => setInfoOpen(prev => ({ ...prev, [adventure.id]: false }))}
             >
             {/* INFO BOX */}
@@ -201,7 +198,6 @@ useEffect(() => {
         
         </GoogleMap>
         </div>
-      </LoadScript>
       
       {/* SAMPLE MAPPED OUT ADVENTURES */}
       {adventures.length > 0 && (
