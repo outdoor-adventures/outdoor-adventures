@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import { GoogleMap, Marker, Circle, StandaloneSearchBox, InfoWindow } from '@react-google-maps/api';
+import { useNavigate } from 'react-router-dom';
 import './AddressSearch.css';
 
 // Map container style sets size of map component
@@ -43,6 +44,9 @@ function AddressSearch() {
 
   //used for infoOpen
   const [infoOpen, setInfoOpen] = useState({});
+
+  //navigation
+  const navigate = useNavigate();
 
 useEffect(() => {
   axios.get('/api/dropdown/category')
@@ -174,18 +178,20 @@ useEffect(() => {
 
             //onMouseOver makes changes when a mouse is over the component its added too
             //onMouseOut makes changes when the mouse moves off of the component its added too
+
             <Marker
               key={adventure.id}
               position={{ lat: adventure.latitude, lng: adventure.longitude }}
               title={adventure.activity_name}
+
               onMouseOver={() => {
-                console.log('map center on mouse over', center);
                 setInfoOpen(prev => ({ ...prev, [adventure.id]: true }))}}
               onMouseOut={() => setInfoOpen(prev => ({ ...prev, [adventure.id]: false }))}
+              onClick={() => navigate(`/adventures/${adventure.id}`)}
             >
             {/* INFO BOX */}
                 {infoOpen[adventure.id] && (
-                  <InfoWindow onCloseClick={() => setInfoOpen(prev => ({ ...prev, [adventure.id]: false }))}>
+                  <InfoWindow>
                     <div className='map-pin-info'>
                       {adventure.activity_name} <br />
                       {adventure.description} <br />
@@ -195,7 +201,6 @@ useEffect(() => {
               )}
             </Marker>
           ))}
-        
         </GoogleMap>
         </div>
       
