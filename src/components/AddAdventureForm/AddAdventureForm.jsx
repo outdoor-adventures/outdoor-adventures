@@ -1,16 +1,24 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
+import useStore from '../../zustand/store'
 import './AddAdventureForm.css';
 
+//GOOGLE MAPS
+import { StandaloneSearchBox } from '@react-google-maps/api';
+//end
+
 const AddAdventureForm = () => {
+    const user = useStore((store) => store.user);
     const [formData, setFormData] = useState({
       price: '',
       category: '',
       difficulty: '',
-      location: '',
+      address: '',
       link: '',
       description: '',
       photo: null,
+      latitude: '',
+      longitude: '',
     });
     
     const [options, setOptions] = useState({
@@ -22,6 +30,10 @@ const AddAdventureForm = () => {
       const [loading, setLoading] = useState(false);
 
       const [message, setMessage] = useState('');
+
+      //GOOGLE MAPS
+      const searchBoxRef = useRef(null);
+      //end
 
       useEffect(() => {
         const fetchOptions = async () => {
@@ -65,26 +77,30 @@ const AddAdventureForm = () => {
     form.append('price', formData.price); 
     form.append('category', formData.category);
     form.append('difficulty', formData.difficulty); 
-    form.append('location', formData.location);
+    form.append('address', formData.address);
     form.append('link', formData.link);
     form.append('description', formData.description);
+    form.append('latitude', formData.latitude);
+    form.append('longitude', formData.longitude);
 
     try {
-        const response = await axios.post('/api/adventures', form, {
+        const response = await axios.post(`/api/adventures/${user.id}`, form, {
             headers: { 'Content-Type': 'multipart/form-data' },
         });
 
         // Handle successful form submission
-      console.log('Adventure submitted:', response.data);
+      console.log('Adventure submitted:', response.data, form);
       setMessage('Adventure submitted successfully!');
       setFormData({
         price: '',          
         category: '',
         difficulty: '',
-        location: '',
+        address: '',
         link: '',
         description: '',
-        photo: null,      
+        photo: null, 
+        latitude: '',
+        longitude: '',     
       });
     } catch (error) {
         // Handle any errors during form submission
@@ -94,6 +110,29 @@ const AddAdventureForm = () => {
         setLoading(false); 
       }
     };
+
+    //GOOGLE MAPS
+    const onPlacesChanged = () => {
+      if (searchBoxRef.current) {
+        const places = searchBoxRef.current.getPlaces();
+        if (places && places.length > 0) {
+          const place = places[0];
+        
+          if (place.geometry && place.geometry.location) {
+            setFormData(prev => ({
+              ...prev,
+              address: place.formatted_address,
+              latitude: place.geometry.location.lat(),
+              longitude: place.geometry.location.lng(),
+            }))
+          } else {
+            console.log('ERROR: places geometry is missing', place)
+          }
+        }
+      }
+    }
+    //end
+
     return (
         <div className="add-adventure-page">
           {/* <h2>Add New Adventure</h2> */}
@@ -113,10 +152,15 @@ const AddAdventureForm = () => {
     
             {/* Input for location */}
             <div className="form-section location-section">
-            <label>
-              Location:
-              <input type="text" name="location" value={formData.location} onChange={handleChange} required />
-            </label>
+              <StandaloneSearchBox
+              onLoad={ref => searchBoxRef.current = ref}
+              onPlacesChanged={onPlacesChanged}
+              >
+                <label>
+                  Location:
+                  <input type="text" name="address" value={formData.address} onChange={handleChange} required />
+                </label>
+              </StandaloneSearchBox>
             </div>
             {/* <br /> */}
     
