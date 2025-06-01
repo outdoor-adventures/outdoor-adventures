@@ -2,8 +2,6 @@ import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import { GoogleMap, LoadScript, Marker, Circle, StandaloneSearchBox, InfoWindow } from '@react-google-maps/api';
 import './AddressSearch.css';
-import AdventureItem from '../BrowseAdventuresPage/AdventureItem/AdventureItem';
-import ToggleFavorites from '../BrowseAdventuresPage/FavoritesIcons/ToggleFavorites';
 
 // places library 
 const libraries = ["places"];
@@ -163,6 +161,7 @@ useEffect(() => {
           mapContainerStyle={mapContainerStyle}
           center={center} //center map on selected address
           zoom={8} //zoom in a lil so u can see
+          zoom={8} //zoom in a lil so u can see
         >
           {/* sets center marker */}
           <Marker position={center} />
@@ -202,8 +201,10 @@ useEffect(() => {
           ))}
         </GoogleMap>
         </div>
-      </LoadScript>
+        </LoadScript>
+
       
+      <div className='list-column'>
       {/* SAMPLE MAPPED OUT ADVENTURES */}
       <div className='list-section'>
       {adventures.length > 0 && (
@@ -215,21 +216,23 @@ useEffect(() => {
               <div key={adventure.id} className='adventure-card'>
                 {/* <AdventureItem adventure={adventure}/> */}
                 <div className='adventure-info'>
-                <p>{adventure.activity_name}</p>
-                <p>Category: {adventure.category_name}</p>
-                <p>Cost: {adventure.cost_level}</p>
-                <p>Ability Level: {adventure.ability_level}</p>
-                <p>{adventure.link}</p>
-                <p>{adventure.address}</p>
-                {/* <ToggleFavorites /> */}
-                 {/* - {adventure.address},
-                {adventure.distance && ` - ${adventure.distance.toFixed(1)} miles`} */}
-              </div>
+
+                    <p>{adventure.activity_name}</p>
+                    <p>Category: {adventure.category_name}</p>
+                    <p>Cost: {adventure.cost_level}</p>
+                    <p>Ability Level: {adventure.ability_level}</p>
+                    <p>{adventure.link}</p>
+                    <p>{adventure.address}</p>
+                    {/* <ToggleFavorites /> */}
+                    {/* - {adventure.address},
+                    {adventure.distance && ` - ${adventure.distance.toFixed(1)} miles`} */}
+
+                </div>
               </div>
             ))}
-
         </div>
       )}
+    </div>
     </div>
     </div>
   );

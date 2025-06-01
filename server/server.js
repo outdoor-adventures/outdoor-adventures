@@ -36,6 +36,7 @@ app.use('/api/adventures', adventureRouter);
 
 //apply price, difficulty, category router
 app.use('/api/dropdown', dropdownRouter);
+app.use('/api/recent/recent', dropdownRouter);
 
 // Start the server:
 app.listen(PORT, () => {

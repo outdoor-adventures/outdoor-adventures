@@ -16,6 +16,7 @@ import AddAdventureForm from '../AddAdventureForm/AddAdventureForm';
 import UserPage from '../UserPage/UserPage';
 import Footer from '../Footer/Footer';
 
+
 function App() {
     const user = useStore((state) => state.user);
     const fetchUser = useStore((state) => state.fetchUser);

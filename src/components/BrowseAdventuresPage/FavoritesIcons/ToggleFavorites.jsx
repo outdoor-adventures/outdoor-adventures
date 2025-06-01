@@ -13,12 +13,12 @@ handleChangeFavorited = () => {
     setLiked (!isLiked);
 }
 
-
   return (
     <>
     <div className='toggle-wrapper'>
 
 {/* setting the toggle for button to be liked/unliked. Images will change with onclick */}
+
 
             <img className='liked' 
             src={Liked} 
@@ -28,21 +28,6 @@ handleChangeFavorited = () => {
 
             <br />
             <p>Favorite</p>
-
-
-        ) : (
-
-
-            <img className='like'
-            src={Like} 
-            alt="like-button" 
-            style={{ width: '3vw', minWidth: '60px', position: 'absolute', top: '1px', right: '50px' }}
-            onClick={() => handleChangeFavorited} />
-
-        )}
-
-
-
 
     </div>
     </>
