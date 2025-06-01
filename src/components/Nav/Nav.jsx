@@ -42,7 +42,7 @@ function Nav({pageTitle}) {
       { // User is logged in, render these links:
         user.id && (
           <>
-            <NavLink to="/profile" className="profile-image" >
+            <NavLink to="/user" className="profile-image" >
             <img src={prof} alt="" style={{width: '113px', marginTop: '20px'}} />
             </NavLink>
           </>

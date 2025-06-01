@@ -3,13 +3,14 @@ import axios from 'axios';
 import { GoogleMap, LoadScript, Marker, Circle, StandaloneSearchBox, InfoWindow } from '@react-google-maps/api';
 import './AddressSearch.css';
 import AdventureItem from '../BrowseAdventuresPage/AdventureItem/AdventureItem';
+import ToggleFavorites from '../BrowseAdventuresPage/FavoritesIcons/ToggleFavorites';
 
 // places library 
 const libraries = ["places"];
 
 // Map container style sets size of map component
 const mapContainerStyle = {
-  width: '70vw',
+  width: '60vw',
   height: '400px'
 };
 
@@ -214,12 +215,13 @@ useEffect(() => {
               <div key={adventure.id} className='adventure-card'>
                 {/* <AdventureItem adventure={adventure}/> */}
                 <div className='adventure-info'>
-                {adventure.activity_name}
-                Category: {adventure.category_name}
-                Cost: {adventure.cost_level}
-                Ability Level: {adventure.ability_level}
-                {adventure.link}
-                {adventure.address}
+                <p>{adventure.activity_name}</p>
+                <p>Category: {adventure.category_name}</p>
+                <p>Cost: {adventure.cost_level}</p>
+                <p>Ability Level: {adventure.ability_level}</p>
+                <p>{adventure.link}</p>
+                <p>{adventure.address}</p>
+                {/* <ToggleFavorites /> */}
                  {/* - {adventure.address},
                 {adventure.distance && ` - ${adventure.distance.toFixed(1)} miles`} */}
               </div>
