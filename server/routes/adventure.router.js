@@ -103,7 +103,7 @@ router.get('/:id', (req, res) => {
 
 //GET users adventures
 //FINISHED, WORKS WELL
-router.get('/:createdby/adventures' ,(req,res) => {
+router.get('/my/:createdby' ,(req,res) => {
     const created_by = req.params.createdby; 
     const sqlText = `
     SELECT * FROM "adventures"
@@ -123,6 +123,35 @@ router.get('/:createdby/adventures' ,(req,res) => {
 })
 //USE THIS AS AN EXAMPLE:  http://localhost:5173/api/adventures/2/adventures
 
+router.get('/my/favorites/:userId' ,(req,res) => {
+    const userId = req.params.userId; 
+    const sqlText = `
+    SELECT "activity_name", "category_name", "ability_level", "cost_level", "photo", "link", "description", "address" FROM "adventures" 
+ JOIN "favorite_adventures" 
+ ON "adventures"."id" = "favorite_adventures"."adventure_id"
+ JOIN "user" 
+ ON "favorite_adventures"."user_id" = "user"."id"
+ JOIN "category_table" 
+ ON "adventures"."category_id" = "category_table"."id"
+ JOIN "cost_table" 
+ ON "adventures"."cost_level_id" = "cost_table"."id"
+ JOIN "ability_table" 	
+ ON "adventures"."ability_level_id" = "ability_table"."id"
+ WHERE "favorite_adventures"."user_id" = $1;
+    `;
+    const sqlValues = [userId]
+
+    pool.query(sqlText, sqlValues)
+    .then((result) => {
+        console.log(`got favorite adventures from user id: ${userId}`)
+        res.send(result.rows)
+        console.log('results are:', result)
+    })
+    .catch((error) => {
+        console.log(`query ${sqlText} failed with error: ${error}`)
+        res.sendStatus(500);
+    });
+})
 
 //GET users favorited adventures basued off user_id
 
@@ -217,32 +246,28 @@ router.put('/:id', (req, res) => {
 })
 
 
-
-
-
-
-
-
 //POST
 //UPDATED TO LATEST DB
 router.post('/:createdby', (req, res) => {
     // const { id } = req.params;
-    const { category_id, activity_name, ability_level_id , cost_level_id 
-    , photo , link , description, latitude, longitude, created_at, 
-    address} = req.body;
+    const { category_id, activity_name, ability_level_id, cost_level_id, photo, link, 
+        description, latitude, longitude, address} = req.body;
 
     const created_by = req.params.createdby; 
     // not completed , hard coded the created_by user
+
+    //I know this is bad. ran out of time.
+    const status = 'pending';
 
 
     console.log(`testing in the post route in adventure.router.js ${created_by}`)
 
     const sqlText = `INSERT INTO "adventures" 
-    ( "category_id", "ability_level_id", "cost_level_id", "photo", "link", "activity_name", "description", "latitude", "longitude", "created_at", "created_by", "address")
+    ( "category_id", "ability_level_id", "cost_level_id", "photo", "link", "activity_name", "description", "latitude", "longitude", "created_by", "address", "status")
     VALUES
     ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12);`
 
-    const sqlValues = [category_id, ability_level_id, cost_level_id, photo, link, activity_name, description, latitude, longitude, created_at, created_by, address]
+    const sqlValues = [category_id, ability_level_id, cost_level_id, photo, link, activity_name, description, latitude, longitude, created_by, address, status]
 
     pool.query(sqlText, sqlValues)
     .then((result) => {
