@@ -29,7 +29,7 @@ const AddAdventureForm = () => {
                 const [priceRes, categoryRes, difficultyRes] = await Promise.all([
                     axios.get('/api/dropdown/cost'),
                     axios.get('/api/dropdown/category'),
-                    axios.get('/api/dropdowns/ability'),
+                    axios.get('/api/dropdown/ability'),
                   ]);
                   //updated the fetch option 
                   setOptions({
@@ -146,8 +146,8 @@ const AddAdventureForm = () => {
               <select name="price" value={formData.price} onChange={handleChange} required>
                 <option value="">Select Price</option>
                 {options.price.map((opt) => (
-                  <option key={opt.id} value={opt.label}>
-                    {opt.label}
+                  <option key={opt.id} value={opt.cost_level}>
+                    {opt.cost_level}
                   </option>
                 ))}
               </select>
@@ -163,8 +163,8 @@ const AddAdventureForm = () => {
               <select name="category" value={formData.category} onChange={handleChange} required>
                 <option value="">Select Category</option>
                 {options.category.map((opt) => (
-                  <option key={opt.id} value={opt.label}>
-                    {opt.label}
+                  <option key={opt.id} value={opt.category_name}>
+                    {opt.category_name}
                   </option>
                 ))}
               </select>
@@ -179,8 +179,8 @@ const AddAdventureForm = () => {
               <select name="difficulty" value={formData.difficulty} onChange={handleChange} required>
                 <option value="">Select Difficulty</option>
                 {options.difficulty.map((opt) => (
-                  <option key={opt.id} value={opt.label}>
-                    {opt.label}
+                  <option key={opt.id} value={opt.ability_level}>
+                    {opt.ability_level}
                   </option>
                 ))}
               </select>
