@@ -1,0 +1,191 @@
+/* PendingAdventure.css */
+
+body {
+    font-family: 'Rockwell', serif;
+}
+
+/* Overall page wrapper: dark‐green background (rgb(0, 83, 21)) */
+.pending-page {
+    background-color: rgb(0, 83, 21);
+    min-height: 100vh;
+    padding: 32px;
+    box-sizing: border-box;
+
+    /* Center content horizontally and vertically */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Header */
+.pending-header {
+    background-color: rgb(208, 221, 245);
+    text-align: center;
+    padding: 24px 0;
+    width: 100%;
+}
+
+.pending-header h1 {
+    margin: 0;
+    font-size: 68px;
+    color: rgb(19, 39, 75);
+}
+
+/* Stripe */
+.pending-stripe {
+    /* background-color: rgb(208, 221, 245); */
+    background-color: #aec5cd;
+    height: 16px;
+    width: 100%;
+    margin-bottom: 32px;
+}
+
+/* Grid: centered and responsive */
+.pending-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 60px;
+    list-style: none;
+    padding: 0;
+    margin: 0 auto;
+    max-width: 1200px;
+    width: 100%;
+    justify-items: center;
+}
+
+/* Remove default list styles */
+.pending-grid li {
+    margin: 0;
+    padding: 0;
+}
+
+/* Card styling */
+.pending-card {
+    background-color: rgb(232, 240, 255);
+    padding: 20px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+/* Card title */
+.card-title {
+    background-color: rgb(208, 221, 245);
+    border: 2px solid rgb(19, 39, 75);
+    text-align: center;
+    font-size: 20px;
+    color: rgb(19, 39, 75);
+    padding: 8px 0;
+    margin-bottom: 16px;
+    font-weight: bold;
+}
+
+/* Top row: image and selects */
+.card-top {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 16px;
+    align-items: stretch;
+}
+
+.card-top-left {
+    flex: 0 0 144px;
+    height: 144px;
+    border: 2px solid rgb(19, 39, 75);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    height: auto;
+}
+.card-top-left img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+}
+.card-top-right {
+    flex: 1;
+    display: flex;
+}
+.card-top-right-box {
+    border: 2px solid rgb(19, 39, 75);
+    padding: 8px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: rgb(232, 240, 255);
+}
+
+/* Fields */
+.field {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 8px;
+}
+.field:last-child {
+    margin-bottom: 0;
+}
+.field label {
+    font-size: 14px;
+    color: rgb(19, 39, 75);
+    margin-bottom: 4px;
+}
+select,
+input,
+textarea {
+    font-size: 14px;
+    padding: 6px;
+    border: 2px solid rgb(19, 39, 75);
+    background-color: rgb(232, 240, 255);
+    color: rgb(19, 39, 75);
+    box-sizing: border-box;
+    border-radius: inherit;
+}
+.field.description textarea {
+    width: 100%;
+    resize: none;
+}
+.card-top + .field {
+    margin-top: 16px;
+}
+
+/* Buttons */
+.card-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 16px;
+}
+.btn {
+    font-size: 20px;
+    background-color: rgb(19, 39, 75);
+    color: #ffffff;
+    padding: 12px 0;
+    border: none;
+    cursor: pointer;
+    border-radius: inherit;
+}
+.btn.accept:hover {
+    background-color: #0e2a4a;
+}
+.btn.delete:hover {
+    background-color: #8b0000;
+}
+
+/* Responsive: stack cards */
+@media (max-width: 960px) {
+    .pending-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (max-width: 640px) {
+    .pending-grid {
+        grid-template-columns: 1fr;
+    }
+}
