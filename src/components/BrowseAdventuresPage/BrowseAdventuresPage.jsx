@@ -8,37 +8,19 @@ export default function BrowseAdventuresPage() {
   
   return (
     <>
-          <Nav pageTitle="Browse Adventures" />
 
     <Nav pageTitle="Browse Adventures" />
-    {/* <div className='browse-adventures-title'>BrowseAdventuresPage</div> */}
-    <div className='browse-adventures-page'>
 
-
-    <div className='search-container'>
-      {/* Search / Filters Container -- !Commented out to remove navbar conflicts for css */}
-    </div>
     
-
-
-    <div className='map-list-container'>
-
-
-
-        <div className='map-container'>
+    
+    <div className='browse-adventures-page'>
           <AddressSearch />
-        </div>
-
-
-
-
     </div>
 
 
 
 
 
-    </div>
 
     </>
 

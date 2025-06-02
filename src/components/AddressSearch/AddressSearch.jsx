@@ -7,7 +7,7 @@ import './AddressSearch.css';
 // Map container style sets size of map component
 const mapContainerStyle = {
   width: '60vw',
-  height: '400px'
+  height: '40vw'
 };
 
 // Circle options for 20-mile radius IN PROGRESS
@@ -203,7 +203,7 @@ useEffect(() => {
             </Marker>
           ))}
         </GoogleMap>
-        </div>
+
       
       <div className='list-column'>
       {/* SAMPLE MAPPED OUT ADVENTURES */}
@@ -233,6 +233,7 @@ useEffect(() => {
             ))}
         </div>
       )}
+    </div>
     </div>
     </div>
     </div>

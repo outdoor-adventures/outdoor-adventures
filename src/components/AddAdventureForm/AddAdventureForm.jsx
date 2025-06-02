@@ -39,9 +39,9 @@ const AddAdventureForm = () => {
         const fetchOptions = async () => {
             try {
                 const [priceRes, categoryRes, difficultyRes] = await Promise.all([
-                    axios.get('/api/dropdown/cost'),
-                    axios.get('/api/dropdown/category'),
-                    axios.get('/api/dropdown/ability'),
+                    axios.get('/api/adventures/options/price'),
+                    axios.get('/api/adventures/options/category'),
+                    axios.get('/api/adventures/options/difficulty'),
                   ]);
                   //updated the fetch option 
                   setOptions({
@@ -190,8 +190,8 @@ const AddAdventureForm = () => {
               <select name="price" value={formData.price} onChange={handleChange} required>
                 <option value="">Select Price</option>
                 {options.price.map((opt) => (
-                  <option key={opt.id} value={opt.cost_level}>
-                    {opt.cost_level}
+                  <option key={opt.id} value={opt.label}>
+                    {opt.label}
                   </option>
                 ))}
               </select>
@@ -207,8 +207,8 @@ const AddAdventureForm = () => {
               <select name="category" value={formData.category} onChange={handleChange} required>
                 <option value="">Select Category</option>
                 {options.category.map((opt) => (
-                  <option key={opt.id} value={opt.category_name}>
-                    {opt.category_name}
+                  <option key={opt.id} value={opt.label}>
+                    {opt.label}
                   </option>
                 ))}
               </select>
@@ -223,8 +223,8 @@ const AddAdventureForm = () => {
               <select name="difficulty" value={formData.difficulty} onChange={handleChange} required>
                 <option value="">Select Difficulty</option>
                 {options.difficulty.map((opt) => (
-                  <option key={opt.id} value={opt.ability_level}>
-                    {opt.ability_level}
+                  <option key={opt.id} value={opt.label}>
+                    {opt.label}
                   </option>
                 ))}
               </select>
