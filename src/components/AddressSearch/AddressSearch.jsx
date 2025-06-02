@@ -1,15 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
-import { GoogleMap, LoadScript, Marker, Circle, StandaloneSearchBox, InfoWindow } from '@react-google-maps/api';
+import { GoogleMap, Marker, Circle, StandaloneSearchBox, InfoWindow } from '@react-google-maps/api';
+import { useNavigate } from 'react-router-dom';
 import './AddressSearch.css';
-
-// places library 
-const libraries = ["places"];
 
 // Map container style sets size of map component
 const mapContainerStyle = {
-  width: '100%',
-  height: '400px'
+  width: '60vw',
+  height: '40vw'
 };
 
 // Circle options for 20-mile radius IN PROGRESS
@@ -32,6 +30,7 @@ function AddressSearch() {
   const [radius] = useState(32187); // 20 miles in meters
   const [isLoading, setIsLoading] = useState(false); //indicates loading state
   const searchBoxRef = useRef(null); //references the google maps api autocomplete search bar
+  const centerRef = useRef(center); //looks weird but using to try and prevent google maps marker re-render
 
   //FILTERS
   //handle selected filter
@@ -44,7 +43,10 @@ function AddressSearch() {
   const [costs, setCosts] = useState([]);
 
   //used for infoOpen
-  const [infoOpen, setInfoOpen] = useState(false)
+  const [infoOpen, setInfoOpen] = useState({});
+
+  //navigation
+  const navigate = useNavigate();
 
 useEffect(() => {
   axios.get('/api/dropdown/category')
@@ -71,13 +73,10 @@ useEffect(() => {
         const place = places[0]; //gets first result from autocomplete section
         setAddress(place.formatted_address); //update the useState with the formatted address
         
-        // Get lat and lng from selected place/address
-        const location = place.geometry.location;
-        const lat = location.lat();
-        const lng = location.lng();
-        
-        //changes center to selected location
-        setCenter({ lat, lng });
+        const newCenter = { lat: place.geometry.location.lat(), lng: place.geometry.location.lng() };
+
+        setCenter(newCenter); //update state
+        centerRef.current = newCenter; //updates the ref
       }
     }
   };
@@ -105,7 +104,6 @@ useEffect(() => {
 
   return (
     <div className="location-search">
-      <LoadScript googleMapsApiKey={apiKey} libraries={libraries}>
         <div className="search-box-container">
           <StandaloneSearchBox //allows user to enter an address
             onLoad={ref => searchBoxRef.current = ref}
@@ -156,14 +154,16 @@ useEffect(() => {
             {isLoading ? 'Searching...' : 'Find Adventures'}
           </button>
         </div>
-        <div>
+
+        <div className='map-list-container'>
         <GoogleMap //actual map component
           mapContainerStyle={mapContainerStyle}
-          center={center} //center map on selected address
-          zoom={10} //zoom in a lil so u can see
+          center={centerRef.current} //center map on selected address
+          zoom={8} //zoom in a lil so u can see
         >
+            
           {/* sets center marker */}
-          <Marker position={center} />
+          <Marker position={centerRef.current} />
           
           {/* 20-mile radius circle */}
           <Circle
@@ -179,43 +179,63 @@ useEffect(() => {
 
             //onMouseOver makes changes when a mouse is over the component its added too
             //onMouseOut makes changes when the mouse moves off of the component its added too
+
             <Marker
               key={adventure.id}
               position={{ lat: adventure.latitude, lng: adventure.longitude }}
               title={adventure.activity_name}
-              onMouseOver={() => setInfoOpen(true)}
-              onMouseOut={() => setInfoOpen(false)}
+
+              onMouseOver={() => {
+                setInfoOpen(prev => ({ ...prev, [adventure.id]: true }))}}
+              onMouseOut={() => setInfoOpen(prev => ({ ...prev, [adventure.id]: false }))}
+              onClick={() => navigate(`/adventures/${adventure.id}`)}
             >
             {/* INFO BOX */}
-              {infoOpen && (
-                <InfoWindow onCloseClick={() => setInfoOpen(false)}>
-                  <div className='map-pin-info'>
-                    {adventure.activity_name} <br />
-                    {adventure.description} <br />
-                    {adventure.address}
-                  </div>
-                </InfoWindow>
+                {infoOpen[adventure.id] && (
+                  <InfoWindow>
+                    <div className='map-pin-info'>
+                      {adventure.activity_name} <br />
+                      {adventure.description} <br />
+                      {adventure.address}
+                    </div>
+                  </InfoWindow>
               )}
             </Marker>
           ))}
         </GoogleMap>
-        </div>
-      </LoadScript>
+
       
+      <div className='list-column'>
       {/* SAMPLE MAPPED OUT ADVENTURES */}
+      <div className='list-section'>
       {adventures.length > 0 && (
         <div className="adventure-list">
           <h3>Adventures within 20 miles</h3>
-          <ul>
+
             {adventures.map(adventure => (
-              <li key={adventure.id}>
-                {adventure.activity_name} - {adventure.address},
-                {adventure.distance && ` - ${adventure.distance.toFixed(1)} miles`}
-              </li>
+              
+              <div key={adventure.id} className='adventure-card'>
+                {/* <AdventureItem adventure={adventure}/> */}
+                <div className='adventure-info'>
+
+                    <p>{adventure.activity_name}</p>
+                    <p>Category: {adventure.category_name}</p>
+                    <p>Cost: {adventure.cost_level}</p>
+                    <p>Ability Level: {adventure.ability_level}</p>
+                    <p>{adventure.link}</p>
+                    <p>{adventure.address}</p>
+                    {/* <ToggleFavorites /> */}
+                    {/* - {adventure.address},
+                    {adventure.distance && ` - ${adventure.distance.toFixed(1)} miles`} */}
+
+                </div>
+              </div>
             ))}
-          </ul>
         </div>
       )}
+    </div>
+    </div>
+    </div>
     </div>
   );
 }

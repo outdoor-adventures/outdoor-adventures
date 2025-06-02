@@ -2,8 +2,10 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Nav from '../Nav/Nav';
 import './UserPage.css';
+import useStore from '../../zustand/store'
 
 const UserPage = () => {
+    const user = useStore((store) => store.user);
     const [myAdventures, setMyAdventures] = useState([]);
     const [favorites, setFavorites] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -12,8 +14,8 @@ const UserPage = () => {
     useEffect(() => {
         // fetch both my-adventures and favorites in parallel
         Promise.all([
-            fetch('/api/adventures/my'),
-            fetch('/api/adventures/favorites'),
+            fetch(`/api/adventures/my/${user.id}`),
+            fetch(`/api/adventures/my/${user.id}`),
         ])
             .then(async ([resMy, resFav]) => {
                 if (!resMy.ok || !resFav.ok) {
@@ -51,6 +53,7 @@ const UserPage = () => {
 
     return (
         <section className="user-page">
+            <span></span>
             <Nav pageTitle="My Adventure Page" />
             <div className="user-page__home">
                 <Link to="/" aria-label="Home" className="home-button">

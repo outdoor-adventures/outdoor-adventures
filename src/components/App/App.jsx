@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
+import { LoadScript } from '@react-google-maps/api'; //used in google maps api
 
 import useStore from '../../zustand/store';
 import Nav from '../Nav/Nav';
@@ -13,7 +14,11 @@ import ContactUs from '../ContactUs/ContactUs';
 import NewsletterSignUp from '../NewsletterSignUp/NewsletterSignUp';
 import AboutUs from '../AboutUs/AboutUs';
 import AddAdventureForm from '../AddAdventureForm/AddAdventureForm';
+import UserPage from '../UserPage/UserPage';
 import Footer from '../Footer/Footer';
+
+const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY; //google mapsi api key
+const libraries = ["places"]; //used for google maps api
 
 function App() {
     const user = useStore((state) => state.user);
@@ -25,8 +30,8 @@ function App() {
 
     return (
         <>
+      <LoadScript googleMapsApiKey={apiKey} libraries={libraries}>
             <Nav />
-
             <main>
                 <Routes>
                     <Route exact path="/" element={<HomePage />} />
@@ -108,11 +113,12 @@ function App() {
                     />
                     {/* ----------- */}
                     <Route exact path="/about" element={<AboutUs />} />
-
+                    <Route exact path="/user" element={<UserPage />} />
                     <Route path="*" element={<h2>404 Page</h2>} />
                 </Routes>
                 <Footer />
             </main>
+          </LoadScript>
         </>
     );
 }
