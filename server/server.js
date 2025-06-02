@@ -28,6 +28,10 @@ app.use(sessionMiddleware);
 app.use(passport.initialize());
 app.use(passport.session());
 
+
+app.use(express.static('public'));
+app.use('/uploads', express.static('uploads'));
+
 // Apply router files:
 app.use('/api/user', userRouter);
 

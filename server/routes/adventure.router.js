@@ -1,13 +1,26 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
+const multer = require('multer');
+const path = require('path');
 
+// config for multer file upload 
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'public/uploads');
+    },
+    filename: function (req, file, cb) {
+        cb(null, Date.now() + path.extname(file.originalname));
+    }
+});
+
+const upload = multer({ storage: storage });
 
 //NEED conditional rendering or queries to only get adventures with a status of accepted?
 
 //GET ALL ADVENTURES
 router.get('/', (req, res) => {
-    const sqlText = 'SELECT * FROM "adventures";';
+    const sqlText = 'SELECT * FROM "adventures" JOIN "category_table" ON "adventures"."category_id" = "category_table"."id" JOIN "cost_table" ON "adventures"."cost_level_id" = "cost_table"."id" JOIN "ability_table" ON "adventures"."ability_level_id" = "ability_table"."id";';
 
     pool.query(sqlText)
 
@@ -107,6 +120,9 @@ router.get('/my/:createdby' ,(req,res) => {
     const created_by = req.params.createdby; 
     const sqlText = `
     SELECT * FROM "adventures"
+            JOIN "category_table" ON "adventures"."category_id" = "category_table"."id"
+            JOIN "cost_table" ON "adventures"."cost_level_id" = "cost_table"."id"
+            JOIN "ability_table" ON "adventures"."ability_level_id" = "ability_table"."id"
     WHERE "created_by" = $1;`;
 
     const sqlValues = [created_by]
@@ -276,13 +292,11 @@ router.put('/:id', (req, res) => {
 
 //POST
 //UPDATED TO LATEST DB
-router.post('/:createdby', (req, res) => {
-    // const { id } = req.params;
+router.post('/:createdby', upload.single('photo'), (req, res) => {
     const { category_id, activity_name, ability_level_id, cost_level_id, photo, link, 
         description, latitude, longitude, address} = req.body;
 
     const created_by = req.params.createdby; 
-    // not completed , hard coded the created_by user
 
     //I know this is bad. ran out of time.
     const status = 'pending';
@@ -295,7 +309,11 @@ router.post('/:createdby', (req, res) => {
     VALUES
     ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12);`
 
-    const sqlValues = [category_id, ability_level_id, cost_level_id, photo, link, activity_name, description, latitude, longitude, created_by, address, status]
+    const sqlValues = [
+        req.body.category_id, req.body.ability_level_id, req.body.cost_level_id,
+        req.file?.filename, req.body.link, req.body.activity_name, req.body.description,
+        req.body.latitude, req.body.longitude, created_by, req.body.address, status
+    ];
 
     pool.query(sqlText, sqlValues)
     .then((result) => {
