@@ -3,6 +3,8 @@ import axios from 'axios';
 import { GoogleMap, Marker, Circle, StandaloneSearchBox, InfoWindow } from '@react-google-maps/api';
 import { useNavigate } from 'react-router-dom';
 import './AddressSearch.css';
+import FavoriteButton from './FavoriteButton/FavoriteButton';
+
 
 // Map container style sets size of map component
 const mapContainerStyle = {
@@ -80,6 +82,8 @@ useEffect(() => {
       }
     }
   };
+
+
   
   // Function to search for adventures near the selected location
   const handleSearch = async (e) => {
@@ -224,10 +228,7 @@ useEffect(() => {
                     <p>Ability Level: {adventure.ability_level}</p>
                     <p>{adventure.link}</p>
                     <p>{adventure.address}</p>
-                    {/* <ToggleFavorites /> */}
-                    {/* - {adventure.address},
-                    {adventure.distance && ` - ${adventure.distance.toFixed(1)} miles`} */}
-
+                    <FavoriteButton />
                 </div>
               </div>
             ))}
