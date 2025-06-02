@@ -15,8 +15,9 @@ const AddAdventureForm = () => {
       difficulty: '',
       address: '',
       link: '',
+      name: '',
       description: '',
-      photo: null,
+      photo: '',
       latitude: '',
       longitude: '',
     });
@@ -39,9 +40,9 @@ const AddAdventureForm = () => {
         const fetchOptions = async () => {
             try {
                 const [priceRes, categoryRes, difficultyRes] = await Promise.all([
-                    axios.get('/api/adventures/options/price'),
-                    axios.get('/api/adventures/options/category'),
-                    axios.get('/api/adventures/options/difficulty'),
+                    axios.get('/api/dropdown/cost'),
+                    axios.get('/api/dropdown/category'),
+                    axios.get('/api/dropdown/ability'),
                   ]);
                   //updated the fetch option 
                   setOptions({
@@ -73,15 +74,16 @@ const AddAdventureForm = () => {
     setMessage('');   
 // formData for submission 
     const form = new FormData();
-    form.append('photo', formData.photo);
-    form.append('price', formData.price); 
-    form.append('category', formData.category);
-    form.append('difficulty', formData.difficulty); 
-    form.append('address', formData.address);
+    form.append('category_id', formData.category);
+    form.append('ability_level_id', formData.difficulty); 
+    form.append('cost_level_id', formData.price);
+    form.append('photo', formData.photo); 
     form.append('link', formData.link);
+    form.append('activity_name', formData.name);
     form.append('description', formData.description);
     form.append('latitude', formData.latitude);
     form.append('longitude', formData.longitude);
+    form.append('address', formData.address)
 
     try {
         const response = await axios.post(`/api/adventures/${user.id}`, form, {
@@ -97,6 +99,7 @@ const AddAdventureForm = () => {
         difficulty: '',
         address: '',
         link: '',
+        name: '',
         description: '',
         photo: null, 
         latitude: '',
@@ -172,6 +175,13 @@ const AddAdventureForm = () => {
             </label>
             </div>
             {/* <br /> */}
+
+            <div className="activity-name-section">
+            <label>
+              Adventure Name:
+              <input type="text" name="name" value={formData.name} onChange={handleChange} />
+            </label>
+            </div>
     
             {/* Text area for description */}
             <div className="description-dropdowns">
@@ -190,8 +200,8 @@ const AddAdventureForm = () => {
               <select name="price" value={formData.price} onChange={handleChange} required>
                 <option value="">Select Price</option>
                 {options.price.map((opt) => (
-                  <option key={opt.id} value={opt.label}>
-                    {opt.label}
+                  <option key={opt.id} value={opt.id}>
+                    {opt.cost_level}
                   </option>
                 ))}
               </select>
@@ -207,8 +217,8 @@ const AddAdventureForm = () => {
               <select name="category" value={formData.category} onChange={handleChange} required>
                 <option value="">Select Category</option>
                 {options.category.map((opt) => (
-                  <option key={opt.id} value={opt.label}>
-                    {opt.label}
+                  <option key={opt.id} value={opt.id}>
+                    {opt.category_name}
                   </option>
                 ))}
               </select>
@@ -223,8 +233,8 @@ const AddAdventureForm = () => {
               <select name="difficulty" value={formData.difficulty} onChange={handleChange} required>
                 <option value="">Select Difficulty</option>
                 {options.difficulty.map((opt) => (
-                  <option key={opt.id} value={opt.label}>
-                    {opt.label}
+                  <option key={opt.id} value={opt.id}>
+                    {opt.ability_level}
                   </option>
                 ))}
               </select>
@@ -244,10 +254,13 @@ const AddAdventureForm = () => {
               price: '',
               category: '',
               difficulty: '',
-              location: '',
+              address: '',
               link: '',
+              name: '',
               description: '',
-              photo: null
+              photo: null,
+              latitude: '',
+              longitude: '',
             })}>
               Cancel
             </button>
