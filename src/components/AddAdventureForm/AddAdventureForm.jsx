@@ -258,7 +258,7 @@ const AddAdventureForm = () => {
               link: '',
               name: '',
               description: '',
-              photo: null,
+              photo: '',
               latitude: '',
               longitude: '',
             })}>
