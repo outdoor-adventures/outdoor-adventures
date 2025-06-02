@@ -224,6 +224,17 @@ useEffect(() => {
                     <p>Ability Level: {adventure.ability_level}</p>
                     <p>{adventure.link}</p>
                     <p>{adventure.address}</p>
+                    
+                    
+                    {/* Rendering the adventure image using Multer */}
+
+                    <p>
+                      <img src={`http://localhost:5001/uploads/${adventure.photo}`}
+                      alt={adventure.photo}
+                      className='adventure-image' />
+
+                    </p>
+                    
                     {/* <ToggleFavorites /> */}
                     {/* - {adventure.address},
                     {adventure.distance && ` - ${adventure.distance.toFixed(1)} miles`} */}
