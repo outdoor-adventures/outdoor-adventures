@@ -103,11 +103,9 @@ const UserPage = () => {
                 <div className="cards-container">
                     {favorites.map((adv) => (
                         <div key={adv.id} className="card">
-                            <img
-                                src={adv.photo}
-                                alt={adv.title}
-                                className="card-img"
-                            />
+                            <img src={`http://localhost:5001/uploads/${adv.photo}`}
+                      alt={adv.photo}
+                      className='recent-adventure-image' />
                             <h3 className="card-category">{adv.category_name}</h3>
                             <p className="card-location">{adv.address}</p>
                             <BasicModal adv={adv} />
