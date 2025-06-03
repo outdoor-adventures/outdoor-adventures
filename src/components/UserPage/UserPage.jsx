@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Nav from '../Nav/Nav';
 import './UserPage.css';
 import useStore from '../../zustand/store'
+import BasicModal from './BasicModal/BasicModal';
 
 const UserPage = () => {
     const user = useStore((store) => store.user);
@@ -15,7 +16,7 @@ const UserPage = () => {
         // fetch both my-adventures and favorites in parallel
         Promise.all([
             fetch(`/api/adventures/my/${user.id}`),
-            fetch(`/api/adventures/my/favorites/${user.id}`),
+            fetch(`/api/adventures/my/${user.id}`),
         ])
             .then(async ([resMy, resFav]) => {
                 if (!resMy.ok || !resFav.ok) {
@@ -37,6 +38,7 @@ const UserPage = () => {
     if (loading) {
         return (
             <section className="user-page">
+                <Nav pageTitle="My Adventure Page" />
                 <p>Loading your adventures…</p>
             </section>
         );
@@ -44,6 +46,7 @@ const UserPage = () => {
     if (error) {
         return (
             <section className="user-page">
+                <Nav pageTitle="My Adventure Page" />
                 <p>Error: {error}</p>
             </section>
         );
@@ -53,32 +56,34 @@ const UserPage = () => {
         <section className="user-page">
             <span></span>
             <Nav pageTitle="My Adventure Page" />
+            <div className="user-page__home">
+                <Link to="/" aria-label="Home" className="home-button">
+                    🏠
+                </Link>
+            </div>
 
             {/* My Adventures */}
             <article className="user-section">
-
                 <header className="section-header">
+                    <h2>My Adventures</h2>
                     <Link to="/my-adventures" className="view-list">
                         View List →
                     </Link>
                 </header>
-
                 <div className="cards-container">
                     {myAdventures.map((adv) => (
                         <div key={adv.id} className="card">
-                            <img src={`http://localhost:5001/uploads/${adv.photo}`}
-                      alt={adv.photo}
-                      className='adventure-image' />
-
+                            <img
+                                src={adv.photo}
+                                alt={adv.title}
+                                className="card-img"
+                            />
                             <h3 className="card-category">{adv.category}</h3>
                             <p className="card-location">{adv.location}</p>
                             <p className="card-status">Status: {adv.status}</p>
-                            <Link
-                                to={`/adventures/${adv.id}`}
-                                className="btn details"
-                            >
-                                View Details
-                            </Link>
+                            
+                            
+                            <BasicModal adv={adv} />
                         </div>
                     ))}
                 </div>
@@ -95,12 +100,13 @@ const UserPage = () => {
                 <div className="cards-container">
                     {favorites.map((adv) => (
                         <div key={adv.id} className="card">
-                            <img src={`http://localhost:5001/uploads/${adv.photo}`}
-                                alt={adv.photo}
-                                className='adventure-image' />
-
-                            <h3 className="card-category">{adv.category_name}</h3>
-                            <p className="card-location">{adv.address}</p>
+                            <img
+                                src={adv.photo}
+                                alt={adv.title}
+                                className="card-img"
+                            />
+                            <h3 className="card-category">{adv.category}</h3>
+                            <p className="card-location">{adv.location}</p>
                             <Link
                                 to={`/adventures/${adv.id}`}
                                 className="btn details"
