@@ -220,16 +220,22 @@ router.delete('/:id', (req, res) => {
 
 //PUT
 //UPDATED PUT ROUTE FOR DB 5/24
-router.put('/:id', (req, res) => {
+router.put('/:id', upload.single('photo'), (req, res) => {
     const { id } = req.params;
 
-    const {  category_id, ability_level_id,
-    cost_level_id, photo, link, activity_name, description,
-    latitude, longitude, created_at, status, address } = req.body;
+    const { category_id, activity_name, ability_level_id, cost_level_id, link, 
+        description, latitude, longitude, address} = req.body;
+    
+        //again ik this isnt great but running out of time :'(
+        const status = 'pending';
 
+        //for multer
+        const photo = req.file ? req.file.filename : null;
 
     //working on this put request. 
     console.log(`testing in the PUT route in adventure.router.js ${id}`)
+    console.log('adventure updates are:', req.body)
+    console.log('file incoming', req.file)
 
     const sqlText = `
     UPDATE "adventures"
@@ -243,12 +249,15 @@ router.put('/:id', (req, res) => {
     "description" = $7,
     "latitude" = $8,
     "longitude" = $9,
-    "created_at" = $10,
-    "status" = $11,
-    "address" = $12
-    WHERE "id" = $13;`
+    "address" = $10,
+    "status" = $11
+    WHERE "id" = $12;`
 
-    const sqlValues = [category_id, ability_level_id, cost_level_id, photo, link, activity_name, description, latitude, longitude, created_at, status, address, id]
+    const sqlValues = [
+        req.body.category_id, req.body.ability_level_id, req.body.cost_level_id,
+        photo, req.body.link, req.body.activity_name, req.body.description,
+        req.body.latitude, req.body.longitude, req.body.address, status, id,
+    ];
 
     pool.query(sqlText, sqlValues)
     .then(() => {
@@ -260,6 +269,21 @@ router.put('/:id', (req, res) => {
         res.sendStatus(500)
     })
 })
+
+//put testing
+// {
+//     "category_id": "8",
+//      "ability_level_id": "1",
+//      "cost_level_id": "3",
+//      "photo": "test",
+//      "link": "test.com",
+//      "activity_name": "test",
+//      "description": "test",
+//      "latitude": 22.333,
+//      "longitude": 11.222,
+//      "status": "accepted",
+//      "address": "NYC"
+// }
 
 
 //POST

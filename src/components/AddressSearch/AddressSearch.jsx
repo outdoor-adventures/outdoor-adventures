@@ -211,46 +211,61 @@ useEffect(() => {
       
       <div className='list-column'>
       {/* SAMPLE MAPPED OUT ADVENTURES */}
+
+
       <div className='list-section'>
       {adventures.length > 0 && (
-        <div className="adventure-list">
-          <h3>Adventures within 20 miles</h3>
+          <div className="adventure-list">
+            <h3>Adventures within 20 miles</h3>
 
-            {adventures.map(adventure => (
-              
-              <div key={adventure.id} className='adventure-card'>
-                {/* <AdventureItem adventure={adventure}/> */}
-                <div className='adventure-info'>
+              {adventures.map(adventure => (
+                
+                <div key={adventure.id} className='adventure-card'>
+    
 
+                  {/* Rendering Adventure Image */}
+
+                  <img src={`http://localhost:5001/uploads/${adventure.photo}`}
+                        alt={adventure.photo}
+                        className='adventure-image' />
+          
+          
+            <div className='adventure-info'>
+
+          {/* styling for Adventure Name */}
+                <p className='adventure-name'>
                     <p>{adventure.activity_name}</p>
-                    <p>Category: {adventure.category_name}</p>
-                    <p>Cost: {adventure.cost_level}</p>
-                    <p>Ability Level: {adventure.ability_level}</p>
-                    <p>{adventure.link}</p>
+                </p>
+
+          {/* styling for Adventure address */}
+                <p className='adventure-address'>
                     <p>{adventure.address}</p>
-                    <FavoriteButton />
+                </p>
 
-                    
-                    
-                    {/* Rendering the adventure image using Multer */}
 
-                    <p>
-                      <img src={`http://localhost:5001/uploads/${adventure.photo}`}
-                      alt={adventure.photo}
-                      className='adventure-image' />
 
-                    </p>
-                    
-                    {/* <ToggleFavorites /> */}
-                    {/* - {adventure.address},
-                    {adventure.distance && ` - ${adventure.distance.toFixed(1)} miles`} */}
 
-                </div>
+              <div className='adventure-details'>
+
+                      <p>Category: {adventure.category_name}</p>
+                      <p>Cost: {adventure.cost_level}</p>
+                      <p>Ability Level: {adventure.ability_level}</p>
+                      <p>{adventure.link}</p>
               </div>
-            ))}
-        </div>
+              
+              {/* Container for Favorite Button */}
+                  <div className='favorite-container'>
+                          <FavoriteButton />
+                  </div>
+
+
+
+            </div>
+            </div>
+              ))}
+          </div>
       )}
-    </div>
+         </div>
     </div>
     </div>
     </div>
