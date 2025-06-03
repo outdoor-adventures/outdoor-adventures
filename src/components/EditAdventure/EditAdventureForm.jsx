@@ -147,16 +147,18 @@ const EditAdventureForm = () => {
   //end
 
   return (
-    <div>
-      <h2>Edit Adventure</h2>
+    <div className="edit-adventure-page">
+      {/* <h2>Edit Adventure</h2> */}
       {message && <p>{message}</p>}
 
-      <form onSubmit={handleSubmit} encType="multipart/form-data">
-        <label>
+      <form className="edit-adventure-form" onSubmit={handleSubmit} encType="multipart/form-data">
+      <div className="photo-section">
+        <label className="custom-file-label">
           Photo (optional):
           <input type="file" name="photo" accept="image/*" onChange={handleFileChange} />
         </label>
-        <br />
+        </div>
+        {/* <br /> */}
 
         {/*GOOGLE MAPS ADDITIONS*/}
         <div className="form-section location-section">
@@ -172,25 +174,31 @@ const EditAdventureForm = () => {
             </div>
           {/*END GOOGLE MAPS ADDITION*/}
 
+        <div className="form-section link-section">
         <label>
           Link:
           <input type="url" name="link" value={formData.link} onChange={handleChange} />
         </label>
-        <br />
+        </div>
+        {/* <br /> */}
 
-        <div className="name-box">
+        <div className="activity-name-section">
             <label>
               Adventure Name:
               <input type="text" name="name" value={formData.name} onChange={handleChange} />
             </label>
           </div>
 
+        <div className="description-dropdowns">
+        <div className="description-box">
         <label>
           Description:
           <textarea name="description" value={formData.description} onChange={handleChange} />
         </label>
-        <br />
+        </div>
+        {/* <br /> */}
 
+        <div className="dropdowns-box">
         <label>
           Price:
           <select name="price" value={formData.price} onChange={handleChange} required>
@@ -202,7 +210,7 @@ const EditAdventureForm = () => {
             ))}
           </select>
         </label>
-        <br />
+        {/* <br /> */}
 
         <label>
           Category:
@@ -215,7 +223,7 @@ const EditAdventureForm = () => {
             ))}
           </select>
         </label>
-        <br />
+        {/* <br /> */}
 
         <label>
           Difficulty:
@@ -228,11 +236,14 @@ const EditAdventureForm = () => {
             ))}
           </select>
         </label>
-        <br />
-
+        </div>
+        </div>
+        {/* <br /> */}
+        <div className="form-buttons">
         <button type="submit" disabled={loading}>
           {loading ? 'Updating...' : 'Update Adventure'}
         </button>
+        </div>
       </form>
     </div>
   );
