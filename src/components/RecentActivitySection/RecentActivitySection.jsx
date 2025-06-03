@@ -62,7 +62,7 @@ const RecentActivitySection = () => {
                     <div key={adventure.id} className="ra-card">
                         <img src={`http://localhost:5001/uploads/${adventure.photo}`}
                       alt={adventure.photo}
-                      className='adventure-image' />
+                      className='recent-adventure-image' />
 
                         <h3 className="ra-card-title">{adventure.activity_name}</h3>
                         <p className="ra-card-location">{adventure.location}</p>
