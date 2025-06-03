@@ -58,17 +58,16 @@ const RecentActivitySection = () => {
         <section className="recent-activity">
             <h2 className="section-header">Recent Activity</h2>
             <div className="ra-cards">
-                {adventures.map((item) => (
-                    <div key={item.id} className="ra-card">
-                        <img
-                            src={item.img || item.photo}
-                            alt={item.title}
-                            className="ra-card-img"
-                        />
-                        <h3 className="ra-card-title">{item.title}</h3>
-                        <p className="ra-card-location">{item.location}</p>
+                {adventures.map((adventure) => (
+                    <div key={adventure.id} className="ra-card">
+                        <img src={`http://localhost:5001/uploads/${adventure.photo}`}
+                      alt={adventure.photo}
+                      className='adventure-image' />
+
+                        <h3 className="ra-card-title">{adventure.activity_name}</h3>
+                        <p className="ra-card-location">{adventure.location}</p>
                         <Link
-                            to={`/adventures/${item.id}`}
+                            to={`/adventures/${adventure.id}`}
                             className="ra-card-btn"
                         >
                             View More
