@@ -128,24 +128,3 @@ font-size: 20px;
 .favorite-container {
   float: right;
 }
-
-
-
-/* 
-@media (max-width: 768px) {
-  .search-box-container {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .map-list-container {
-    flex-direction: column;
-  }
-
-  .map-container,
-  .list-column {
-    flex: 1 1 100%;
-    width: 100%;
-  }
-}
- */
