@@ -15,6 +15,7 @@ import NewsletterSignUp from '../NewsletterSignUp/NewsletterSignUp';
 import AboutUs from '../AboutUs/AboutUs';
 import AddAdventureForm from '../AddAdventureForm/AddAdventureForm';
 import UserPage from '../UserPage/UserPage';
+import AdminPage from '../AdminPage/AdminPage';
 import Footer from '../Footer/Footer';
 
 const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY; //google mapsi api key
@@ -81,6 +82,15 @@ function App() {
                             )
                         }
                     />
+
+                    <Route
+                        exact
+                        path="/admin"
+                        element={
+                          <AdminPage />
+                        }
+                    />
+
                     <Route exact path="/contact" element={<ContactUs />} />
 
                     <Route
