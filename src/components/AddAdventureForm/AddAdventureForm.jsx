@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import useStore from '../../zustand/store'
 import './AddAdventureForm.css';
+import Nav from '../Nav/Nav';
 
 //GOOGLE MAPS
 import { StandaloneSearchBox } from '@react-google-maps/api';
@@ -138,6 +139,8 @@ const AddAdventureForm = () => {
 
     return (
         <div className="add-adventure-page">
+          <Nav pageTitle="Add New Adventure" />
+
           {/* <h2>Add New Adventure</h2> */}
           
           {/* Display success or error message */}
