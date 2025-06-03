@@ -78,3 +78,11 @@
     left: 50%;
     transform: translateX(-50%);
   }
+  
+  .modal-content {
+    color: black;
+  }
+
+  .ra-card-description {
+    color: black;
+  }

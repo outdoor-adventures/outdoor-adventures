@@ -7,6 +7,8 @@ const RecentActivitySection = () => {
     const [adventures, setAdventures] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [showModal, setShowModal] = useState(false);
+    const [selectedAdventure, setSelectedAdventure] = useState(null);
 
     // Fetch the 3 most recent adventures when component mounts
     useEffect(() => {
@@ -65,13 +67,9 @@ const RecentActivitySection = () => {
                       className='recent-adventure-image' />
 
                         <h3 className="ra-card-title">{adventure.activity_name}</h3>
-                        <p className="ra-card-location">{adventure.location}</p>
-                        <Link
-                            to={`/adventures/${adventure.id}`}
-                            className="ra-card-btn"
-                        >
-                            View More
-                        </Link>
+                        <p className="ra-card-location">{adventure.address}</p>
+                        <p className="ra-card-description">{adventure.description}</p>
+
                     </div>
                 ))}
             </div>

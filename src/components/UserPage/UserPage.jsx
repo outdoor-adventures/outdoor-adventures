@@ -106,6 +106,7 @@ const UserPage = () => {
                             <img src={`http://localhost:5001/uploads/${adv.photo}`}
                       alt={adv.photo}
                       className='recent-adventure-image' />
+                            <p className="card-location">{adv.activity_name}</p>
                             <h3 className="card-category">{adv.category_name}</h3>
                             <p className="card-location">{adv.address}</p>
                             <BasicModal adv={adv} />
