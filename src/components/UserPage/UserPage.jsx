@@ -75,7 +75,7 @@ const UserPage = () => {
                       className='recent-adventure-image' />
 
                     </div>
-
+                    <h3 className="card-adventure-name">{adv.activity_name}</h3>
                             <h3 className="card-category">{adv.category_name}</h3>
                             <p className="card-location">{adv.address}</p>
                             <p className="card-status">Status: {adv.status}</p>
@@ -101,6 +101,7 @@ const UserPage = () => {
                             <img src={`http://localhost:5001/uploads/${adv.photo}`}
                       alt={adv.photo}
                       className='recent-adventure-image' />
+                                          <h3 className="card-adventure-name">{adv.activity_name}</h3>
                             <h3 className="card-category">{adv.category_name}</h3>
                             <p className="card-location">{adv.address}</p>
                             <BasicModal adv={adv} />

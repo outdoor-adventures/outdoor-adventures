@@ -41,7 +41,7 @@ export default function BasicModal({ adv }) {
           <Typography id="modal-modal-photo" sx={{ mt: 1 }}>
           <img src={`/uploads/1748934605425.jpg`}
                       alt={adv.photo}
-                      className='adventure-image' />
+                      className='modal-adventure-image' />
           </Typography>
           <Typography id="modal-modal-cost" variant="h6" component="h2">
             Free

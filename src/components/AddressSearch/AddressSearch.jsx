@@ -223,7 +223,15 @@ useEffect(() => {
                 {/* <AdventureItem adventure={adventure}/> */}
                 <div className='adventure-info'>
 
-                    <p>{adventure.activity_name}</p>
+
+                <p>
+                      <img src={`http://localhost:5001/uploads/${adventure.photo}`}
+                      alt={adventure.photo}
+                      className='browse-adventure-image' />
+
+                    </p>
+
+                    <p className='browse-title'>{adventure.activity_name}</p>
                     <p>Category: {adventure.category_name}</p>
                     <p>Cost: {adventure.cost_level}</p>
                     <p>Ability Level: {adventure.ability_level}</p>
@@ -235,12 +243,6 @@ useEffect(() => {
                     
                     {/* Rendering the adventure image using Multer */}
 
-                    <p>
-                      <img src={`http://localhost:5001/uploads/${adventure.photo}`}
-                      alt={adventure.photo}
-                      className='adventure-image' />
-
-                    </p>
                     
                     {/* <ToggleFavorites /> */}
                     {/* - {adventure.address},

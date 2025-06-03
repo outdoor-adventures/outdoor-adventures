@@ -2,7 +2,7 @@
 
 .user-page {
     margin-top: 150px;
-    padding: 2rem;
+    padding: 1rem;
   }
   
   .user-page__home {
@@ -11,10 +11,9 @@
   
   .section-header {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: center;
     margin-bottom: 1rem;
-    padding-left: 100px;
     margin-top: 10px;
     height: 100px;
   }
@@ -30,7 +29,7 @@
     border: 1px solid #ccc;
     border-radius: 8px;
     padding: 1rem;
-    width: 250px;
+    width: 450px;
     background-color: #fff;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     display: flex;
@@ -68,4 +67,8 @@
   
   .view-list {
     margin-right: 100px;
+  }
+
+  .card-adventure-name {
+    font-size: 25px;
   }
