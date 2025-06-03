@@ -78,8 +78,8 @@ const UserPage = () => {
                                 alt={adv.title}
                                 className="card-img"
                             />
-                            <h3 className="card-category">{adv.category}</h3>
-                            <p className="card-location">{adv.location}</p>
+                            <h3 className="card-category">{adv.category_name}</h3>
+                            <p className="card-location">{adv.address}</p>
                             <p className="card-status">Status: {adv.status}</p>
                             
                             
@@ -105,14 +105,9 @@ const UserPage = () => {
                                 alt={adv.title}
                                 className="card-img"
                             />
-                            <h3 className="card-category">{adv.category}</h3>
-                            <p className="card-location">{adv.location}</p>
-                            <Link
-                                to={`/adventures/${adv.id}`}
-                                className="btn details"
-                            >
-                                View Details
-                            </Link>
+                            <h3 className="card-category">{adv.category_name}</h3>
+                            <p className="card-location">{adv.address}</p>
+                            <BasicModal adv={adv} />
                         </div>
                     ))}
                 </div>
