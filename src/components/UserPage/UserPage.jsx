@@ -16,7 +16,7 @@ const UserPage = () => {
         // fetch both my-adventures and favorites in parallel
         Promise.all([
             fetch(`/api/adventures/my/${user.id}`),
-            fetch(`/api/adventures/my/${user.id}`),
+            fetch(`/api/adventures/my/favorites/${user.id}`),
         ])
             .then(async ([resMy, resFav]) => {
                 if (!resMy.ok || !resFav.ok) {
@@ -55,20 +55,15 @@ const UserPage = () => {
     return (
         <section className="user-page">
             <span></span>
-            <Nav pageTitle="My Adventure Page" />
-            <div className="user-page__home">
-                <Link to="/" aria-label="Home" className="home-button">
-                    🏠
-                </Link>
-            </div>
+            <Nav pageTitle="My Adventure Page" /> 
 
             {/* My Adventures */}
             <article className="user-section">
                 <header className="section-header">
                     <h2>My Adventures</h2>
-                    <Link to="/my-adventures" className="view-list">
+                    {/* <Link to="/my-adventures" className="view-list">
                         View List →
-                    </Link>
+                    </Link> */}
                 </header>
                 <div className="cards-container">
                     {myAdventures.map((adv) => (
@@ -96,9 +91,9 @@ const UserPage = () => {
             <article className="user-section">
                 <header className="section-header">
                     <h2>Favorite Adventures</h2>
-                    <Link to="/favorites" className="view-list">
+                    {/* <Link to="/favorites" className="view-list">
                         View List →
-                    </Link>
+                    </Link> */}
                 </header>
                 <div className="cards-container">
                     {favorites.map((adv) => (
@@ -106,7 +101,6 @@ const UserPage = () => {
                             <img src={`http://localhost:5001/uploads/${adv.photo}`}
                       alt={adv.photo}
                       className='recent-adventure-image' />
-                            <p className="card-location">{adv.activity_name}</p>
                             <h3 className="card-category">{adv.category_name}</h3>
                             <p className="card-location">{adv.address}</p>
                             <BasicModal adv={adv} />
