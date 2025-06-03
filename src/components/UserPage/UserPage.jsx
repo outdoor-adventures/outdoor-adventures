@@ -15,7 +15,7 @@ const UserPage = () => {
         // fetch both my-adventures and favorites in parallel
         Promise.all([
             fetch(`/api/adventures/my/${user.id}`),
-            fetch(`/api/adventures/my/${user.id}`),
+            fetch(`/api/adventures/my/favorites/${user.id}`),
         ])
             .then(async ([resMy, resFav]) => {
                 if (!resMy.ok || !resFav.ok) {
