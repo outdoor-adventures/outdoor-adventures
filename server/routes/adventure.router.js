@@ -139,6 +139,34 @@ router.get('/my/:createdby' ,(req,res) => {
 })
 //USE THIS AS AN EXAMPLE:  http://localhost:5173/api/adventures/2/adventures
 
+//GET ROUTE FOR THE ROUTE BASED OF THE PENDING STATUS:
+router.get('/:createdby/pending/:status',(req,res) => {
+    const created_by = req.params.createdby;
+    const pending = req.params.status;
+
+    const sqlValues = [created_by, pending]
+
+
+    console.log('created_by:', created_by);
+    console.log('pending:', pending);
+
+    const sqlText = `SELECT * FROM "adventures"
+    WHERE "created_by" = $1 AND "status" = $2;`;
+
+    pool.query(sqlText, sqlValues)
+    .then((result) => {
+        console.log('getting pendning adventures from user')
+        res.send(result.rows)
+    })
+    .catch((error) => {
+        console.log('error in the get pending route.', error)
+        res.sendStatus(500)
+    })
+})
+
+
+
+
 router.get('/my/favorites/:userId' ,(req,res) => {
     const userId = req.params.userId; 
     const sqlText = `
