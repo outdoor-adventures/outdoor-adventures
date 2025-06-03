@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './AdminPage.css';
+import Nav from '../Nav/Nav';
 
 const PendingAdventure = () => {
     // State for adventures, loading, and error
@@ -120,12 +121,14 @@ const PendingAdventure = () => {
 
     // Main render
     return (
+        
         <section className="pending-page">
+            <Nav pageTitle="Pending Adventure" />
             <span></span>
-            <header className="pending-header">
+            {/* <header className="pending-header">
                 <h1>Pending Adventures</h1>
-            </header>
-            <div className="pending-stripe" />
+            </header> */}
+            {/* <div className="pending-stripe" /> */}
             <ul className="pending-grid">
                 {adventures.map((adv) => (
                     <li key={adv.id}>

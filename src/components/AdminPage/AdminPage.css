@@ -1,4 +1,11 @@
 /* PendingAdventure.css */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  background-color: rgb(0, 83, 21);
+}
 
 body {
     font-family: 'Rockwell', serif;
@@ -8,24 +15,36 @@ body {
 .pending-page {
     background-color: rgb(0, 83, 21);
     min-height: 100vh;
-    padding: 32px;
+    /* padding: 32px; */
     box-sizing: border-box;
+    padding-top: 250px;   /* added extra top padding */
+    padding-bottom: 60px; /* extra bottom padding */
 
     /* Center content horizontally and vertically */
     display: flex;
-    flex-direction: column;
+    /* flex-direction: column;
     align-items: center;
-    justify-content: center;
-    max-width: 1200px;
-    margin: 0 auto;
+    justify-content: flex-start; */
+    width: 100%;
+    /* max-width: 1200px;
+    margin: 0 auto; */
 }
 
 /* Header */
+.pending-content {
+  max-width: 1200px;
+  width: 100%;
+  padding: 0 1rem;
+  margin: 0 auto;
+}
+
 .pending-header {
     background-color: rgb(208, 221, 245);
     text-align: center;
     padding: 24px 0;
     width: 100%;
+    width: 100vw; /* Stretch to full screen width */
+    margin-left: calc(-50vw + 50%); /* center it again */
 }
 
 .pending-header h1 {
