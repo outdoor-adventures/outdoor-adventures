@@ -3,6 +3,7 @@ import axios from 'axios';
 import { GoogleMap, Marker, Circle, StandaloneSearchBox, InfoWindow } from '@react-google-maps/api';
 import { useNavigate } from 'react-router-dom';
 import './AddressSearch.css';
+import BasicModal from '../UserPage/BasicModal/BasicModal';
 import FavoriteButton from './FavoriteButton/FavoriteButton';
 
 
@@ -228,8 +229,8 @@ useEffect(() => {
                     <p>Ability Level: {adventure.ability_level}</p>
                     <p>{adventure.link}</p>
                     <p>{adventure.address}</p>
-                    <FavoriteButton adventure={adventure} key={adventure.id} />
-
+                    <FavoriteButton />
+                    <BasicModal adv={adventure.id} />
                     
                     
                     {/* Rendering the adventure image using Multer */}
