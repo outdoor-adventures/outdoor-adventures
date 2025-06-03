@@ -106,6 +106,14 @@
   .adventure-info p {
     margin: 0.25rem 0;
   }
+
+  .browse-adventure-image {
+    width: 100%;
+  }
+
+  .browse-title {
+    font-size: 2rem;
+  }
   
   /* Responsive behavior */
   @media (max-width: 768px) {
