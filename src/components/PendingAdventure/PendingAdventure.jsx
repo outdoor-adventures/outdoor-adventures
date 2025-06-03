@@ -15,13 +15,13 @@ const PendingAdventure = () => {
         setLoading(true);
 
         Promise.all([
-            fetch('/api/adventures/pending').then((res) => {
+            fetch('/api/adventures/admin/pending').then((res) => {
                 if (!res.ok) throw new Error(`Error: ${res.status}`);
                 return res.json();
             }),
-            fetch('/api/category_table').then((res) => res.json()),
-            fetch('/api/ability_table').then((res) => res.json()),
-            fetch('/api/cost_table').then((res) => res.json()),
+            fetch('/api/dropdown/category').then((res) => res.json()),
+            fetch('/api/dropdown/ability').then((res) => res.json()),
+            fetch('/api/dropdown/cost').then((res) => res.json()),
         ])
             .then(([advs, cats, abils, costs]) => {
                 setAdventures(advs);
