@@ -16,7 +16,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-//NEED conditional rendering or queries to only get adventures with a status of accepted?
+
 
 //GET ALL ADVENTURES
 router.get('/', (req, res) => {
@@ -114,8 +114,7 @@ router.get('/:id', (req, res) => {
 
 
 
-//GET users adventures
-//FINISHED, WORKS WELL
+//GET MY ADVENTURES
 router.get('/my/:createdby' ,(req,res) => {
     const created_by = req.params.createdby; 
     const sqlText = `
@@ -137,23 +136,16 @@ router.get('/my/:createdby' ,(req,res) => {
         res.sendStatus(500);
     });
 })
-//USE THIS AS AN EXAMPLE:  http://localhost:5173/api/adventures/2/adventures
+
+
 
 //GET ROUTE FOR THE ROUTE BASED OF THE PENDING STATUS:
-router.get('/:createdby/pending/:status',(req,res) => {
-    const created_by = req.params.createdby;
-    const pending = req.params.status;
-
-    const sqlValues = [created_by, pending]
-
-
-    console.log('created_by:', created_by);
-    console.log('pending:', pending);
+router.get('/admin/pending',(req,res) => {
 
     const sqlText = `SELECT * FROM "adventures"
-    WHERE "created_by" = $1 AND "status" = $2;`;
+    WHERE "status" = 'pending'`;
 
-    pool.query(sqlText, sqlValues)
+    pool.query(sqlText)
     .then((result) => {
         console.log('getting pendning adventures from user')
         res.send(result.rows)
@@ -165,8 +157,7 @@ router.get('/:createdby/pending/:status',(req,res) => {
 })
 
 
-
-
+//GET USERS FAVORITES
 router.get('/my/favorites/:userId' ,(req,res) => {
     const userId = req.params.userId; 
     const sqlText = `
@@ -197,14 +188,10 @@ router.get('/my/favorites/:userId' ,(req,res) => {
     });
 })
 
-//GET users favorited adventures basued off user_id
-
 
 
 //GET 3 RECENTS APPROVED ADVENTURES
-//we use this as a test http://localhost:5173/api/adventures/recents/recent
 router.get('/recents/recent', (req, res) => {
-    // 
 
     const sqlText = `
     SELECT * FROM "adventures"
@@ -227,7 +214,7 @@ router.get('/recents/recent', (req, res) => {
 
 
 
-//DELETE
+//DELETE ADVENTURE
 router.delete('/:id', (req, res) => {
     let { id } = req.params;
     const sqlText = 'DELETE FROM "adventures" WHERE "id" = $1;';
@@ -246,8 +233,7 @@ router.delete('/:id', (req, res) => {
 
 
 
-//PUT
-//UPDATED PUT ROUTE FOR DB 5/24
+//UPDATE POST
 router.put('/:id', upload.single('photo'), (req, res) => {
     const { id } = req.params;
 
@@ -298,24 +284,31 @@ router.put('/:id', upload.single('photo'), (req, res) => {
     })
 })
 
-//put testing
-// {
-//     "category_id": "8",
-//      "ability_level_id": "1",
-//      "cost_level_id": "3",
-//      "photo": "test",
-//      "link": "test.com",
-//      "activity_name": "test",
-//      "description": "test",
-//      "latitude": 22.333,
-//      "longitude": 11.222,
-//      "status": "accepted",
-//      "address": "NYC"
-// }
 
 
-//POST
-//UPDATED TO LATEST DB
+//UPDATE STATUS to ACCEPTEC
+router.put('/status/:id', (req, res) => {
+    const { id } = req.params;
+    const newStatus = 'accepted';
+
+    const sqlText = 'UPDATE "adventures" SET "status" = $1 WHERE id = $2;';
+
+    const sqlValues = [ newStatus, id ];
+
+    pool.query(sqlText, sqlValues)
+    .then(() => {
+        res.sendStatus(201)
+        console.log()
+    })
+    .catch((dbErr) => {
+        console.log('PUT route not working', dbErr);
+        res.sendStatus(500)
+    })
+})
+
+
+
+//CREATE ADVENTURE
 router.post('/:createdby', upload.single('photo'), (req, res) => {
     const { category_id, activity_name, ability_level_id, cost_level_id, photo, link, 
         description, latitude, longitude, address} = req.body;
@@ -349,29 +342,10 @@ router.post('/:createdby', upload.single('photo'), (req, res) => {
         res.sendStatus(500)
     })
 })
-//^^^IN ORDER TO TEST THIS, USE THIS AS A REFERENCE
-// {
-//     "category_id": "3",
-//     "ability_level_id": "1",
-//     "cost_level_id": "3",
-//     "photo": "test",
-//     "link": "test.com",
-//     "activity_name": "test",
-//     "description": "test",
-//     "latitude": 22.333,
-//     "longitude": 11.222,
-//     "created_at": "2025-05-24T15:00:00Z",
-//     "created_by": 2,
-//     "status": "accepted",
-//     "address": "NYC"
-// }
 
 
 
-
-// post the favorite adventures, make a query on this.
-// still not done
-
+//FAVORITE ADVENTURE
 router.post('/favorites/:userid/:adventureid',(req, res) => {
     console.log('testing the favorite adventures POST route')
     const {userid, adventureid} = req.params;
@@ -396,25 +370,6 @@ router.post('/favorites/:userid/:adventureid',(req, res) => {
     })
 
 })
-//TEST LIKE THIS
-//http://localhost:5173/api/adventures/favorites/2/9
-//{
-//     "user_id": "2",
-//     "adventure_id": "9"
-// }
-
-// get user, id, and adventure id onto this table
-
-
-
-//STILL NEED FILTERS / SEARCH 
-
-//ADMIN ONLY ?
-//admin put request to change the status of a post
-
-
-
-
 
 
 

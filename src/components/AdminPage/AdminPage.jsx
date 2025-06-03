@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './PendingAdventure.css';
+import './AdminPage.css';
 
 const PendingAdventure = () => {
     // State for adventures, loading, and error
