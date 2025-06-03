@@ -42,9 +42,23 @@ const PendingAdventure = () => {
         loadData();
     }, []);
 
+
+    //handler for edit
+    const handleEdit = (id) => {
+        fetch(`/api/adventures/${id}`, { method: 'PUT' })
+            .then((res) => {
+                if (!res.ok) throw new Error(`Accept failed: ${res.status}`);
+                loadData();
+            })
+            .catch((err) => {
+                console.error(err);
+                alert(`Accept action failed: ${err.message}`);
+            });
+    };
+
     // Handler for Accept
     const handleAccept = (id) => {
-        fetch(`/api/adventures/${id}/accept`, { method: 'PUT' })
+        fetch(`/api/adventures/status/${id}`, { method: 'PUT' })
             .then((res) => {
                 if (!res.ok) throw new Error(`Accept failed: ${res.status}`);
                 loadData();
@@ -116,11 +130,16 @@ const PendingAdventure = () => {
                 {adventures.map((adv) => (
                     <li key={adv.id}>
                         <article className="pending-card">
-                            <div className="card-title">{adv.title}</div>
+                            <div className="card-title">{adv.activity_name}</div>
 
                             <div className="card-top">
                                 <div className="card-top-left">
-                                    <img src={adv.photo} alt={adv.title} />
+                                <p>
+                      <img src={`http://localhost:5001/uploads/${adv.photo}`}
+                      alt={adv.photo}
+                      className='adventure-image' />
+
+                    </p>
                                 </div>
                                 <div className="card-top-right">
                                     <div className="card-top-right-box">
@@ -136,10 +155,10 @@ const PendingAdventure = () => {
                                                     <option
                                                         key={c.id}
                                                         value={
-                                                            c.level || c.label
+                                                            c.cost_level || c.label
                                                         }
                                                     >
-                                                        {c.level || c.label}
+                                                        {c.cost_level || c.label}
                                                     </option>
                                                 ))}
                                             </select>
@@ -159,7 +178,7 @@ const PendingAdventure = () => {
                                                         key={c.id}
                                                         value={c.name}
                                                     >
-                                                        {c.name}
+                                                        {c.category_name}
                                                     </option>
                                                 ))}
                                             </select>
@@ -181,7 +200,7 @@ const PendingAdventure = () => {
                                                             a.level || a.name
                                                         }
                                                     >
-                                                        {a.level || a.name}
+                                                        {a.ability_level || a.name}
                                                     </option>
                                                 ))}
                                             </select>
@@ -195,7 +214,7 @@ const PendingAdventure = () => {
                                 <input
                                     type="text"
                                     readOnly
-                                    value={adv.location}
+                                    value={adv.address}
                                 />
                             </div>
                             <div className="field">
@@ -212,6 +231,14 @@ const PendingAdventure = () => {
                             </div>
 
                             <div className="card-buttons">
+
+                            <button
+                                    className="btn delete"
+                                    onClick={() => handleEdit(adv.id)}
+                                >
+                                    Edit
+                                </button>
+
                                 <button
                                     className="btn accept"
                                     onClick={() => handleAccept(adv.id)}
