@@ -228,7 +228,7 @@ useEffect(() => {
                     <p>Ability Level: {adventure.ability_level}</p>
                     <p>{adventure.link}</p>
                     <p>{adventure.address}</p>
-                    <FavoriteButton />
+                    <FavoriteButton adventure={adventure} key={adventure.id} />
 
                     
                     

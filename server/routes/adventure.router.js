@@ -346,7 +346,7 @@ router.post('/:createdby', upload.single('photo'), (req, res) => {
 
 
 //FAVORITE ADVENTURE
-router.post('/favorites/:userid/:adventureid',(req, res) => {
+router.post('/favorites/:userid/:adventureid', (req, res) => {
     console.log('testing the favorite adventures POST route')
     const {userid, adventureid} = req.params;
 
