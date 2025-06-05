@@ -4,7 +4,7 @@
 Outdoor Adventures is a community based app centered on getting families out into nature and discovering the world around them. In a world often centered around technology, starting a journey of connecting with the outdoors can be overwhelming, especially for those who don't yet have expereince doing so. Outdoor Adventures brings together exciting activites such as hiking, camping, paddling, and many more. All can be found on one site, easily accesable for soon to be adventurers of all experience levels. Once adventures are found, they can be added by the community for all to enjoy.
 
 ## Built With:
-This version uses React, Zustand, Express, Passport, and PostgreSQL. (A full list of dependencies can be found in `package.json`.)
+This version uses React, Zustand, Express, Passport, and PostgreSQL. (A full list of dependencies can be found in `package.json`.) This program was built using VS Code, but will be compatable with other platforms.
 
 ## Prerequisites
 
@@ -13,6 +13,9 @@ Before you get started, make sure you have the following software installed on y
 - [Node.js](https://nodejs.org/en)
 - [PostgreSQL](https://www.postgresql.org)
 - [Nodemon](https://nodemon.io)
+- Postico
+- Google Maps API (See full API Instructions)
+
 
 ## Create Database and User Table
 
@@ -20,8 +23,13 @@ Create a new database named "outdoor-adventures", then create a `user` table usi
 
 ## Initial Setup Instructions
 
+- Fork this repository.
+- Copy the SSH link in your new repository.
+- In your terminal type: git clone {paste SSH link}.
+- In your terminal, navigate to the project's folder.
+- Open VS Code (or the editor of your choice), then open the folder.
 - In this repo's **root directory**, run `npm install`.
-- Create an `.env` file in the **root directory**, then paste this line into the file:
+- Create an `.env` file in the **root directory**, then include the example `.env` file. You will need to include your own Google Maps API Key.
 - Run `npm run server` to start the server.
 - Run `npm run client` to start the client.
 - Navigate to `localhost:5173`.
