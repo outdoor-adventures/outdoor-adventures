@@ -109,6 +109,8 @@ so feel free to add those in if you would like.
 
 ## Enable all required APIs
 
+<img src="/public/images/instructional-images/enabl-apis.png">
+
 - Click **Enabled APIs & Services** Tab, then click the **+ Enable APIs and Services** button and go through and enable the following: **Maps JavaScript API**, **Geocoding API** and lastly, **Places API**.
 
 ## All Done! 
