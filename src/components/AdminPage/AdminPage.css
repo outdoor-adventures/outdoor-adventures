@@ -197,6 +197,10 @@ textarea {
     background-color: #8b0000;
 }
 
+.btn.edit:hover {
+    background-color: #245690;
+}
+
 /* Responsive: stack cards */
 @media (max-width: 960px) {
     .pending-grid {

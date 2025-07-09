@@ -243,8 +243,8 @@ router.put('/:id', upload.single('photo'), (req, res) => {
         //again ik this isnt great but running out of time :'(
         const status = 'pending';
 
-        //for multer
-        const photo = req.file ? req.file.filename : null;
+        //for multer - preserve existing photo if no new file uploaded
+        const photo = req.file ? req.file.filename : req.body.photo;
 
     //working on this put request. 
     console.log(`testing in the PUT route in adventure.router.js ${id}`)

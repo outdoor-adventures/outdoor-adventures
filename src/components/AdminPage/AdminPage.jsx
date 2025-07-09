@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { StandaloneSearchBox } from '@react-google-maps/api';
 import './AdminPage.css';
 import Nav from '../Nav/Nav';
 
@@ -10,6 +11,10 @@ const PendingAdventure = () => {
     const [categories, setCategories] = useState([]);
     const [abilities, setAbilities] = useState([]);
     const [costLevels, setCostLevels] = useState([]);
+    const [editingId, setEditingId] = useState(null);
+    const [editData, setEditData] = useState({});
+    const searchBoxRef = useRef(null);
+
 
     // Unified data loader
     const loadData = () => {
@@ -44,17 +49,48 @@ const PendingAdventure = () => {
     }, []);
 
 
-    //handler for edit
     const handleEdit = (id) => {
-        fetch(`/api/adventures/${id}`, { method: 'PUT' })
-            .then((res) => {
-                if (!res.ok) throw new Error(`Accept failed: ${res.status}`);
-                loadData();
-            })
-            .catch((err) => {
-                console.error(err);
-                alert(`Accept action failed: ${err.message}`);
+        if (editingId === id) {
+            // Save changes
+            const formData = new FormData();
+            Object.keys(editData).forEach(key => {
+                if (editData[key] !== null && editData[key] !== undefined) {
+                    formData.append(key, editData[key]);
+                }
             });
+            
+            fetch(`/api/adventures/${id}`, {
+                method: 'PUT',
+                body: formData
+            })
+                .then((res) => {
+                    if (!res.ok) throw new Error(`Edit failed: ${res.status}`);
+                    setEditingId(null);
+                    setEditData({});
+                    loadData();
+                })
+                .catch((err) => {
+                    console.error(err);
+                    alert(`Edit failed: ${err.message}`);
+                });
+        } else {
+            // Start editing
+            const adventure = adventures.find(a => a.id === id);
+            setEditingId(id);
+            setEditData({
+                activity_name: adventure.activity_name,
+                address: adventure.address,
+                link: adventure.link,
+                description: adventure.description,
+                cost_level_id: adventure.cost_level_id,
+                category_id: adventure.category_id,
+                ability_level_id: adventure.ability_level_id,
+                photo: adventure.photo,
+                latitude: adventure.latitude,
+                longitude: adventure.longitude
+            });
+            console.log('edited data', editData);
+        }
     };
 
     // Handler for Accept
@@ -133,7 +169,17 @@ const PendingAdventure = () => {
                 {adventures.map((adv) => (
                     <li key={adv.id}>
                         <article className="pending-card">
-                            <div className="card-title">{adv.activity_name}</div>
+                            <div className="card-title">
+                                {editingId === adv.id ? (
+                                    <input
+                                        type="text"
+                                        value={editData.activity_name || ''}
+                                        onChange={(e) => setEditData({...editData, activity_name: e.target.value})}
+                                    />
+                                ) : (
+                                    adv.activity_name
+                                )}
+                            </div>
 
                             <div className="card-top">
                                 <div className="card-top-left">
@@ -152,14 +198,14 @@ const PendingAdventure = () => {
                                             </label>
                                             <select
                                                 id={`price-${adv.id}`}
-                                                defaultValue={adv.price}
+                                                value={editingId === adv.id ? editData.cost_level_id : adv.cost_level_id}
+                                                onChange={editingId === adv.id ? (e) => setEditData({...editData, cost_level_id: e.target.value}) : undefined}
+                                                disabled={editingId !== adv.id}
                                             >
                                                 {costLevels.map((c) => (
                                                     <option
                                                         key={c.id}
-                                                        value={
-                                                            c.cost_level || c.label
-                                                        }
+                                                        value={c.id}
                                                     >
                                                         {c.cost_level || c.label}
                                                     </option>
@@ -174,12 +220,14 @@ const PendingAdventure = () => {
                                             </label>
                                             <select
                                                 id={`category-${adv.id}`}
-                                                defaultValue={adv.category}
+                                                value={editingId === adv.id ? editData.category_id : adv.category_id}
+                                                onChange={editingId === adv.id ? (e) => setEditData({...editData, category_id: e.target.value}) : undefined}
+                                                disabled={editingId !== adv.id}
                                             >
                                                 {categories.map((c) => (
                                                     <option
                                                         key={c.id}
-                                                        value={c.name}
+                                                        value={c.id}
                                                     >
                                                         {c.category_name}
                                                     </option>
@@ -194,14 +242,14 @@ const PendingAdventure = () => {
                                             </label>
                                             <select
                                                 id={`difficulty-${adv.id}`}
-                                                defaultValue={adv.difficulty}
+                                                value={editingId === adv.id ? editData.ability_level_id : adv.ability_level_id}
+                                                onChange={editingId === adv.id ? (e) => setEditData({...editData, ability_level_id: e.target.value}) : undefined}
+                                                disabled={editingId !== adv.id}
                                             >
                                                 {abilities.map((a) => (
                                                     <option
                                                         key={a.id}
-                                                        value={
-                                                            a.level || a.name
-                                                        }
+                                                        value={a.id}
                                                     >
                                                         {a.ability_level || a.name}
                                                     </option>
@@ -214,32 +262,66 @@ const PendingAdventure = () => {
 
                             <div className="field">
                                 <label>Location</label>
-                                <input
-                                    type="text"
-                                    readOnly
-                                    value={adv.address}
-                                />
+                                {editingId === adv.id ? (
+                                    <StandaloneSearchBox
+                                        onLoad={ref => searchBoxRef.current = ref}
+                                        onPlacesChanged={() => {
+                                            if (searchBoxRef.current) {
+                                                const places = searchBoxRef.current.getPlaces();
+                                                if (places && places.length > 0) {
+                                                    const place = places[0];
+                                                    const location = place.geometry.location;
+                                                    setEditData({
+                                                        ...editData,
+                                                        address: place.formatted_address,
+                                                        latitude: location.lat(),
+                                                        longitude: location.lng()
+                                                    });
+                                                }
+                                            }
+                                        }}
+                                    >
+                                        <input
+                                            type="text"
+                                            value={editData.address || ''}
+                                            onChange={(e) => setEditData({...editData, address: e.target.value})}
+                                            placeholder="Enter an address"
+                                        />
+                                    </StandaloneSearchBox>
+                                ) : (
+                                    <input
+                                        type="text"
+                                        readOnly
+                                        value={adv.address}
+                                    />
+                                )}
                             </div>
                             <div className="field">
                                 <label>Link (Optional)</label>
-                                <input type="text" readOnly value={adv.link} />
+                                <input
+                                    type="text"
+                                    readOnly={editingId !== adv.id}
+                                    value={editingId === adv.id ? editData.link : adv.link}
+                                    onChange={editingId === adv.id ? (e) => setEditData({...editData, link: e.target.value}) : undefined}
+                                />
                             </div>
                             <div className="field description">
                                 <label>Description</label>
                                 <textarea
-                                    readOnly
+                                    readOnly={editingId !== adv.id}
                                     rows="3"
-                                    value={adv.description}
+                                    value={editingId === adv.id ? editData.description : adv.description}
+                                    onChange={editingId === adv.id ? (e) => setEditData({...editData, description: e.target.value}) : undefined}
                                 />
                             </div>
 
                             <div className="card-buttons">
 
                             <button
-                                    className="btn delete"
+                                    className="btn edit"
                                     onClick={() => handleEdit(adv.id)}
                                 >
-                                    Edit
+                                    {editingId === adv.id ? 'Save' : 'Edit'}
                                 </button>
 
                                 <button
