@@ -143,7 +143,8 @@ router.get('/my/:createdby' ,(req,res) => {
 router.get('/admin/pending',(req,res) => {
 
     const sqlText = `SELECT * FROM "adventures"
-    WHERE "status" = 'pending'`;
+    WHERE "status" = 'pending'
+    ORDER BY "id" DESC;`;
 
     pool.query(sqlText)
     .then((result) => {

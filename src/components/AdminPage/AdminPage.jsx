@@ -183,12 +183,37 @@ const PendingAdventure = () => {
 
                             <div className="card-top">
                                 <div className="card-top-left">
-                                <p>
-                      <img src={`http://localhost:5001/uploads/${adv.photo}`}
-                      alt={adv.photo}
-                      className='adventure-image' />
-
-                    </p>
+                                    {editingId === adv.id ? (
+                                        <>
+                                            <input
+                                                type="file"
+                                                accept="image/*"
+                                                style={{ display: 'none' }}
+                                                id={`file-input-${adv.id}`}
+                                                onChange={(e) => {
+                                                    const file = e.target.files[0];
+                                                    if (file) {
+                                                        setEditData({...editData, photo: file});
+                                                    }
+                                                }}
+                                            />
+                                            <img 
+                                                src={editData.photo instanceof File ? URL.createObjectURL(editData.photo) : `http://localhost:5001/uploads/${editData.photo || adv.photo}`}
+                                                alt={adv.photo}
+                                                className='adventure-image'
+                                                onClick={(e) => {
+                                                    e.preventDefault();
+                                                    const input = e.target.parentNode.querySelector(`#file-input-${adv.id}`);
+                                                    if (input) input.click();
+                                                }}
+                                                style={{ cursor: 'pointer' }}
+                                            />
+                                        </>
+                                    ) : (
+                                        <img src={`http://localhost:5001/uploads/${adv.photo}`}
+                                             alt={adv.photo}
+                                             className='adventure-image' />
+                                    )}
                                 </div>
                                 <div className="card-top-right">
                                     <div className="card-top-right-box">
