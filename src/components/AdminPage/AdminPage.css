@@ -92,6 +92,10 @@ body {
     align-items: stretch;
 }
 
+.pending-card.editing {
+    background-color: rgb(181, 191, 208);
+}
+
 /* Card title */
 .card-title {
     background-color: rgb(208, 221, 245);

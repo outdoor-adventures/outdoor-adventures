@@ -168,7 +168,7 @@ const PendingAdventure = () => {
             <ul className="pending-grid">
                 {adventures.map((adv) => (
                     <li key={adv.id}>
-                        <article className="pending-card">
+                        <article className={`pending-card ${editingId === adv.id ? 'editing' : ''}`}>
                             <div className="card-title">
                                 {editingId === adv.id ? (
                                     <input
