@@ -16,6 +16,7 @@ import AboutUs from '../AboutUs/AboutUs';
 import AddAdventureForm from '../AddAdventureForm/AddAdventureForm';
 import UserPage from '../UserPage/UserPage';
 import AdminPage from '../AdminPage/AdminPage';
+import NotFound from '../NotFound/NotFound';
 import Footer from '../Footer/Footer';
 
 const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY; //google mapsi api key
@@ -87,7 +88,11 @@ function App() {
                         exact
                         path="/admin"
                         element={
-                          <AdminPage />
+                          user.id && user.user_rank === 1 ? (
+                            <AdminPage />
+                          ) : (
+                            <Navigate to="/404" replace />
+                          )
                         }
                     />
 
@@ -124,7 +129,8 @@ function App() {
                     {/* ----------- */}
                     <Route exact path="/about" element={<AboutUs />} />
                     <Route exact path="/user" element={<UserPage />} />
-                    <Route path="*" element={<h2>404 Page</h2>} />
+                    <Route path="/404" element={<NotFound />} />
+                    <Route path="*" element={<NotFound />} />
                 </Routes>
                 <Footer />
             </main>
