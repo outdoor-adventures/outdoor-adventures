@@ -4,18 +4,18 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 80px 20px;
+  padding: 200px 20px;
   max-width: 1000px;
   margin: 0 auto;
   min-height: 60vh;
   animation: fadeIn 0.8s ease-in-out;
-  height: 40vw;
+  height: 20vw;
 }
 
-@keyframes fadeIn {
+/* @keyframes fadeIn {
   from { opacity: 0; transform: translateY(-20px); }
   to { opacity: 1; transform: translateY(0); }
-}
+} */
 
 .not-found-container h2 {
   font-size: 2.5rem;
