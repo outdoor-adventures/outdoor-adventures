@@ -92,6 +92,10 @@ body {
     align-items: stretch;
 }
 
+.pending-card.editing {
+    background-color: rgb(181, 191, 208);
+}
+
 /* Card title */
 .card-title {
     background-color: rgb(208, 221, 245);
@@ -102,6 +106,20 @@ body {
     padding: 8px 0;
     margin-bottom: 16px;
     font-weight: bold;
+}
+
+.card-title input {
+    background: transparent;
+    border: none;
+    text-align: center;
+    font-size: 20px;
+    color: rgb(19, 39, 75);
+    font-weight: bold;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    outline: none;
+    font-family: inherit;
 }
 
 /* Top row: image and selects */
@@ -195,6 +213,10 @@ textarea {
 }
 .btn.delete:hover {
     background-color: #8b0000;
+}
+
+.btn.edit:hover {
+    background-color: #245690;
 }
 
 /* Responsive: stack cards */

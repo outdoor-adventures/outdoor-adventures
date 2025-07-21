@@ -143,7 +143,8 @@ router.get('/my/:createdby' ,(req,res) => {
 router.get('/admin/pending',(req,res) => {
 
     const sqlText = `SELECT * FROM "adventures"
-    WHERE "status" = 'pending'`;
+    WHERE "status" = 'pending'
+    ORDER BY "id" DESC;`;
 
     pool.query(sqlText)
     .then((result) => {
@@ -243,8 +244,8 @@ router.put('/:id', upload.single('photo'), (req, res) => {
         //again ik this isnt great but running out of time :'(
         const status = 'pending';
 
-        //for multer
-        const photo = req.file ? req.file.filename : null;
+        //for multer - preserve existing photo if no new file uploaded
+        const photo = req.file ? req.file.filename : req.body.photo;
 
     //working on this put request. 
     console.log(`testing in the PUT route in adventure.router.js ${id}`)
