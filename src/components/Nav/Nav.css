@@ -52,14 +52,13 @@
 .nav-right {
   flex: 1;
   display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  align-items: flex-end;
-  height: 100%
+  justify-content: flex-end;
+  align-items: center;
+  height: 100%;
 }
 
 /* Login/Register buttons */
-.nav-right a:not(.profile-image) {
+.nav-right ul a {
   font-family: 'Rockwell', serif;
   background-color: rgb(18, 37, 72);
   color: rgb(210, 224, 250);
@@ -102,5 +101,46 @@
   align-items: flex-end;
 }
 
+/* User controls container for logged in users */
+.nav-user-controls {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+/* Admin button specific styling */
+.admin-button {
+  font-family: 'Rockwell', serif;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 0.5em 1em;
+  border-radius: 4px;
+  text-decoration: none;
+  font-size: 0.95em;
+  transition: all 0.3s ease;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.admin-button:hover {
+  background-color: #45a049;
+  color: white;
+}
+
+/* When user is not logged in, display nav items in a row */
+.nav-right ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 10px;
+}
+
+.nav-right ul li {
+  display: inline-block;
+}
 
 
