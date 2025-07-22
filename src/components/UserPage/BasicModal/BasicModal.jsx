@@ -9,15 +9,36 @@ import './BasicModal.css'
 
 const style = {
   position: 'absolute',
-  top: '45%',
+  top: '50%',
   left: '50%',
+  height: '80vh',
   transform: 'translate(-50%, -50%)',
-  width: 1220,
-  height: 1100,
+  width: '60%',
+  maxHeight: '90vh',
+  overflow: 'auto',
   bgcolor: 'background.paper',
-  border: '2px solid #000',
+  border: '1px solid #000',
+  borderRadius: '8px',
   boxShadow: 24,
   p: 4,
+};
+
+const titleStyle = {
+  fontWeight: 'bold', 
+  fontSize: '32px', 
+  marginBottom: '20px',
+  textAlign: 'center'
+};
+
+const sectionStyle = {
+  marginBottom: '15px',
+  fontSize: '18px'
+};
+
+const imageContainerStyle = {
+  display: 'flex',
+  justifyContent: 'center',
+  marginBottom: '20px'
 };
 
 export default function BasicModal({ adv }) {
@@ -59,33 +80,41 @@ export default function BasicModal({ adv }) {
         <Box sx={style}>
           {adventureData ? (
             <>
-              <Typography id="modal-modal-title" variant="h6" component="h2" sx={{ fontWeight: 'bold', fontSize: '50px', marginTop: '-25px' }}>
+              <Typography id="modal-modal-title" variant="h4" component="h2" sx={titleStyle}>
                 {adventureData.activity_name}
               </Typography>
-              <Typography id="modal-modal-photo" sx={{ mt: 1 }}>
+              
+              <Box sx={imageContainerStyle}>
                 <img 
                   src={`http://localhost:5001/uploads/${adventureData.photo}`}
                   alt={adventureData.activity_name || 'Adventure image'}
                   className='modal-adventure-image' 
+                  style={{ maxWidth: '100%', maxHeight: '400px', objectFit: 'contain' }}
                 />
+              </Box>
+              
+              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, mb: 3 }}>
+                <Typography sx={sectionStyle} variant="body1">
+                  <strong>Category:</strong> {adventureData.category_name}
+                </Typography>
+                <Typography sx={sectionStyle} variant="body1">
+                  <strong>Difficulty:</strong> {adventureData.ability_level}
+                </Typography>
+                <Typography sx={sectionStyle} variant="body1">
+                  <strong>Cost:</strong> {adventureData.cost_level}
+                </Typography>
+              </Box>
+              
+              <Typography sx={sectionStyle} variant="body1">
+                <strong>Location:</strong> {adventureData.address || `${adventureData.city || ''}, ${adventureData.state || ''} ${adventureData.zip || ''}`}
               </Typography>
-              <Typography id="modal-modal-cost" variant="h6" component="h2">
-                Cost: {adventureData.cost_level}
+              
+              <Typography sx={sectionStyle} variant="body1">
+                <strong>Description:</strong> {adventureData.description}
               </Typography>
-              <Typography id="modal-modal-category" variant="h6" component="h2">
-                Category: {adventureData.category_name}
-              </Typography>
-              <Typography id="modal-modal-ability" variant="h6" component="h2">
-                Difficulty: {adventureData.ability_level}
-              </Typography>
-              <Typography id="modal-modal-address" variant="h6" component="h2">
-                Location: {adventureData.address || `${adventureData.city || ''}, ${adventureData.state || ''} ${adventureData.zip || ''}`}
-              </Typography>
-              <Typography id="modal-modal-link" variant="h6" component="h2">
-                Website: {adventureData.link}
-              </Typography>
-              <Typography id="modal-modal-description" variant="h6" component="h2">
-                Description: {adventureData.description}
+              
+              <Typography sx={sectionStyle} variant="body1">
+                <strong>Website:</strong> <a href={adventureData.link} target="_blank" rel="noopener noreferrer">{adventureData.link}</a>
               </Typography>
             </>
           ) : (

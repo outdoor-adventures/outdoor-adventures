@@ -66,3 +66,7 @@ typings/
 
 # ignore package-lock as it complicates merging
 package-lock.json
+
+
+# Uploaded Photos Locally for Testing
+public/uploads
