@@ -238,7 +238,7 @@ useEffect(() => {
                     <p>{adventure.link}</p>
                     <p>{adventure.address}</p>
                     <FavoriteButton />
-                    <BasicModal adv={adventure.id} />
+                    <BasicModal adv={adventure} />
                     
                     
                     {/* Rendering the adventure image using Multer */}
