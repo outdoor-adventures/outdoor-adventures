@@ -164,7 +164,7 @@ const AddAdventureForm = () => {
               >
                 <label>
                   Location:
-                  <input type="text" name="address" value={formData.address} onChange={handleChange} required />
+                  <input type="text" placeholder="Enter an Address" name="address" value={formData.address} onChange={handleChange} required />
                 </label>
               </StandaloneSearchBox>
             </div>
@@ -174,15 +174,15 @@ const AddAdventureForm = () => {
             <div className="form-section link-section">
             <label>
               Link:
-              <input type="url" name="link" value={formData.link} onChange={handleChange} />
+              <input type="url" placeholder="Enter a Link (Optional)" name="link" value={formData.link} onChange={handleChange} />
             </label>
             </div>
             {/* <br /> */}
 
-            <div className="activity-name-section">
+            <div className="form-section activity-name-section">
             <label>
               Adventure Name:
-              <input type="text" name="name" value={formData.name} onChange={handleChange} />
+              <input type="text" placeholder="Example: Yellowstone National Park" name="name" value={formData.name} onChange={handleChange} />
             </label>
             </div>
     
@@ -191,7 +191,7 @@ const AddAdventureForm = () => {
             <div className="description-box">
             <label>
               Description:
-              <textarea name="description" value={formData.description} onChange={handleChange} />
+              <textarea placeholder="Tips for other adventurers:" name="description" value={formData.description} onChange={handleChange} />
             </label>
             </div>
             {/* <br /> */}
