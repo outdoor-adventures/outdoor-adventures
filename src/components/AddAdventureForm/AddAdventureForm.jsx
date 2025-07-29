@@ -191,7 +191,7 @@ const AddAdventureForm = () => {
             <div className="description-box">
             <label>
               Description:
-              <textarea placeholder="Tips for fellow adventurers:" name="description" value={formData.description} onChange={handleChange} />
+              <textarea placeholder="Tips for other adventurers:" name="description" value={formData.description} onChange={handleChange} />
             </label>
             </div>
             {/* <br /> */}
