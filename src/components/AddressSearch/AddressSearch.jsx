@@ -237,10 +237,9 @@ useEffect(() => {
                     <p>Ability Level: {adventure.ability_level}</p>
                     <p>{adventure.link}</p>
                     <p>{adventure.address}</p>
-                    
-                    <FavoriteButton adventureId={adventure.id} />
 
-                    <BasicModal adv={adventure.id} />
+                    <FavoriteButton adventureId={adventure.id} />
+                    <BasicModal adv={adventure} />
                     
                     
                     {/* Rendering the adventure image using Multer */}

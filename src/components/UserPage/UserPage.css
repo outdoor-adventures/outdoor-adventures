@@ -23,6 +23,7 @@
     flex-wrap: wrap;
     margin: 50px;
     gap: 2rem;
+    justify-content: center;
   }
   
   .card {

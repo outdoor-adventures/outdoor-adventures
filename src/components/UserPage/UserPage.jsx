@@ -11,6 +11,7 @@ const UserPage = () => {
     const [favorites, setFavorites] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    
 
     useEffect(() => {
         // fetch both my-adventures and favorites in parallel
