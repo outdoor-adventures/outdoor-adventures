@@ -8,6 +8,11 @@ export default function FavoriteButton({ adventureId }) {
     const user = useStore((store) => store.user);
     const [liked, setLiked] = useState(false);
 
+    // Don't render if user is not logged in
+    if (!user || !user.id) {
+        return null;
+    }
+
     const toggleLike = async () => {
       try{
           await axios.post(`/api/adventures/favorites/${user.id}/${adventureId}`);
@@ -19,9 +24,7 @@ export default function FavoriteButton({ adventureId }) {
 
   return (
     <div onClick={toggleLike}>
-
         {liked ? <FavoriteIcon /> : <FavoriteBorderOutlinedIcon />}
-
     </div>
   )
 }
