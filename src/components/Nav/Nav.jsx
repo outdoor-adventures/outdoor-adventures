@@ -1,4 +1,5 @@
 import { NavLink } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import useStore from '../../zustand/store';
 import logo from '../../../public/images/HomeIcon.png';
 import prof from '../../../public/images/prof.png';
@@ -7,6 +8,21 @@ import './Nav.css';
 
 function Nav({pageTitle}) {
   const user = useStore((store) => store.user);
+  const [pendingCount, setPendingCount] = useState(0);
+  
+  // Fetch pending adventures count when user is admin
+  useEffect(() => {
+    if (user.id && user.user_rank === 1) {
+      fetch('/api/adventures/admin/pending')
+        .then(response => response.json())
+        .then(data => {
+          setPendingCount(data.length);
+        })
+        .catch(error => {
+          console.error('Error fetching pending adventures:', error);
+        });
+    }
+  }, [user.id, user.user_rank]);
 
   return (
     <>
@@ -26,33 +42,36 @@ function Nav({pageTitle}) {
           </div>
 
       <div className='nav-right'>
-      <ul>
       { // User is not logged in, render these links:
         !user.id && (
-          <>
+          <ul>
             <li>
               <NavLink to="/login">Login</NavLink>
             </li>
             <li>
               <NavLink to="/registration">Register</NavLink>
             </li>
-          </>
+          </ul>
         )
       }
       { // User is logged in, render these links:
         user.id && (
-          <>
-            <NavLink to="/user" className="profile-image" >
-            <img src={prof} alt="" style={{width: '113px', marginTop: '20px'}} />
+          <div className="nav-user-controls">
+            {/* Only show admin button if user has admin rank (1) */}
+            {user.user_rank === 1 && (
+              <NavLink to="/admin" className="admin-button">
+                Pending Adventures {pendingCount > 0 && `(${pendingCount})`}
+              </NavLink>
+            )}
+            <NavLink to="/user" className="profile-image">
+              <img src={prof} alt="Profile" style={{width: '120px', marginTop: '0'}} />
             </NavLink>
-          </>
+          </div>
         )
       }
-      </ul>
       </div>
-    </div>
+      </div>
     </nav>
-    <div className="banner-transparent-strip"></div>
     </>
   );
 }
