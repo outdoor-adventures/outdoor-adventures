@@ -346,6 +346,24 @@ router.post('/:createdby', upload.single('photo'), (req, res) => {
 
 
 
+//CHECK IF ADVENTURE IS FAVORITED
+router.get('/favorites/:userid/:adventureid', (req, res) => {
+    const {userid, adventureid} = req.params;
+    
+    const sqlText = `
+    SELECT * FROM "favorite_adventures"
+    WHERE "user_id" = $1 AND "adventure_id" = $2;`;
+    
+    pool.query(sqlText, [userid, adventureid])
+    .then((result) => {
+        res.send({ isFavorited: result.rows.length > 0 });
+    })
+    .catch((error) => {
+        console.log('Error checking favorite status:', error);
+        res.sendStatus(500);
+    });
+});
+
 //FAVORITE ADVENTURE
 router.post('/favorites/:userid/:adventureid', (req, res) => {
     console.log('testing the favorite adventures POST route')
@@ -371,6 +389,24 @@ router.post('/favorites/:userid/:adventureid', (req, res) => {
     })
 
 })
+
+//REMOVE FAVORITE ADVENTURE
+router.delete('/favorites/:userid/:adventureid', (req, res) => {
+    const {userid, adventureid} = req.params;
+    
+    const sqlText = `
+    DELETE FROM "favorite_adventures"
+    WHERE "user_id" = $1 AND "adventure_id" = $2;`;
+    
+    pool.query(sqlText, [userid, adventureid])
+    .then((result) => {
+        res.sendStatus(204);
+    })
+    .catch((error) => {
+        console.log('Error removing favorite:', error);
+        res.sendStatus(500);
+    });
+});
 
 
 
