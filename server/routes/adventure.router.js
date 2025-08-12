@@ -229,8 +229,8 @@ router.put('/:id', upload.single('photo'), uploadToS3, (req, res) => {
     //for multer - preserve existing photo if no new file uploaded
     const photo = req.file ? req.file.s3Url : req.body.photo;
 
-    console.log(`Updating adventure ${id}`);
-    console.log('File S3 URL:', req.file?.s3Url);
+    // console.log(`Updating adventure ${id}`);
+    // console.log('File S3 URL:', req.file?.s3Url);
 
     const sqlText = `
     UPDATE "adventures"
