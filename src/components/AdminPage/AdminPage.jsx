@@ -15,6 +15,20 @@ const PendingAdventure = () => {
     const [editData, setEditData] = useState({});
     const searchBoxRef = useRef(null);
 
+    // Helper function to get correct image URL
+    const getImageUrl = (photo) => {
+        console.log('getImageUrl called with:', photo);
+        if (!photo) return '';
+        // If it's already a full URL (starts with http), use it directly
+        if (photo.startsWith('http')) {
+            console.log('Using S3 URL:', photo);
+            return photo;
+        }
+        // Otherwise, it's a legacy filename, use local path
+        const localUrl = `http://localhost:5001/uploads/${photo}`;
+        console.log('Using local URL:', localUrl);
+        return localUrl;
+    };
 
     // Unified data loader
     const loadData = () => {
@@ -30,6 +44,10 @@ const PendingAdventure = () => {
             fetch('/api/dropdown/cost').then((res) => res.json()),
         ])
             .then(([advs, cats, abils, costs]) => {
+                console.log('Adventures loaded:', advs);
+                advs.forEach(adv => {
+                    console.log(`Adventure ${adv.id} photo:`, adv.photo);
+                });
                 setAdventures(advs);
                 setCategories(cats);
                 setAbilities(abils);
@@ -197,9 +215,11 @@ const PendingAdventure = () => {
                                                     }
                                                 }}
                                             />
+
+                        
                                             <img 
-                                                src={editData.photo instanceof File ? URL.createObjectURL(editData.photo) : `http://localhost:5001/uploads/${editData.photo || adv.photo}`}
-                                                alt={adv.photo}
+                                                src={editData.photo instanceof File ? URL.createObjectURL(editData.photo) : getImageUrl(editData.photo || adv.photo)}
+                                                alt={adv.activity_name}
                                                 className='adventure-image'
                                                 onClick={(e) => {
                                                     e.preventDefault();
@@ -210,9 +230,14 @@ const PendingAdventure = () => {
                                             />
                                         </>
                                     ) : (
-                                        <img src={`http://localhost:5001/uploads/${adv.photo}`}
-                                             alt={adv.photo}
-                                             className='adventure-image' />
+                                        <img src={getImageUrl(adv.photo)}
+                                             alt={adv.activity_name}
+                                             className='adventure-image'
+                                             onError={(e) => {
+                                                 console.error('Image failed to load:', e.target.src);
+                                                 e.target.style.border = '2px solid red';
+                                             }}
+                                             onLoad={() => console.log('Image loaded successfully:', getImageUrl(adv.photo))} />
                                     )}
                                 </div>
                                 <div className="card-top-right">

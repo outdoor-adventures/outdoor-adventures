@@ -35,6 +35,17 @@ function AddressSearch() {
   const searchBoxRef = useRef(null); //references the google maps api autocomplete search bar
   const centerRef = useRef(center); //looks weird but using to try and prevent google maps marker re-render
 
+  // Helper function to get correct image URL
+  const getImageUrl = (photo) => {
+    if (!photo) return '';
+    // If it's already a full URL (starts with http), use it directly
+    if (photo.startsWith('http')) {
+      return photo;
+    }
+    // Otherwise, it's a legacy filename, use local path
+    return `http://localhost:5001/uploads/${photo}`;
+  };
+
   //FILTERS
   //handle selected filter
   const [selectedCategory, setSelectedCategory] = useState('');
@@ -225,8 +236,8 @@ useEffect(() => {
 
 
                 <p>
-                      <img src={`http://localhost:5001/uploads/${adventure.photo}`}
-                      alt={adventure.photo}
+                      <img src={getImageUrl(adventure.photo)}
+                      alt={adventure.activity_name}
                       className='browse-adventure-image' />
 
                     </p>

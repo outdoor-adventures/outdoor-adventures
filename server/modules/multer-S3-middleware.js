@@ -10,12 +10,7 @@ const bucketRegion = process.env.BUCKET_REGION;
 const accessKey = process.env.ACCESS_KEY;
 const secretAccessKey = process.env.SECRET_ACCESS_KEY;
 
-console.log('S3 Config:', {
-    bucketName,
-    bucketRegion,
-    accessKeyExists: !!accessKey,
-    secretExists: !!secretAccessKey
-});
+
 
 const s3 = new S3Client({
     credentials: {
@@ -31,9 +26,7 @@ const upload = multer({ storage: storage });
 
 // Middleware to upload file to S3
 const uploadToS3 = async (req, res, next) => {
-    console.log('=== S3 MIDDLEWARE DEBUG ===');
-    console.log('req.file exists:', !!req.file);
-    console.log('req.file:', req.file);
+    console.log('S3 middleware called, file exists:', !!req.file);
     
     if (!req.file) {
         console.log('No file found, skipping S3 upload');
@@ -41,7 +34,8 @@ const uploadToS3 = async (req, res, next) => {
     }
 
     try {
-        console.log('Starting S3 upload...');
+        console.log('Starting S3 upload for file:', req.file.originalname);
+        
         // Generate unique filename
         const randomName = crypto.randomBytes(32).toString('hex');
         const fileName = `${randomName}-${req.file.originalname}`;
@@ -52,18 +46,20 @@ const uploadToS3 = async (req, res, next) => {
             Body: req.file.buffer,
             ContentType: req.file.mimetype
         };
-
-        console.log('S3 params:', { Bucket: bucketName, Key: fileName, ContentType: req.file.mimetype });
+        
+        console.log('S3 upload params:', { Bucket: bucketName, Key: fileName });
         
         const command = new PutObjectCommand(params);
-        await s3.send(command);
+        const result = await s3.send(command);
+        
+        console.log('S3 upload result:', result);
 
         // Add S3 URL to req.file for database storage
         req.file.s3Key = fileName;
         req.file.s3Url = `https://${bucketName}.s3.${bucketRegion}.amazonaws.com/${fileName}`;
         
-        console.log('S3 upload successful, URL:', req.file.s3Url);
-        console.log('===========================');
+        console.log('S3 URL created:', req.file.s3Url);
+        console.log('Test this URL in browser:', req.file.s3Url);
         
         next();
     } catch (error) {

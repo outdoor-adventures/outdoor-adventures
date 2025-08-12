@@ -1,20 +1,7 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
-const multer = require('multer');
-const path = require('path');
-
-// config for multer file upload 
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, 'public/uploads');
-    },
-    filename: function (req, file, cb) {
-        cb(null, Date.now() + path.extname(file.originalname));
-    }
-});
-
-const upload = multer({ storage: storage });
+const { upload, uploadToS3 } = require('../modules/multer-S3-middleware');
 
 
 
@@ -235,22 +222,15 @@ router.delete('/:id', (req, res) => {
 
 
 //UPDATE POST
-router.put('/:id', upload.single('photo'), (req, res) => {
+router.put('/:id', upload.single('photo'), uploadToS3, (req, res) => {
     const { id } = req.params;
+    const status = 'pending';
 
-    const { category_id, activity_name, ability_level_id, cost_level_id, link, 
-        description, latitude, longitude, address} = req.body;
-    
-        //again ik this isnt great but running out of time :'(
-        const status = 'pending';
+    //for multer - preserve existing photo if no new file uploaded
+    const photo = req.file ? req.file.s3Url : req.body.photo;
 
-        //for multer - preserve existing photo if no new file uploaded
-        const photo = req.file ? req.file.filename : req.body.photo;
-
-    //working on this put request. 
-    console.log(`testing in the PUT route in adventure.router.js ${id}`)
-    console.log('adventure updates are:', req.body)
-    console.log('file incoming', req.file)
+    console.log(`Updating adventure ${id}`);
+    console.log('File S3 URL:', req.file?.s3Url);
 
     const sqlText = `
     UPDATE "adventures"
@@ -277,7 +257,7 @@ router.put('/:id', upload.single('photo'), (req, res) => {
     pool.query(sqlText, sqlValues)
     .then(() => {
         res.sendStatus(201)
-        console.log()
+        console.log('Adventure updated successfully')
     })
     .catch((dbErr) => {
         console.log('PUT route not working', dbErr);
@@ -310,17 +290,12 @@ router.put('/status/:id', (req, res) => {
 
 
 //CREATE ADVENTURE
-router.post('/:createdby', upload.single('photo'), (req, res) => {
-    const { category_id, activity_name, ability_level_id, cost_level_id, photo, link, 
-        description, latitude, longitude, address} = req.body;
-
+router.post('/:createdby', upload.single('photo'), uploadToS3, (req, res) => {
     const created_by = req.params.createdby; 
-
-    //I know this is bad. ran out of time.
     const status = 'pending';
 
-
-    console.log(`testing in the post route in adventure.router.js ${created_by}`)
+    console.log(`Creating adventure for user ${created_by}`);
+    console.log('File S3 URL:', req.file?.s3Url);
 
     const sqlText = `INSERT INTO "adventures" 
     ( "category_id", "ability_level_id", "cost_level_id", "photo", "link", "activity_name", "description", "latitude", "longitude", "created_by", "address", "status")
@@ -329,14 +304,14 @@ router.post('/:createdby', upload.single('photo'), (req, res) => {
 
     const sqlValues = [
         req.body.category_id, req.body.ability_level_id, req.body.cost_level_id,
-        req.file?.filename, req.body.link, req.body.activity_name, req.body.description,
+        req.file?.s3Url || null, req.body.link, req.body.activity_name, req.body.description,
         req.body.latitude, req.body.longitude, created_by, req.body.address, status
     ];
 
     pool.query(sqlText, sqlValues)
     .then((result) => {
         res.sendStatus(201)
-        console.log(result)
+        console.log('Adventure created successfully')
     })
     .catch((dbErr) => {
         console.log('POST route not working', dbErr);
