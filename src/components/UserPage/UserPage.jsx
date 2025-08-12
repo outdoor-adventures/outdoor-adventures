@@ -25,6 +25,12 @@ const UserPage = () => {
     
 
     useEffect(() => {
+        // Only fetch if user is loaded
+        if (!user || !user.id) {
+            setLoading(false);
+            return;
+        }
+        
         // fetch both my-adventures and favorites in parallel
         Promise.all([
             fetch(`/api/adventures/my/${user.id}`),
@@ -45,7 +51,7 @@ const UserPage = () => {
                 setError(err.message);
                 setLoading(false);
             });
-    }, []);
+    }, [user]);
 
     if (loading) {
         return (
@@ -81,7 +87,7 @@ const UserPage = () => {
                     {myAdventures.map((adv) => (
                         <div key={adv.id} className="card">
                       
-                      <div key={adv.id} className="my-adventure-image">
+                      <div className="my-adventure-image">
                         <img src={getImageUrl(adv.photo)}
                       alt={adv.activity_name}
                       className='recent-adventure-image' />
