@@ -14,7 +14,7 @@ function HomePage() {
         <>
 
         <div className="home-background">
-              <Nav pageTitle="Outdoor Adventures" />
+              <Nav pageTitle="My Outdoor Adventures" />
        
             <button onClick={logOut}>Log Out</button>
 

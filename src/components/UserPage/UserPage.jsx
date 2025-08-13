@@ -12,8 +12,25 @@ const UserPage = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     
+    // Helper function to get correct image URL
+    const getImageUrl = (photo) => {
+        if (!photo) return '';
+        // If it's already a full URL (starts with http), use it directly
+        if (photo.startsWith('http')) {
+            return photo;
+        }
+        // Otherwise, it's a legacy filename, use local path
+        return `http://localhost:5001/uploads/${photo}`;
+    };
+    
 
     useEffect(() => {
+        // Only fetch if user is loaded
+        if (!user || !user.id) {
+            setLoading(false);
+            return;
+        }
+        
         // fetch both my-adventures and favorites in parallel
         Promise.all([
             fetch(`/api/adventures/my/${user.id}`),
@@ -34,7 +51,7 @@ const UserPage = () => {
                 setError(err.message);
                 setLoading(false);
             });
-    }, []);
+    }, [user]);
 
     if (loading) {
         return (
@@ -70,9 +87,9 @@ const UserPage = () => {
                     {myAdventures.map((adv) => (
                         <div key={adv.id} className="card">
                       
-                      <div key={adv.id} className="my-adventure-image">
-                        <img src={`http://localhost:5001/uploads/${adv.photo}`}
-                      alt={adv.photo}
+                      <div className="my-adventure-image">
+                        <img src={getImageUrl(adv.photo)}
+                      alt={adv.activity_name}
                       className='recent-adventure-image' />
 
                     </div>
@@ -99,8 +116,8 @@ const UserPage = () => {
                 <div className="cards-container">
                     {favorites.map((adv) => (
                         <div key={adv.id} className="card">
-                            <img src={`http://localhost:5001/uploads/${adv.photo}`}
-                      alt={adv.photo}
+                            <img src={getImageUrl(adv.photo)}
+                      alt={adv.activity_name}
                       className='recent-adventure-image' />
                                           <h3 className="card-adventure-name">{adv.activity_name}</h3>
                             <h3 className="card-category">{adv.category_name}</h3>

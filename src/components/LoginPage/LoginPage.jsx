@@ -39,7 +39,7 @@ function LoginPage() {
   return (
     <>
       <div className="banner">
-        <Nav pageTitle="Outdoor Adventures" />
+        <Nav pageTitle="My Outdoor Adventures" />
       </div>
       <div className="banner-transparent-strip"></div>
       <div className="login-container">

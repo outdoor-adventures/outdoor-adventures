@@ -48,6 +48,13 @@ export default function BasicModal({ adv }) {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   
+  const getImageUrl = (photo) => {
+    if (!photo) return '/images/default-adventure.jpg';
+    if (photo.startsWith('http')) return photo;
+    return `http://localhost:5001/uploads/${photo}`;
+  };
+  
+  
   // Set adventure data when modal opens or adv changes
   useEffect(() => {
     if (typeof adv === 'object') {
@@ -86,7 +93,7 @@ export default function BasicModal({ adv }) {
               
               <Box sx={imageContainerStyle}>
                 <img 
-                  src={`http://localhost:5001/uploads/${adventureData.photo}`}
+                  src={getImageUrl(adventureData.photo)}
                   alt={adventureData.activity_name || 'Adventure image'}
                   className='modal-adventure-image' 
                   style={{ maxWidth: '100%', maxHeight: '400px', objectFit: 'contain' }}
