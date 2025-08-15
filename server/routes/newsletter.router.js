@@ -3,7 +3,7 @@ const pool = require('../modules/pool');
 const router = express.Router();
 
 //POST USER EMAIL
-router.post('/subscribe/:userId', (req, res) => {
+router.post('/:userId', (req, res) => {
     const { email, name } = req.body; 
     
     const  user_id  = req.params.userId;
