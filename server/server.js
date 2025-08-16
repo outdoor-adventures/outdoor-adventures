@@ -30,7 +30,7 @@ app.use(passport.session());
 
 
 app.use(express.static('public'));
-app.use('/uploads', express.static('uploads'));
+app.use('/uploads', express.static('public/uploads'));
 
 // Apply router files:
 app.use('/api/user', userRouter);

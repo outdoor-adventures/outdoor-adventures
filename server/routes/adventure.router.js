@@ -1,8 +1,14 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
-const { upload, uploadToS3 } = require('../modules/multer-S3-middleware');
-
+const multer = require('multer');
+const storage = multer.diskStorage({
+  destination: 'public/uploads/',
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + '.' + file.originalname.split('.').pop());
+  }
+});
+const upload = multer({ storage: storage });
 
 
 //GET ALL ADVENTURES
@@ -222,12 +228,12 @@ router.delete('/:id', (req, res) => {
 
 
 //UPDATE POST
-router.put('/:id', upload.single('photo'), uploadToS3, (req, res) => {
+router.put('/:id', upload.single('photo'), (req, res) => {
     const { id } = req.params;
     const status = 'pending';
 
     //for multer - preserve existing photo if no new file uploaded
-    const photo = req.file ? req.file.s3Url : req.body.photo;
+    const photo = req.file ? `/uploads/${req.file.filename}` : req.body.photo;
 
     // console.log(`Updating adventure ${id}`);
     // console.log('File S3 URL:', req.file?.s3Url);
@@ -290,12 +296,12 @@ router.put('/status/:id', (req, res) => {
 
 
 //CREATE ADVENTURE
-router.post('/:createdby', upload.single('photo'), uploadToS3, (req, res) => {
+router.post('/:createdby', upload.single('photo'), (req, res) => {
     const created_by = req.params.createdby; 
     const status = 'pending';
 
     console.log(`Creating adventure for user ${created_by}`);
-    console.log('File S3 URL:', req.file?.s3Url);
+    console.log('File path:', req.file?.path);
 
     const sqlText = `INSERT INTO "adventures" 
     ( "category_id", "ability_level_id", "cost_level_id", "photo", "link", "activity_name", "description", "latitude", "longitude", "created_by", "address", "status")
@@ -304,7 +310,7 @@ router.post('/:createdby', upload.single('photo'), uploadToS3, (req, res) => {
 
     const sqlValues = [
         req.body.category_id, req.body.ability_level_id, req.body.cost_level_id,
-        req.file?.s3Url || null, req.body.link, req.body.activity_name, req.body.description,
+        req.file ? `/uploads/${req.file.filename}` : null, req.body.link, req.body.activity_name, req.body.description,
         req.body.latitude, req.body.longitude, created_by, req.body.address, status
     ];
 

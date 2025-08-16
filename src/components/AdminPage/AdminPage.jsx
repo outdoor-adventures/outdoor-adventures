@@ -24,8 +24,13 @@ const PendingAdventure = () => {
             console.log('Using S3 URL:', photo);
             return photo;
         }
+        // If it starts with /uploads, it's already a relative path
+        if (photo.startsWith('/uploads/')) {
+            console.log('Using relative URL:', photo);
+            return photo;
+        }
         // Otherwise, it's a legacy filename, use local path
-        const localUrl = `http://localhost:5001/uploads/${photo}`;
+        const localUrl = `/uploads/${photo}`;
         console.log('Using local URL:', localUrl);
         return localUrl;
     };
@@ -235,9 +240,18 @@ const PendingAdventure = () => {
                                              className='adventure-image'
                                              onError={(e) => {
                                                  console.error('Image failed to load:', e.target.src);
-                                                 e.target.style.border = '2px solid red';
-                                             }}
-                                             onLoad={() => console.log('Image loaded successfully:', getImageUrl(adv.photo))} />
+                                                 // Try fallback to placeholder or hide image
+                                                 e.target.style.display = 'none';
+                                                 // Show adventure name instead
+                                                 const parent = e.target.parentElement;
+                                                 if (!parent.querySelector('.image-fallback')) {
+                                                     const fallback = document.createElement('div');
+                                                     fallback.className = 'image-fallback';
+                                                     fallback.textContent = adv.activity_name;
+                                                     fallback.style.cssText = 'display:flex;align-items:center;justify-content:center;background:#f0f0f0;height:200px;border:1px solid #ccc';
+                                                     parent.appendChild(fallback);
+                                                 }
+                                             }} />
                                     )}
                                 </div>
                                 <div className="card-top-right">
