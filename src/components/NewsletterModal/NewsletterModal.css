@@ -151,3 +151,15 @@
 .success-button:hover {
     transform: scale(1.02);
 }
+
+.login-prompt {
+    text-align: center;
+    padding: 1rem 0;
+}
+
+.login-prompt p {
+    color: rgb(18, 37, 72);
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+}

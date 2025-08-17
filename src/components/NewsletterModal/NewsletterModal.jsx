@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import useStore from '../../zustand/store';
 import './NewsletterModal.css';
 
@@ -16,6 +17,12 @@ const NewsletterModal = ({ isOpen, onClose }) => {
     
     // Track if user has successfully subscribed
     const [isSubscribed, setIsSubscribed] = useState(false);
+    
+    // Track if showing login prompt
+    const [showLoginPrompt, setShowLoginPrompt] = useState(false);
+    
+    // Navigation hook
+    const navigate = useNavigate();
 
     // Update form data when user types in inputs
     const handleChange = (e) => {
@@ -29,7 +36,7 @@ const NewsletterModal = ({ isOpen, onClose }) => {
 
         // Check if user is logged in
         if (!user || !user.id) {
-            alert('Please log in to subscribe to the newsletter.');
+            setShowLoginPrompt(true);
             return;
         }
 
@@ -51,7 +58,14 @@ const NewsletterModal = ({ isOpen, onClose }) => {
     // Reset state and close modal
     const handleClose = () => {
         setIsSubscribed(false);
+        setShowLoginPrompt(false);
         onClose();
+    };
+    
+    // Navigate to register page
+    const handleLogin = () => {
+        handleClose();
+        navigate('/login');
     };
 
     // Don't render if modal is closed
@@ -64,12 +78,25 @@ const NewsletterModal = ({ isOpen, onClose }) => {
             <div className="modal-content" onClick={(e) => e.stopPropagation()}>
                 {/* Header with dynamic title and close button */}
                 <div className="modal-header">
-                    <h2>{isSubscribed ? 'Welcome to Our Newsletter!' : 'Join Our Newsletter'}</h2>
+                    <h2>
+                        {isSubscribed ? 'Welcome to Our Newsletter!' : 
+                         showLoginPrompt ? 'Login Required' : 
+                         'Join Our Newsletter'}
+                    </h2>
                     <button className="close-button" onClick={handleClose}>×</button>
                 </div>
                 
-                {/* Show success message or subscription form */}
-                {isSubscribed ? (
+                {/* Show success message, login prompt, or subscription form */}
+                {showLoginPrompt ? (
+                    // Login prompt for non-authenticated users
+                    <div className="login-prompt">
+                        <p>Please login or create an account before subscribing to our newsletter.</p>
+                        <div className="form-buttons">
+                            <button type="button" onClick={handleClose}>Cancel</button>
+                            <button type="button" onClick={handleLogin}>Log in / Register</button>
+                        </div>
+                    </div>
+                ) : isSubscribed ? (
                     // Success state after subscription
                     <div className="success-message">
                         <span className="success-icon">✅</span>
