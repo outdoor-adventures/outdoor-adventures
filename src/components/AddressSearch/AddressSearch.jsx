@@ -42,8 +42,12 @@ function AddressSearch() {
     if (photo.startsWith('http')) {
       return photo;
     }
+    // If it starts with /uploads, it's already a relative path
+    if (photo.startsWith('/uploads/')) {
+      return photo;
+    }
     // Otherwise, it's a legacy filename, use local path
-    return `http://localhost:5001/uploads/${photo}`;
+    return `/uploads/${photo}`;
   };
 
   //FILTERS

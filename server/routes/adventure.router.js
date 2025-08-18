@@ -1,31 +1,33 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
-const multer = require('multer');
-const storage = multer.diskStorage({
-  destination: 'public/uploads/',
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + '.' + file.originalname.split('.').pop());
-  }
-});
-const upload = multer({ storage: storage });
+
+const { upload, uploadToS3, getSignedImageUrl } = require('../modules/multer-S3-middleware');
 
 
 //GET ALL ADVENTURES
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
     const sqlText = 'SELECT * FROM "adventures" JOIN "category_table" ON "adventures"."category_id" = "category_table"."id" JOIN "cost_table" ON "adventures"."cost_level_id" = "cost_table"."id" JOIN "ability_table" ON "adventures"."ability_level_id" = "ability_table"."id";';
 
-    pool.query(sqlText)
-
-    .then((result) => {
-        console.log('result of adventure GET is:', result)
-        console.log(`query ${sqlText} was successful`)
-            res.send(result.rows);
-    })
-    .catch((error) => {
-        console.log(`query ${sqlText} failed with error: ${error}`)
+    try {
+        const result = await pool.query(sqlText);
+        
+        // Generate signed URLs for photos
+        const adventuresWithSignedUrls = await Promise.all(
+            result.rows.map(async (adventure) => {
+                if (adventure.photo && adventure.photo.includes('amazonaws.com')) {
+                    const key = adventure.photo.split('/').pop();
+                    adventure.signedPhotoUrl = await getSignedImageUrl(key);
+                }
+                return adventure;
+            })
+        );
+        
+        res.send(adventuresWithSignedUrls);
+    } catch (error) {
+        console.log(`query ${sqlText} failed with error: ${error}`);
         res.sendStatus(500);
-    });
+    }
 }); // END GET
 
 
@@ -228,12 +230,12 @@ router.delete('/:id', (req, res) => {
 
 
 //UPDATE POST
-router.put('/:id', upload.single('photo'), (req, res) => {
+router.put('/:id', upload.single('photo'), uploadToS3, (req, res) => {
     const { id } = req.params;
     const status = 'pending';
 
     //for multer - preserve existing photo if no new file uploaded
-    const photo = req.file ? `/uploads/${req.file.filename}` : req.body.photo;
+    const photo = req.file ? req.file.s3Url : req.body.photo;
 
     // console.log(`Updating adventure ${id}`);
     // console.log('File S3 URL:', req.file?.s3Url);
@@ -296,12 +298,12 @@ router.put('/status/:id', (req, res) => {
 
 
 //CREATE ADVENTURE
-router.post('/:createdby', upload.single('photo'), (req, res) => {
+router.post('/:createdby', upload.single('photo'), uploadToS3, (req, res) => {
     const created_by = req.params.createdby; 
     const status = 'pending';
 
     console.log(`Creating adventure for user ${created_by}`);
-    console.log('File path:', req.file?.path);
+    console.log('S3 URL:', req.file?.s3Url);
 
     const sqlText = `INSERT INTO "adventures" 
     ( "category_id", "ability_level_id", "cost_level_id", "photo", "link", "activity_name", "description", "latitude", "longitude", "created_by", "address", "status")
@@ -310,7 +312,7 @@ router.post('/:createdby', upload.single('photo'), (req, res) => {
 
     const sqlValues = [
         req.body.category_id, req.body.ability_level_id, req.body.cost_level_id,
-        req.file ? `/uploads/${req.file.filename}` : null, req.body.link, req.body.activity_name, req.body.description,
+        req.file?.s3Url || null, req.body.link, req.body.activity_name, req.body.description,
         req.body.latitude, req.body.longitude, created_by, req.body.address, status
     ];
 

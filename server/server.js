@@ -1,5 +1,6 @@
 require('dotenv').config();
 const express = require('express');
+const { S3Client} = require('@aws-sdk/client-s3');
 
 // Instantiate an express server:
 const app = express();

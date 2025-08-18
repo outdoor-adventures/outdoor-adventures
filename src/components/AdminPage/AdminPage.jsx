@@ -16,23 +16,15 @@ const PendingAdventure = () => {
     const searchBoxRef = useRef(null);
 
     // Helper function to get correct image URL
-    const getImageUrl = (photo) => {
-        console.log('getImageUrl called with:', photo);
-        if (!photo) return '';
-        // If it's already a full URL (starts with http), use it directly
-        if (photo.startsWith('http')) {
-            console.log('Using S3 URL:', photo);
-            return photo;
+    const getImageUrl = (adventure) => {
+        // Use signed URL if available, otherwise fallback to direct URL
+        if (adventure.signedPhotoUrl) {
+            return adventure.signedPhotoUrl;
         }
-        // If it starts with /uploads, it's already a relative path
-        if (photo.startsWith('/uploads/')) {
-            console.log('Using relative URL:', photo);
-            return photo;
+        if (adventure.photo && adventure.photo.startsWith('http')) {
+            return adventure.photo;
         }
-        // Otherwise, it's a legacy filename, use local path
-        const localUrl = `/uploads/${photo}`;
-        console.log('Using local URL:', localUrl);
-        return localUrl;
+        return adventure.photo ? `/uploads/${adventure.photo}` : '';
     };
 
     // Unified data loader
@@ -223,7 +215,7 @@ const PendingAdventure = () => {
 
                         
                                             <img 
-                                                src={editData.photo instanceof File ? URL.createObjectURL(editData.photo) : getImageUrl(editData.photo || adv.photo)}
+                                                src={editData.photo instanceof File ? URL.createObjectURL(editData.photo) : getImageUrl(adv)}
                                                 alt={adv.activity_name}
                                                 className='adventure-image'
                                                 onClick={(e) => {
@@ -235,7 +227,7 @@ const PendingAdventure = () => {
                                             />
                                         </>
                                     ) : (
-                                        <img src={getImageUrl(adv.photo)}
+                                        <img src={getImageUrl(adv)}
                                              alt={adv.activity_name}
                                              className='adventure-image'
                                              onError={(e) => {
