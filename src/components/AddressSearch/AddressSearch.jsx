@@ -242,8 +242,8 @@ useEffect(() => {
                 <p>
                       <img src={getImageUrl(adventure.photo)}
                       alt={adventure.activity_name}
-                      className='browse-adventure-image' />
-
+                      className='browse-adventure-image'
+                      style={{ height: '100%', minWidth: '30vh', maxHeight: '30vh', objectFit: 'cover' }} />
                     </p>
 
                     <p className='browse-title'>{adventure.activity_name}</p>
