@@ -11,7 +11,7 @@ import BrowseAdventuresPage from '../BrowseAdventuresPage/BrowseAdventuresPage';
 import MyAdventuresViews from '../MyAdventuresViews/MyAdventuresViews';
 import PendingAdventure from '../PendingAdventure/PendingAdventure';
 import ContactUs from '../ContactUs/ContactUs';
-import NewsletterSignUp from '../NewsletterSignUp/NewsletterSignUp';
+
 import AboutUs from '../AboutUs/AboutUs';
 import AddAdventureForm from '../AddAdventureForm/AddAdventureForm';
 import UserPage from '../UserPage/UserPage';
@@ -98,11 +98,7 @@ function App() {
 
                     <Route exact path="/contact" element={<ContactUs />} />
 
-                    <Route
-                        exact
-                        path="/newsletter"
-                        element={<NewsletterSignUp />}
-                    />
+
 
                     <Route
                         exact
