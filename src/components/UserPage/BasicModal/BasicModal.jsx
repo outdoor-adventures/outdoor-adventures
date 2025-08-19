@@ -11,16 +11,18 @@ const style = {
   position: 'absolute',
   top: '50%',
   left: '50%',
-  height: '80vh',
+  height: '90vh',
   transform: 'translate(-50%, -50%)',
-  width: '60%',
+  width: '90%',
   maxHeight: '90vh',
   overflow: 'auto',
   bgcolor: 'background.paper',
   border: '1px solid #000',
-  borderRadius: '8px',
+  borderRadius: '10px',
   boxShadow: 24,
-  p: 4,
+  p: 2,
+  display: 'flex',
+  gap: 2,
 };
 
 const titleStyle = {
@@ -36,9 +38,16 @@ const sectionStyle = {
 };
 
 const imageContainerStyle = {
+  width: '60%',
   display: 'flex',
   justifyContent: 'center',
-  marginBottom: '20px'
+  alignItems: 'center'
+};
+
+const contentStyle = {
+  width: '40%',
+  padding: '20px',
+  overflow: 'auto'
 };
 
 export default function BasicModal({ adv }) {
@@ -87,42 +96,43 @@ export default function BasicModal({ adv }) {
         <Box sx={style}>
           {adventureData ? (
             <>
-              <Typography id="modal-modal-title" variant="h4" component="h2" sx={titleStyle}>
-                {adventureData.activity_name}
-              </Typography>
-              
               <Box sx={imageContainerStyle}>
                 <img 
                   src={getImageUrl(adventureData.photo)}
                   alt={adventureData.activity_name || 'Adventure image'}
-                  className='modal-adventure-image' 
-                  style={{ maxWidth: '100%', maxHeight: '400px', objectFit: 'contain' }}
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '8px' }}
                 />
               </Box>
               
-              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, mb: 3 }}>
-                <Typography sx={sectionStyle} variant="body1">
-                  <strong>Category:</strong> {adventureData.category_name}
+              <Box sx={contentStyle}>
+                <Typography id="modal-modal-title" variant="h4" component="h2" sx={titleStyle}>
+                  {adventureData.activity_name}
                 </Typography>
+
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mb: 3 }}>
+                  <Typography sx={sectionStyle} variant="body1">
+                    <strong>Category:</strong> {adventureData.category_name}
+                  </Typography>
+                  <Typography sx={sectionStyle} variant="body1">
+                    <strong>Difficulty:</strong> {adventureData.ability_level}
+                  </Typography>
+                  <Typography sx={sectionStyle} variant="body1">
+                    <strong>Cost:</strong> {adventureData.cost_level}
+                  </Typography>
+                </Box>
+                
                 <Typography sx={sectionStyle} variant="body1">
-                  <strong>Difficulty:</strong> {adventureData.ability_level}
+                  <strong>Location:</strong> {adventureData.address || `${adventureData.city || ''}, ${adventureData.state || ''} ${adventureData.zip || ''}`}
                 </Typography>
+                
                 <Typography sx={sectionStyle} variant="body1">
-                  <strong>Cost:</strong> {adventureData.cost_level}
+                  <strong>Description:</strong> {adventureData.description}
+                </Typography>
+                
+                <Typography sx={sectionStyle} variant="body1">
+                  <strong>Website:</strong> <a href={adventureData.link} target="_blank" rel="noopener noreferrer">{adventureData.link}</a>
                 </Typography>
               </Box>
-              
-              <Typography sx={sectionStyle} variant="body1">
-                <strong>Location:</strong> {adventureData.address || `${adventureData.city || ''}, ${adventureData.state || ''} ${adventureData.zip || ''}`}
-              </Typography>
-              
-              <Typography sx={sectionStyle} variant="body1">
-                <strong>Description:</strong> {adventureData.description}
-              </Typography>
-              
-              <Typography sx={sectionStyle} variant="body1">
-                <strong>Website:</strong> <a href={adventureData.link} target="_blank" rel="noopener noreferrer">{adventureData.link}</a>
-              </Typography>
             </>
           ) : (
             <Typography>Loading adventure details...</Typography>
