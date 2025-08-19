@@ -1,5 +1,6 @@
 require('dotenv').config();
 const express = require('express');
+const { S3Client} = require('@aws-sdk/client-s3');
 
 // Instantiate an express server:
 const app = express();
@@ -30,7 +31,7 @@ app.use(passport.session());
 
 
 app.use(express.static('public'));
-app.use('/uploads', express.static('uploads'));
+app.use('/uploads', express.static('public/uploads'));
 
 // Apply router files:
 app.use('/api/user', userRouter);

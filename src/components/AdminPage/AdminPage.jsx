@@ -16,18 +16,15 @@ const PendingAdventure = () => {
     const searchBoxRef = useRef(null);
 
     // Helper function to get correct image URL
-    const getImageUrl = (photo) => {
-        console.log('getImageUrl called with:', photo);
-        if (!photo) return '';
-        // If it's already a full URL (starts with http), use it directly
-        if (photo.startsWith('http')) {
-            console.log('Using S3 URL:', photo);
-            return photo;
+    const getImageUrl = (adventure) => {
+        // Use signed URL if available, otherwise fallback to direct URL
+        if (adventure.signedPhotoUrl) {
+            return adventure.signedPhotoUrl;
         }
-        // Otherwise, it's a legacy filename, use local path
-        const localUrl = `http://localhost:5001/uploads/${photo}`;
-        console.log('Using local URL:', localUrl);
-        return localUrl;
+        if (adventure.photo && adventure.photo.startsWith('http')) {
+            return adventure.photo;
+        }
+        return adventure.photo ? `/uploads/${adventure.photo}` : '';
     };
 
     // Unified data loader
@@ -218,7 +215,7 @@ const PendingAdventure = () => {
 
                         
                                             <img 
-                                                src={editData.photo instanceof File ? URL.createObjectURL(editData.photo) : getImageUrl(editData.photo || adv.photo)}
+                                                src={editData.photo instanceof File ? URL.createObjectURL(editData.photo) : getImageUrl(adv)}
                                                 alt={adv.activity_name}
                                                 className='adventure-image'
                                                 onClick={(e) => {
@@ -230,14 +227,23 @@ const PendingAdventure = () => {
                                             />
                                         </>
                                     ) : (
-                                        <img src={getImageUrl(adv.photo)}
+                                        <img src={getImageUrl(adv)}
                                              alt={adv.activity_name}
                                              className='adventure-image'
                                              onError={(e) => {
                                                  console.error('Image failed to load:', e.target.src);
-                                                 e.target.style.border = '2px solid red';
-                                             }}
-                                             onLoad={() => console.log('Image loaded successfully:', getImageUrl(adv.photo))} />
+                                                 // Try fallback to placeholder or hide image
+                                                 e.target.style.display = 'none';
+                                                 // Show adventure name instead
+                                                 const parent = e.target.parentElement;
+                                                 if (!parent.querySelector('.image-fallback')) {
+                                                     const fallback = document.createElement('div');
+                                                     fallback.className = 'image-fallback';
+                                                     fallback.textContent = adv.activity_name;
+                                                     fallback.style.cssText = 'display:flex;align-items:center;justify-content:center;background:#f0f0f0;height:200px;border:1px solid #ccc';
+                                                     parent.appendChild(fallback);
+                                                 }
+                                             }} />
                                     )}
                                 </div>
                                 <div className="card-top-right">
