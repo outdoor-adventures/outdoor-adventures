@@ -17,6 +17,7 @@
     gap: 2em;
     flex-wrap: wrap;
     justify-content: center;
+    height: 500px;
   }
   
   .ra-card {
@@ -25,8 +26,8 @@
     border-radius: 8px;
     padding: 1em;
     text-align: center;
-    width: 400px;
-    height: 12vw;
+    width: 500px;
+    height: 17vw;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin-top: 50px;
   }
@@ -40,13 +41,13 @@
   }
   
   .ra-card-title {
-    font-size: 1.1rem;
+    font-size: 1.5rem;
     font-weight: bold;
     color: rgb(18, 37, 72);
   }
   
   .ra-card-location {
-    font-size: 0.9rem;
+    font-size: 1.2rem;
     margin-bottom: 0.5em;
     color: rgb(18, 37, 72);
   }
