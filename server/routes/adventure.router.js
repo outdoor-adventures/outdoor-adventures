@@ -187,7 +187,7 @@ router.get('/my/favorites/:userId' ,(req,res) => {
 
 
 //GET 3 RECENTS APPROVED ADVENTURES
-router.get('/recents/recent', (req, res) => {
+router.get('/recents/recent', async (req, res) => {
 
     const sqlText = `
     SELECT * FROM "adventures"
@@ -195,17 +195,25 @@ router.get('/recents/recent', (req, res) => {
     ORDER BY "created_at" DESC
     LIMIT 3;`;
 
-    pool.query(sqlText)
-
-    .then((result) => {
-        console.log('got three recent adventures')
-        console.log(`query ${sqlText} was successful`)
-        res.send(result.rows)
-    })
-    .catch((error) => {
-        console.log(`query ${sqlText} failed with error: ${error}`)
+    try {
+        const result = await pool.query(sqlText);
+        
+        // Generate signed URLs for photos
+        const adventuresWithSignedUrls = await Promise.all(
+            result.rows.map(async (adventure) => {
+                if (adventure.photo && adventure.photo.includes('amazonaws.com')) {
+                    const key = adventure.photo.split('/').pop();
+                    adventure.signedPhotoUrl = await getSignedImageUrl(key);
+                }
+                return adventure;
+            })
+        );
+        
+        res.send(adventuresWithSignedUrls);
+    } catch (error) {
+        console.log(`query ${sqlText} failed with error: ${error}`);
         res.sendStatus(500);
-    });
+    }
 });
 
 

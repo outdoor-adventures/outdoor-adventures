@@ -10,6 +10,18 @@ const RecentActivitySection = () => {
     const [showModal, setShowModal] = useState(false);
     const [selectedAdventure, setSelectedAdventure] = useState(null);
 
+    // Helper function to get correct image URL
+    const getImageUrl = (adventure) => {
+        // Use signed URL if available, otherwise fallback to direct URL
+        if (adventure.signedPhotoUrl) {
+            return adventure.signedPhotoUrl;
+        }
+        if (adventure.photo && adventure.photo.startsWith('http')) {
+            return adventure.photo;
+        }
+        return adventure.photo ? `/uploads/${adventure.photo}` : '';
+    };
+
     // Fetch the 3 most recent adventures when component mounts
     useEffect(() => {
         fetch('/api/adventures/recents/recent')
@@ -62,8 +74,8 @@ const RecentActivitySection = () => {
             <div className="ra-cards">
                 {adventures.map((adventure) => (
                     <div key={adventure.id} className="ra-card">
-                        <img src={`http://localhost:5001/uploads/${adventure.photo}`}
-                      alt={adventure.photo}
+                        <img src={getImageUrl(adventure)}
+                      alt={adventure.activity_name}
                       className='recent-adventure-image' />
 
                         <h3 className="ra-card-title">{adventure.activity_name}</h3>
