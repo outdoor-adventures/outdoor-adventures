@@ -100,21 +100,30 @@ router.get('/nearby', (req, res) => {
 
 
 //GET SINGLE ADVENTURE
-router.get('/:id', (req, res) => {
+router.get('/:id', async (req, res) => {
     let id = req.params.id;
     const sqlText = 'SELECT * FROM "adventures" WHERE "id" = $1;';
 
-    pool.query(sqlText, [id])
-
-    .then((result) => {
-        console.log(`got single adventure from ${id}`)
-        console.log(`query ${sqlText} was successful`)
-        res.send(result.rows)
-    })
-    .catch((error) => {
-        console.log(`query ${sqlText} failed with error: ${error}`)
+    try {
+        const result = await pool.query(sqlText, [id]);
+        
+        // Generate signed URLs for photos
+        const adventuresWithSignedUrls = await Promise.all(
+            result.rows.map(async (adventure) => {
+                if (adventure.photo && adventure.photo.includes('amazonaws.com')) {
+                    const key = adventure.photo.split('/').pop();
+                    adventure.signedPhotoUrl = await getSignedImageUrl(key);
+                }
+                return adventure;
+            })
+        );
+        
+        console.log(`got single adventure from ${id}`);
+        res.send(adventuresWithSignedUrls);
+    } catch (error) {
+        console.log(`query ${sqlText} failed with error: ${error}`);
         res.sendStatus(500);
-    });
+    }
 });//END GET SINGLE ADVENTURE
 
 
