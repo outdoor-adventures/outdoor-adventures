@@ -17,7 +17,6 @@
     gap: 2em;
     flex-wrap: wrap;
     justify-content: center;
-    height: 17vw;
   }
   
   .ra-card {
@@ -26,11 +25,11 @@
     border-radius: 8px;
     padding: 1em;
     text-align: center;
-    width: 600px;
-    height: 90%;
+    width: 350px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin-top: 50px;
-    min-height: 300px;
+    display: flex;
+    flex-direction: column;
   }
   
   .recent-adventure-image {
@@ -61,8 +60,9 @@
     padding: 0.4em 1em;
     border-radius: 4px;
     font-weight: bold;
-    margin-top: 60px;
-    width: 300px;
+    margin-top: auto;
+    width: 100%;
+    box-sizing: border-box;
   }
 
 /* Shared section title style */
