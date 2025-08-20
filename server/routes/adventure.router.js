@@ -135,21 +135,31 @@ router.get('/my/:createdby' ,(req,res) => {
 
 
 //GET ROUTE FOR THE ROUTE BASED OF THE PENDING STATUS:
-router.get('/admin/pending',(req,res) => {
-
+router.get('/admin/pending', async (req, res) => {
     const sqlText = `SELECT * FROM "adventures"
     WHERE "status" = 'pending'
     ORDER BY "id" DESC;`;
 
-    pool.query(sqlText)
-    .then((result) => {
-        console.log('getting pendning adventures from user')
-        res.send(result.rows)
-    })
-    .catch((error) => {
-        console.log('error in the get pending route.', error)
-        res.sendStatus(500)
-    })
+    try {
+        const result = await pool.query(sqlText);
+        
+        // Generate signed URLs for photos
+        const adventuresWithSignedUrls = await Promise.all(
+            result.rows.map(async (adventure) => {
+                if (adventure.photo && adventure.photo.includes('amazonaws.com')) {
+                    const key = adventure.photo.split('/').pop();
+                    adventure.signedPhotoUrl = await getSignedImageUrl(key);
+                }
+                return adventure;
+            })
+        );
+        
+        console.log('getting pending adventures from user');
+        res.send(adventuresWithSignedUrls);
+    } catch (error) {
+        console.log('error in the get pending route.', error);
+        res.sendStatus(500);
+    }
 })
 
 

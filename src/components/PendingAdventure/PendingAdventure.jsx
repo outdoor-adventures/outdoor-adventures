@@ -2,6 +2,27 @@ import React, { useState, useEffect } from 'react';
 import './PendingAdventure.css';
 
 const PendingAdventure = () => {
+    // Helper function to get correct image URL
+    const getImageUrl = (adventure) => {
+        // Use signed URL if available (for S3 images)
+        if (adventure.signedPhotoUrl) {
+            return adventure.signedPhotoUrl;
+        }
+        // If photo exists and is a full URL, use it directly
+        if (adventure.photo && adventure.photo.startsWith('http')) {
+            return adventure.photo;
+        }
+        // If it starts with /uploads, it's already a relative path
+        if (adventure.photo && adventure.photo.startsWith('/uploads/')) {
+            return adventure.photo;
+        }
+        // Otherwise, it's a legacy filename, use local path
+        if (adventure.photo) {
+            return `/uploads/${adventure.photo}`;
+        }
+        // No photo available
+        return '';
+    };
     // State for adventures, loading, and error
     const [adventures, setAdventures] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -120,7 +141,12 @@ const PendingAdventure = () => {
 
                             <div className="card-top">
                                 <div className="card-top-left">
-                                    <img src={adv.photo} alt={adv.title} />
+                                    <img 
+                                        src={getImageUrl(adv)} 
+                                        alt={adv.activity_name || adv.title}
+                                        className="pending-adventure-image"
+                                        style={{ width: '100%', height: '200px', objectFit: 'cover' }}
+                                    />
                                 </div>
                                 <div className="card-top-right">
                                     <div className="card-top-right-box">
