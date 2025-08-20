@@ -88,8 +88,8 @@ const UserPage = () => {
                     </Link> */}
                 </header>
                 <div className="cards-container">
-                    {myAdventures.map((adv) => (
-                        <div key={adv.id} className="card">
+                    {myAdventures.map((adv, index) => (
+                        <div key={`my-${index}`} className="card">
                       
                       <div className="my-adventure-image">
                         <img src={getImageUrl(adv.photo)}
@@ -118,8 +118,8 @@ const UserPage = () => {
                     </Link> */}
                 </header>
                 <div className="cards-container">
-                    {favorites.map((adv) => (
-                        <div key={adv.id} className="card">
+                    {favorites.map((adv, index) => (
+                        <div key={`fav-${index}`} className="card">
                             <img src={getImageUrl(adv.photo)}
                       alt={adv.activity_name}
                       className='recent-adventure-image' />
