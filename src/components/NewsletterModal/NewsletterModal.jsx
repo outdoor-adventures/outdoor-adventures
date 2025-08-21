@@ -29,8 +29,12 @@ const NewsletterModal = ({ isOpen, onClose }) => {
 
     // Check subscription status when modal opens and user is logged in
     useEffect(() => {
-        if (isOpen && user && user.id) {
-            checkSubscriptionStatus();
+        if (isOpen) {
+            if (!user || !user.id) {
+                setShowLoginPrompt(true);
+            } else {
+                checkSubscriptionStatus();
+            }
         }
     }, [isOpen, user]);
 
@@ -53,12 +57,6 @@ const NewsletterModal = ({ isOpen, onClose }) => {
     // Handle form submission
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-        // Check if user is logged in
-        if (!user || !user.id) {
-            setShowLoginPrompt(true);
-            return;
-        }
 
         try {
             // Send subscription data to server
