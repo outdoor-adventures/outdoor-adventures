@@ -1,5 +1,6 @@
 require('dotenv').config();
 const express = require('express');
+const { S3Client} = require('@aws-sdk/client-s3');
 
 // Instantiate an express server:
 const app = express();
@@ -20,6 +21,9 @@ const adventureRouter = require('./routes/adventure.router');
 //require cost, difficulty, category router
 const dropdownRouter = require('./routes/dropdowns.router');
 
+//require newsletter router file
+const newsletterRouter = require('./routes/newsletter.router');
+
 // Apply middleware:
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
@@ -30,7 +34,7 @@ app.use(passport.session());
 
 
 app.use(express.static('public'));
-app.use('/uploads', express.static('uploads'));
+app.use('/uploads', express.static('public/uploads'));
 
 // Apply router files:
 app.use('/api/user', userRouter);
@@ -41,6 +45,9 @@ app.use('/api/adventures', adventureRouter);
 //apply price, difficulty, category router
 app.use('/api/dropdown', dropdownRouter);
 app.use('/api/recent/recent', dropdownRouter);
+
+//apply newsletter router
+app.use('/api/newsletter', newsletterRouter);
 
 // Start the server:
 app.listen(PORT, () => {

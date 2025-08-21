@@ -14,9 +14,10 @@
   
   .ra-cards {
     display: flex;
-    gap: 2em;
+    gap: 1.5em;
     flex-wrap: wrap;
     justify-content: center;
+    /* height: 17vw; */
   }
   
   .ra-card {
@@ -25,10 +26,11 @@
     border-radius: 8px;
     padding: 1em;
     text-align: center;
-    width: 400px;
-    height: 12vw;
+    max-width: 400px;
+    height: 450px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin-top: 50px;
+    flex-direction: column;
   }
   
   .recent-adventure-image {
@@ -40,15 +42,31 @@
   }
   
   .ra-card-title {
-    font-size: 1.1rem;
+    font-size: 1.5rem;
     font-weight: bold;
     color: rgb(18, 37, 72);
   }
   
   .ra-card-location {
-    font-size: 0.9rem;
+    font-size: 1.2rem;
     margin-bottom: 0.5em;
     color: rgb(18, 37, 72);
+  }
+
+  .ra-card-description {
+    color: black;
+    flex-grow: 1;
+    overflow: hidden;
+    display: -webkit-box;-webkit-line-clamp: 3;-webkit-box-orient: vertical;
+    margin-bottom: 1em;
+  }
+
+  .view-more-btn {
+    background-color: rgb(0, 83, 21);
+    color: rgb(210,224,250);
+    border: none;
+    padding: 0.5em;
+    
   }
   
   .ra-card-btn {

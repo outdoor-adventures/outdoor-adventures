@@ -1,7 +1,11 @@
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import NewsletterModal from '../NewsletterModal/NewsletterModal';
 import './HeroSection.css';
 
 const HeroSection = () => {
+    const [isNewsletterModalOpen, setIsNewsletterModalOpen] = useState(false);
+
     return (
         <section className="hero-section">
             <div className="cta-container">
@@ -16,7 +20,7 @@ const HeroSection = () => {
                 </Link>
 
                 {/* ----------- == NEWS LETTER == --------------*/}
-                <Link to="/newsletter" className="cta-card">
+                <div className="cta-card" onClick={() => setIsNewsletterModalOpen(true)}>
                     <span className="cta-icon">📰</span>
                     <h2 className="cta-title">
                         Stay Informed: Join the Newsletter
@@ -24,7 +28,7 @@ const HeroSection = () => {
                     <p className="cta-sub">
                         Never miss local events, deals & safety updates.
                     </p>
-                </Link>
+                </div>
 
                 {/* ----------- == ADD ADVENTURE --------------*/}
 
@@ -39,6 +43,11 @@ const HeroSection = () => {
 
             {/* ----------- == SUBTITLE SCROLL DOWN --------------*/}
             <div className="scroll-indicator">↓</div>
+            
+            <NewsletterModal 
+                isOpen={isNewsletterModalOpen} 
+                onClose={() => setIsNewsletterModalOpen(false)} 
+            />
         </section>
     );
 };
