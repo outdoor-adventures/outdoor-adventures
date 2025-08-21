@@ -1,12 +1,16 @@
 .photo-section {
     background-color: rgb(232, 240, 255);
     border: 1px solid rgba(18, 37, 72, 0.4);
-    padding: 2em 1em;
+    padding: 0.25em;
     border-radius: 6px;
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 150px;
+    min-height: 120px;
+    min-width: 300px;
+    max-height: 300px;
+    max-width: 700px;
+    margin: 0 auto;
   }
   
 
@@ -162,6 +166,45 @@
   
   .custom-file-label input[type="file"] {
     display: none;
+  }
+  
+  .image-preview {
+    position: relative;
+    cursor: pointer;
+    border-radius: 6px;
+    overflow: hidden;
+    max-width: 400px;
+    max-height: 300px;
+    align-items: center;
+    
+  }
+  
+  .image-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  
+  .image-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(18, 37, 72, 0.7);
+    color: rgb(210, 224, 250);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    font-family: 'Rockwell', serif;
+    font-weight: bold;
+  }
+  
+  .image-preview:hover .image-overlay {
+    opacity: 1;
   }
   
   

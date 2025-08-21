@@ -2,6 +2,21 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 
+//GET USER SUBSCRIPTION STATUS
+router.get('/:userId', (req, res) => {
+    const user_id = req.params.userId;
+    const sqlText = `SELECT * FROM "newsletter_subscribers" WHERE "user_id" = $1;`;
+    
+    pool.query(sqlText, [user_id])
+    .then((result) => {
+        res.send({ isSubscribed: result.rows.length > 0 });
+    })
+    .catch((dbErr) => {
+        console.log('newsletter GET route error', dbErr);
+        res.sendStatus(500);
+    });
+});
+
 //POST USER EMAIL
 router.post('/:userId', (req, res) => {
     const { email, name } = req.body; 

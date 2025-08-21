@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import useStore from '../../zustand/store';
@@ -18,11 +18,35 @@ const NewsletterModal = ({ isOpen, onClose }) => {
     // Track if user has successfully subscribed
     const [isSubscribed, setIsSubscribed] = useState(false);
     
+    // Track if user is already subscribed
+    const [alreadySubscribed, setAlreadySubscribed] = useState(false);
+    
     // Track if showing login prompt
     const [showLoginPrompt, setShowLoginPrompt] = useState(false);
     
     // Navigation hook
     const navigate = useNavigate();
+
+    // Check subscription status when modal opens and user is logged in
+    useEffect(() => {
+        if (isOpen) {
+            if (!user || !user.id) {
+                setShowLoginPrompt(true);
+            } else {
+                checkSubscriptionStatus();
+            }
+        }
+    }, [isOpen, user]);
+
+    // Check if user is already subscribed
+    const checkSubscriptionStatus = async () => {
+        try {
+            const response = await axios.get(`/api/newsletter/${user.id}`);
+            setAlreadySubscribed(response.data.isSubscribed);
+        } catch (error) {
+            console.error('Error checking subscription status:', error);
+        }
+    };
 
     // Update form data when user types in inputs
     const handleChange = (e) => {
@@ -33,12 +57,6 @@ const NewsletterModal = ({ isOpen, onClose }) => {
     // Handle form submission
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-        // Check if user is logged in
-        if (!user || !user.id) {
-            setShowLoginPrompt(true);
-            return;
-        }
 
         try {
             // Send subscription data to server
@@ -58,6 +76,7 @@ const NewsletterModal = ({ isOpen, onClose }) => {
     // Reset state and close modal
     const handleClose = () => {
         setIsSubscribed(false);
+        setAlreadySubscribed(false);
         setShowLoginPrompt(false);
         onClose();
     };
@@ -79,15 +98,23 @@ const NewsletterModal = ({ isOpen, onClose }) => {
                 {/* Header with dynamic title and close button */}
                 <div className="modal-header">
                     <h2>
-                        {isSubscribed ? 'Welcome to Our Newsletter!' : 
+                        {alreadySubscribed ? 'Newsletter Subscription' :
+                         isSubscribed ? 'Welcome to Our Newsletter!' : 
                          showLoginPrompt ? 'Login Required' : 
                          'Join Our Newsletter'}
                     </h2>
                     <button className="close-button" onClick={handleClose}>×</button>
                 </div>
                 
-                {/* Show success message, login prompt, or subscription form */}
-                {showLoginPrompt ? (
+                {/* Show success message, login prompt, already subscribed message, or subscription form */}
+                {alreadySubscribed ? (
+                    // Already subscribed message
+                    <div className="success-message">
+                        <span className="success-icon">✓</span>
+                        <p>You are already subscribed to our newsletter!</p>
+                        <button className="success-button" onClick={handleClose}>Close</button>
+                    </div>
+                ) : showLoginPrompt ? (
                     // Login prompt for non-authenticated users
                     <div className="login-prompt">
                         <p>Please login or create an account before subscribing to our newsletter.</p>
