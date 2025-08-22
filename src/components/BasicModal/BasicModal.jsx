@@ -175,8 +175,16 @@ export default function BasicModal({ adv }) {
                   border: '1px solid #e0e0e0',
                   borderRadius: '8px',
                   backgroundColor: '#f8f8f8',
-                  width: '100%',
-                  boxSizing: 'border-box'
+                  width: '%',
+                  boxSizing: 'border-box',
+                  '@media (max-width: 1500px)': {
+                    position: 'absolute',
+                    bottom: '100px',
+                    left: '20px',
+                    right: '20px',
+                    marginTop: 0,
+                    marginBottom: 6
+                  }
                 }} className="location-website">
                   <Typography sx={sectionStyle} variant="body1" >
                     <strong>Location:</strong> {adventureData.address || `${adventureData.city || ''}, ${adventureData.state || ''} ${adventureData.zip || ''}`}
@@ -195,7 +203,7 @@ export default function BasicModal({ adv }) {
                         textOverflow: 'ellipsis',
                         whiteSpace: 'nowrap',
                         minWidth: 0,
-                        marginBottom: '2%'
+                        marginBottom: 0
                       }}
                     >
                       {adventureData.link}
