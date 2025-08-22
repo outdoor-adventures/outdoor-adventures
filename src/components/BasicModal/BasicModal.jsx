@@ -146,7 +146,17 @@ export default function BasicModal({ adv }) {
                   {adventureData.activity_name}
                 </Typography>
 
-                <Typography sx={{...sectionStyle, marginBottom: '25px', '@media (max-width: 1500px)': { flexGrow: 1 }}} variant="body1">
+                <Typography sx={{
+                  ...sectionStyle, 
+                  marginBottom: '25px', 
+                  '@media (max-width: 1200px)': { 
+                    marginBottom: '15px',
+                    overflow: 'hidden',
+                    display: '-webkit-box',
+                    WebkitLineClamp: 4,
+                    WebkitBoxOrient: 'vertical'
+                  }
+                }} variant="body1">
                    {adventureData.description}
                 </Typography>
 
@@ -183,7 +193,7 @@ export default function BasicModal({ adv }) {
                     left: '20px',
                     right: '20px',
                     marginTop: 0,
-                    marginBottom: 6
+                    marginBottom: 0
                   }
                 }} className="location-website">
                   <Typography sx={sectionStyle} variant="body1" >
@@ -224,7 +234,9 @@ export default function BasicModal({ adv }) {
                     left: '20px',
                     right: '20px',
                     marginTop: 0,
-                    marginBottom: 0
+                    marginBottom: 0,
+                    borderTop: 'none',
+                    paddingTop: 0
                   }
                 }}>
                   <Box sx={{ textAlign: 'center', flex: 1 }}>
