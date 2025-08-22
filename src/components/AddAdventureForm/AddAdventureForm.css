@@ -1,18 +1,19 @@
 .photo-section {
-    background-color: rgb(232, 240, 255);
-    border: 1px solid rgba(18, 37, 72, 0.4);
-    padding: 0.25em;
-    border-radius: 6px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 120px;
-    min-width: 300px;
-    max-height: 300px;
-    max-width: 700px;
-    margin: 0 auto;
-  }
-  
+  background-color: rgb(232, 240, 255);
+  border: 1px solid rgba(18, 37, 72, 0.4);
+  padding: 2em 1em;
+  padding: 0.25em;
+  border-radius: 6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 150px;
+  min-height: 120px;
+  min-width: 300px;
+  max-height: 300px;
+  max-width: 700px;
+  margin: 0 auto;
+}
 
 .add-adventure-page {
     background-color: rgb(0, 83, 21);

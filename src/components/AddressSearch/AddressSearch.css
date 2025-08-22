@@ -67,15 +67,14 @@
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap; /* Force side-by-side */
-    gap: 1rem;
+    gap: 0.5rem;
     width: 100%;
-    max-width: 100%;
     box-sizing: border-box;
   }
   
   .map-list-container > .map-container,
   .map-list-container > .list-column {
-    height: 38vw;
+    height: 42vw;
   }
   
   /* Map section */
@@ -97,10 +96,49 @@
   /* List items */
   .adventure-card {
     background-color: #c2c2c2;
-    padding: 1rem;
+    padding: 1rem 1rem 1rem 1rem;
     border-radius: 6px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     margin-bottom: 1rem;
+    overflow: visible;
+    position: relative;
+    min-height: 400px;
+    height: auto;
+    min-width: 90%;
+  }
+  
+  .title-favorite-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    margin-right: 0.1rem;
+  }
+  
+  .title-favorite-container .browse-title {
+    margin: 0;
+    flex: 1;
+  }
+  
+  .link-button-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 0.5rem;
+    width: 100%;
+  }
+  
+  .adventure-link {
+    flex: 1;
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-width: 0;
+  }
+  
+  .link-button-container > div {
+    flex-shrink: 0;
   }
   
   .adventure-info p {
@@ -109,10 +147,49 @@
 
   .browse-adventure-image {
     width: 100%;
+    max-width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-right: 1rem;
   }
 
   .browse-title {
-    font-size: 2rem;
+    font-size: 4vw;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+  
+  .adventure-info p {
+    margin: 0.25rem 0;
+    font-size: 2.5vw;
+  }
+  
+  .adventure-info p:nth-child(6) {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  
+  @media (min-width: 768px) {
+    .browse-title {
+      font-size: 1.5rem;
+    }
+    
+    .adventure-info p {
+      font-size: 1rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .browse-title {
+      font-size: 5vw;
+    }
+    
+    .adventure-info p {
+      font-size: 3.5vw;
+    }
   }
   
   /* Responsive behavior */

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import Nav from '../Nav/Nav';
 import './UserPage.css';
 import useStore from '../../zustand/store'
-import BasicModal from './BasicModal/BasicModal';
+import BasicModal from '../BasicModal/BasicModal';
 
 const UserPage = () => {
     const user = useStore((store) => store.user);

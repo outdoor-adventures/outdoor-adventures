@@ -14,9 +14,16 @@
   
   .ra-cards {
     display: flex;
-    gap: 2em;
-    flex-wrap: wrap;
+    gap: 1.5em;
+    flex-wrap: nowrap;
     justify-content: center;
+    /* height: 17vw; */
+  }
+  
+  @media (max-width: 768px) {
+    .ra-cards {
+      flex-wrap: wrap;
+    }
   }
   
   .ra-card {
@@ -24,12 +31,21 @@
     border: 1px solid rgba(18, 37, 72, 0.4);
     border-radius: 8px;
     padding: 1em;
-    text-align: center;
-    width: 350px;
+    flex: 1;
+    min-width: 300px;
+    max-width: 400px;
+    height: 480px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin-top: 50px;
     display: flex;
     flex-direction: column;
+    position: relative;
+  }
+  
+  .ra-card > div:last-child {
+    position: absolute;
+    bottom: 1em;
+    right: 1em;
   }
   
   .recent-adventure-image {
@@ -44,12 +60,34 @@
     font-size: 1.5rem;
     font-weight: bold;
     color: rgb(18, 37, 72);
+    margin-bottom: 0;
   }
   
   .ra-card-location {
     font-size: 1.2rem;
-    margin-bottom: 0.5em;
+    margin-bottom: 0.3em;
+    margin-top: 0.2em;
     color: rgb(18, 37, 72);
+  }
+
+  .ra-card-description {
+    color: black;
+    flex-grow: 1;
+    overflow: hidden;
+    display: -webkit-box; 
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    margin-bottom: 3.5em;
+    text-overflow: ellipsis;
+  }
+
+  .view-more-btn {
+    background-color: rgb(0, 83, 21);
+    color: rgb(210,224,250);
+    border: none;
+    padding: 0.1em;
+
   }
   
   .ra-card-btn {

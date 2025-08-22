@@ -153,7 +153,6 @@ const ViewDetailsModal = ({ adventure, onClose, onUpdated }) => {
           </label>
 
           <label>
-            Description:
             <textarea name="description" value={formData.description} onChange={handleChange} />
           </label>
 

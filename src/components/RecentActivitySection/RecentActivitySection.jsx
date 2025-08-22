@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './RecentActivitySection.css';
+import BasicModal from '../BasicModal/BasicModal';
 
 const RecentActivitySection = () => {
     // State for the list of adventures
@@ -83,6 +84,7 @@ const RecentActivitySection = () => {
                         <h3 className="ra-card-title">{adventure.activity_name}</h3>
                         <p className="ra-card-location">{adventure.address}</p>
                         <p className="ra-card-description">{adventure.description}</p>
+                        <BasicModal adv={adventure} />
 
                     </div>
                 ))}
