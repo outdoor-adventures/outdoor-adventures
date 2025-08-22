@@ -236,25 +236,28 @@ useEffect(() => {
               
               <div key={adventure.id} className='adventure-card'>
                 {/* <AdventureItem adventure={adventure}/> */}
-                <div className='adventure-info'>
+                <div className='adventure-info' style={{minWidth: '50%', width: '100%'}}>
 
 
                 <p>
                       <img src={getImageUrl(adventure.photo)}
                       alt={adventure.activity_name}
                       className='browse-adventure-image'
-                      style={{ height: '100%', minWidth: '30vh', maxHeight: '30vh', objectFit: 'cover' }} />
+                      style={{ height: '100%', minWidth: '17vh', maxHeight: '30vh', objectFit: 'cover' }} />
                     </p>
 
-                    <p className='browse-title'>{adventure.activity_name}</p>
+                    <div className="title-favorite-container">
+                      <p className='browse-title'>{adventure.activity_name}</p>
+                      <FavoriteButton adventureId={adventure.id} />
+                    </div>
                     <p>Category: {adventure.category_name}</p>
                     <p>Cost: {adventure.cost_level}</p>
                     <p>Ability Level: {adventure.ability_level}</p>
-                    <p>{adventure.link}</p>
                     <p>{adventure.address}</p>
-
-                    <FavoriteButton adventureId={adventure.id} />
-                    <BasicModal adv={adventure} />
+                    <div className="link-button-container">
+                      <p className="adventure-link">{adventure.link}</p>
+                      <BasicModal adv={adventure} />
+                    </div>
                     
                     
                     {/* Rendering the adventure image using Multer */}
