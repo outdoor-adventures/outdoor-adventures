@@ -25,9 +25,8 @@
     border: 1px solid rgba(18, 37, 72, 0.4);
     border-radius: 8px;
     padding: 1em;
-    text-align: center;
     max-width: 400px;
-    height: 450px;
+    height: 480px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin-top: 50px;
     flex-direction: column;
@@ -57,7 +56,10 @@
     color: black;
     flex-grow: 1;
     overflow: hidden;
-    display: -webkit-box;-webkit-line-clamp: 3;-webkit-box-orient: vertical;
+    display: -webkit-box; 
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
     margin-bottom: 1em;
   }
 
@@ -66,7 +68,7 @@
     color: rgb(210,224,250);
     border: none;
     padding: 0.5em;
-    
+
   }
   
   .ra-card-btn {

@@ -3,7 +3,7 @@ import axios from 'axios';
 import { GoogleMap, Marker, Circle, StandaloneSearchBox, InfoWindow } from '@react-google-maps/api';
 import { useNavigate } from 'react-router-dom';
 import './AddressSearch.css';
-import BasicModal from '../UserPage/BasicModal/BasicModal';
+import BasicModal from '../BasicModal/BasicModal';
 import FavoriteButton from './FavoriteButton/FavoriteButton';
 
 

@@ -47,7 +47,9 @@ const imageContainerStyle = {
 const contentStyle = {
   width: '40%',
   padding: '20px',
-  overflow: 'auto'
+  overflow: 'auto',
+  display: 'flex',
+  flexDirection: 'column'
 };
 
 export default function BasicModal({ adv }) {
@@ -109,29 +111,55 @@ export default function BasicModal({ adv }) {
                   {adventureData.activity_name}
                 </Typography>
 
-                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mb: 3 }}>
+                <Typography sx={{...sectionStyle, marginBottom: '25px', flexGrow: 1}} variant="body1">
+                   {adventureData.description}
+                </Typography>
+
+                <Box sx={{ display: 'flex', gap: 5, marginBottom: '20px', justifyContent: 'center' }}>
                   <Typography sx={sectionStyle} variant="body1">
-                    <strong>Category:</strong> {adventureData.category_name}
+                    <strong>Location:</strong> {adventureData.address || `${adventureData.city || ''}, ${adventureData.state || ''} ${adventureData.zip || ''}`}
                   </Typography>
+                  
                   <Typography sx={sectionStyle} variant="body1">
-                    <strong>Difficulty:</strong> {adventureData.ability_level}
-                  </Typography>
-                  <Typography sx={sectionStyle} variant="body1">
-                    <strong>Cost:</strong> {adventureData.cost_level}
+                    <strong>Website:</strong> <a href={adventureData.link} target="_blank" rel="noopener noreferrer">{adventureData.link}</a>
                   </Typography>
                 </Box>
+
+                <Box sx={{ 
+                  display: 'flex', 
+                  justifyContent: 'space-between', 
+                  gap: 2, 
+                  marginTop: 'auto',
+                  marginBottom: '0.5vw',
+                  paddingTop: '15px',
+                  borderTop: '1px solid #e0e0e0'
+                }}>
+                  <Box sx={{ textAlign: 'center', flex: 1 }}>
+                    <Typography sx={{ fontWeight: 'bold', fontSize: '14px', color: '#666', marginBottom: '8px' }}>
+                      CATEGORY
+                    </Typography>
+                    <Typography sx={{ fontSize: '16px', fontWeight: 'bold' }}>
+                      {adventureData.category_name}
+                    </Typography>
+                  </Box>
+                  <Box sx={{ textAlign: 'center', flex: 1 }}>
+                    <Typography sx={{ fontWeight: 'bold', fontSize: '14px', color: '#666', marginBottom: '8px' }}>
+                      DIFFICULTY
+                    </Typography>
+                    <Typography sx={{ fontSize: '16px', fontWeight: 'bold' }}>
+                      {adventureData.ability_level}
+                    </Typography>
+                  </Box>
+                  <Box sx={{ textAlign: 'center', flex: 1 }}>
+                    <Typography sx={{ fontWeight: 'bold', fontSize: '14px', color: '#666', marginBottom: '8px' }}>
+                      COST
+                    </Typography>
+                    <Typography sx={{ fontSize: '16px', fontWeight: 'bold' }}>
+                      {adventureData.cost_level}
+                    </Typography>
+                  </Box>
+                </Box>
                 
-                <Typography sx={sectionStyle} variant="body1">
-                  <strong>Location:</strong> {adventureData.address || `${adventureData.city || ''}, ${adventureData.state || ''} ${adventureData.zip || ''}`}
-                </Typography>
-                
-                <Typography sx={sectionStyle} variant="body1">
-                  <strong>Description:</strong> {adventureData.description}
-                </Typography>
-                
-                <Typography sx={sectionStyle} variant="body1">
-                  <strong>Website:</strong> <a href={adventureData.link} target="_blank" rel="noopener noreferrer">{adventureData.link}</a>
-                </Typography>
               </Box>
             </>
           ) : (
