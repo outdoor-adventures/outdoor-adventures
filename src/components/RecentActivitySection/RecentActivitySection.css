@@ -15,9 +15,15 @@
   .ra-cards {
     display: flex;
     gap: 1.5em;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     justify-content: center;
     /* height: 17vw; */
+  }
+  
+  @media (max-width: 768px) {
+    .ra-cards {
+      flex-wrap: wrap;
+    }
   }
   
   .ra-card {
@@ -25,10 +31,13 @@
     border: 1px solid rgba(18, 37, 72, 0.4);
     border-radius: 8px;
     padding: 1em;
-    max-width: 480px;
-    height: 28rem;
+    flex: 1;
+    min-width: 300px;
+    max-width: 400px;
+    height: 480px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin-top: 50px;
+    display: flex;
     flex-direction: column;
     position: relative;
   }
@@ -49,15 +58,15 @@
   
   .ra-card-title {
     font-size: 1.5rem;
-    font-size: 1.5rem;
     font-weight: bold;
     color: rgb(18, 37, 72);
+    margin-bottom: 0;
   }
   
   .ra-card-location {
     font-size: 1.2rem;
-    font-size: 1.2rem;
-    margin-bottom: 0.5em;
+    margin-bottom: 0.3em;
+    margin-top: 0.2em;
     color: rgb(18, 37, 72);
   }
 
@@ -69,7 +78,8 @@
     -webkit-line-clamp: 3;
     line-clamp: 3;
     -webkit-box-orient: vertical;
-    margin-bottom: 0.3em;
+    margin-bottom: 3.5em;
+    text-overflow: ellipsis;
   }
 
   .view-more-btn {
