@@ -61,7 +61,7 @@ router.get('/nearby', (req, res) => {
 `;
     
     pool.query(sqlText, [lat, lng, category || null, abilityLevel || null, costLevel || null])
-    .then((result) => {
+    .then(async (result) => {
         // Filter client-side to ensure we get results
         const filteredResults = result.rows.map(row => {
             // Calculate approximate distance in miles
@@ -76,9 +76,19 @@ router.get('/nearby', (req, res) => {
             };
         }).filter(row => row.distance <= radius);
         
-        console.log(`Found ${filteredResults.length} adventures within ${radius} miles`);
-        console.log('data recived in /recent is:', req.params.id);
-        res.send(filteredResults);
+        // Generate signed URLs for photos
+        const adventuresWithSignedUrls = await Promise.all(
+            filteredResults.map(async (adventure) => {
+                if (adventure.photo && adventure.photo.includes('amazonaws.com')) {
+                    const key = adventure.photo.split('/').pop();
+                    adventure.signedPhotoUrl = await getSignedImageUrl(key);
+                }
+                return adventure;
+            })
+        );
+        
+        console.log(`Found ${adventuresWithSignedUrls.length} adventures within ${radius} miles`);
+        res.send(adventuresWithSignedUrls);
     })
     .catch((error) => {
         console.log(`Nearby adventures query failed with error:`, error);
@@ -90,27 +100,36 @@ router.get('/nearby', (req, res) => {
 
 
 //GET SINGLE ADVENTURE
-router.get('/:id', (req, res) => {
+router.get('/:id', async (req, res) => {
     let id = req.params.id;
     const sqlText = 'SELECT * FROM "adventures" WHERE "id" = $1;';
 
-    pool.query(sqlText, [id])
-
-    .then((result) => {
-        console.log(`got single adventure from ${id}`)
-        console.log(`query ${sqlText} was successful`)
-        res.send(result.rows)
-    })
-    .catch((error) => {
-        console.log(`query ${sqlText} failed with error: ${error}`)
+    try {
+        const result = await pool.query(sqlText, [id]);
+        
+        // Generate signed URLs for photos
+        const adventuresWithSignedUrls = await Promise.all(
+            result.rows.map(async (adventure) => {
+                if (adventure.photo && adventure.photo.includes('amazonaws.com')) {
+                    const key = adventure.photo.split('/').pop();
+                    adventure.signedPhotoUrl = await getSignedImageUrl(key);
+                }
+                return adventure;
+            })
+        );
+        
+        console.log(`got single adventure from ${id}`);
+        res.send(adventuresWithSignedUrls);
+    } catch (error) {
+        console.log(`query ${sqlText} failed with error: ${error}`);
         res.sendStatus(500);
-    });
+    }
 });//END GET SINGLE ADVENTURE
 
 
 
 //GET MY ADVENTURES
-router.get('/my/:createdby' ,(req,res) => {
+router.get('/my/:createdby', async (req,res) => {
     const created_by = req.params.createdby; 
     const sqlText = `
     SELECT * FROM "adventures"
@@ -121,40 +140,61 @@ router.get('/my/:createdby' ,(req,res) => {
 
     const sqlValues = [created_by]
 
-    pool.query(sqlText, sqlValues)
-    .then((result) => {
-        console.log(`got adventures from user id: ${created_by}`)
-        res.send(result.rows)
-    })
-    .catch((error) => {
-        console.log(`query ${sqlText} failed with error: ${error}`)
+    try {
+        const result = await pool.query(sqlText, sqlValues);
+        
+        // Generate signed URLs for photos
+        const adventuresWithSignedUrls = await Promise.all(
+            result.rows.map(async (adventure) => {
+                if (adventure.photo && adventure.photo.includes('amazonaws.com')) {
+                    const key = adventure.photo.split('/').pop();
+                    adventure.signedPhotoUrl = await getSignedImageUrl(key);
+                }
+                return adventure;
+            })
+        );
+        
+        console.log(`got adventures from user id: ${created_by}`);
+        res.send(adventuresWithSignedUrls);
+    } catch (error) {
+        console.log(`query ${sqlText} failed with error: ${error}`);
         res.sendStatus(500);
-    });
+    }
 })
 
 
 
 //GET ROUTE FOR THE ROUTE BASED OF THE PENDING STATUS:
-router.get('/admin/pending',(req,res) => {
-
+router.get('/admin/pending', async (req, res) => {
     const sqlText = `SELECT * FROM "adventures"
     WHERE "status" = 'pending'
     ORDER BY "id" DESC;`;
 
-    pool.query(sqlText)
-    .then((result) => {
-        console.log('getting pendning adventures from user')
-        res.send(result.rows)
-    })
-    .catch((error) => {
-        console.log('error in the get pending route.', error)
-        res.sendStatus(500)
-    })
+    try {
+        const result = await pool.query(sqlText);
+        
+        // Generate signed URLs for photos
+        const adventuresWithSignedUrls = await Promise.all(
+            result.rows.map(async (adventure) => {
+                if (adventure.photo && adventure.photo.includes('amazonaws.com')) {
+                    const key = adventure.photo.split('/').pop();
+                    adventure.signedPhotoUrl = await getSignedImageUrl(key);
+                }
+                return adventure;
+            })
+        );
+        
+        console.log('getting pending adventures from user');
+        res.send(adventuresWithSignedUrls);
+    } catch (error) {
+        console.log('error in the get pending route.', error);
+        res.sendStatus(500);
+    }
 })
 
 
 //GET USERS FAVORITES
-router.get('/my/favorites/:userId' ,(req,res) => {
+router.get('/my/favorites/:userId', async (req,res) => {
     const userId = req.params.userId; 
     const sqlText = `
     SELECT "activity_name", "category_name", "ability_level", "cost_level", "photo", "link", "description", "address" FROM "adventures" 
@@ -172,16 +212,26 @@ router.get('/my/favorites/:userId' ,(req,res) => {
     `;
     const sqlValues = [userId]
 
-    pool.query(sqlText, sqlValues)
-    .then((result) => {
-        console.log(`got favorite adventures from user id: ${userId}`)
-        res.send(result.rows)
-        console.log('results are:', result)
-    })
-    .catch((error) => {
-        console.log(`query ${sqlText} failed with error: ${error}`)
+    try {
+        const result = await pool.query(sqlText, sqlValues);
+        
+        // Generate signed URLs for photos
+        const adventuresWithSignedUrls = await Promise.all(
+            result.rows.map(async (adventure) => {
+                if (adventure.photo && adventure.photo.includes('amazonaws.com')) {
+                    const key = adventure.photo.split('/').pop();
+                    adventure.signedPhotoUrl = await getSignedImageUrl(key);
+                }
+                return adventure;
+            })
+        );
+        
+        console.log(`got favorite adventures from user id: ${userId}`);
+        res.send(adventuresWithSignedUrls);
+    } catch (error) {
+        console.log(`query ${sqlText} failed with error: ${error}`);
         res.sendStatus(500);
-    });
+    }
 })
 
 

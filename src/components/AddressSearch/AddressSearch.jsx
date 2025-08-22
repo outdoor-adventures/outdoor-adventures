@@ -256,7 +256,9 @@ useEffect(() => {
                     <p>{adventure.address}</p>
                     <div className="link-button-container">
                       <p className="adventure-link">{adventure.link}</p>
-                      <BasicModal adv={adventure} />
+                      <div className="modal-button-container">
+                        <BasicModal adv={adventure} />
+                      </div>
                     </div>
                     
                     

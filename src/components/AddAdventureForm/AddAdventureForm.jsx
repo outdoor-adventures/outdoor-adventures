@@ -23,6 +23,9 @@ const AddAdventureForm = () => {
       longitude: '',
     });
     
+    const [imagePreview, setImagePreview] = useState(null);
+    const fileInputRef = useRef(null);
+    
     const [options, setOptions] = useState({
         price: [],
         category: [],
@@ -65,8 +68,18 @@ const AddAdventureForm = () => {
             };
             //update the photos when user select photo
             const handleFileChange = (e) => {
-                setFormData((prev) => ({ ...prev, photo: e.target.files[0] }));
-  };
+                const file = e.target.files[0];
+                if (file) {
+                    setFormData((prev) => ({ ...prev, photo: file }));
+                    const reader = new FileReader();
+                    reader.onload = (e) => setImagePreview(e.target.result);
+                    reader.readAsDataURL(file);
+                }
+            };
+            
+            const handleImageClick = () => {
+                fileInputRef.current?.click();
+            };
 // sends the data to backend when submit is pushed
   const handleSubmit = async (e) => {
     e.preventDefault(); 
@@ -106,6 +119,7 @@ const AddAdventureForm = () => {
         latitude: '',
         longitude: '',     
       });
+      setImagePreview(null);
     } catch (error) {
         // Handle any errors during form submission
         console.error('Submit failed:', error);
@@ -149,10 +163,27 @@ const AddAdventureForm = () => {
           <form className="add-adventure-form" onSubmit={handleSubmit} encType="multipart/form-data">
             {/* File input for photo */}
             <div className="photo-section">
-            <label className="custom-file-label">
-              Add Photo
-              <input type="file" name="photo" accept="image/*" onChange={handleFileChange} required />
-            </label>
+              {imagePreview ? (
+                <div className="image-preview" onClick={handleImageClick}>
+                  <img src={imagePreview} alt="Preview" />
+                  <div className="image-overlay">
+                    <span>Click to change image</span>
+                  </div>
+                </div>
+              ) : (
+                <label className="custom-file-label" onClick={handleImageClick}>
+                  Add Photo
+                </label>
+              )}
+              <input 
+                ref={fileInputRef}
+                type="file" 
+                name="photo" 
+                accept="image/*" 
+                onChange={handleFileChange} 
+                required 
+                style={{ display: 'none' }}
+              />
             </div>
             {/* <br /> */}
     
@@ -253,18 +284,21 @@ const AddAdventureForm = () => {
             </button>
     
             {/* Cancel button: Clears the form */}
-            <button type="button" onClick={() => setFormData({
-              price: '',
-              category: '',
-              difficulty: '',
-              address: '',
-              link: '',
-              name: '',
-              description: '',
-              photo: '',
-              latitude: '',
-              longitude: '',
-            })}>
+            <button type="button" onClick={() => {
+              setFormData({
+                price: '',
+                category: '',
+                difficulty: '',
+                address: '',
+                link: '',
+                name: '',
+                description: '',
+                photo: '',
+                latitude: '',
+                longitude: '',
+              });
+              setImagePreview(null);
+            }}>
               Cancel
             </button>
             </div>

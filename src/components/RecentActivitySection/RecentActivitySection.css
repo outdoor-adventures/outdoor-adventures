@@ -49,11 +49,13 @@
   
   .ra-card-title {
     font-size: 1.5rem;
+    font-size: 1.5rem;
     font-weight: bold;
     color: rgb(18, 37, 72);
   }
   
   .ra-card-location {
+    font-size: 1.2rem;
     font-size: 1.2rem;
     margin-bottom: 0.5em;
     color: rgb(18, 37, 72);
@@ -86,8 +88,9 @@
     padding: 0.4em 1em;
     border-radius: 4px;
     font-weight: bold;
-    margin-top: 60px;
-    width: 300px;
+    margin-top: auto;
+    width: 100%;
+    box-sizing: border-box;
   }
 
 /* Shared section title style */

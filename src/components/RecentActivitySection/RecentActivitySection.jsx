@@ -76,8 +76,10 @@ const RecentActivitySection = () => {
                 {adventures.map((adventure) => (
                     <div key={adventure.id} className="ra-card">
                         <img src={getImageUrl(adventure)}
-                      alt={adventure.activity_name}
-                      className='recent-adventure-image' />
+                        alt={adventure.activity_name}
+                        className='recent-adventure-image'
+                        style={{ width: '100%', height: '200px', objectFit: 'cover' }}
+                      />
 
                         <h3 className="ra-card-title">{adventure.activity_name}</h3>
                         <p className="ra-card-location">{adventure.address}</p>
