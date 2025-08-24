@@ -9,8 +9,9 @@ import FavoriteButton from './FavoriteButton/FavoriteButton';
 
 // Map container style sets size of map component
 const mapContainerStyle = {
-  width: '60vw',
-  height: '40vw'
+  width: '70vw',
+  height: '37vw',
+  marginRight: '2vw'
 };
 
 // Circle options for 20-mile radius IN PROGRESS
@@ -179,7 +180,7 @@ useEffect(() => {
         <GoogleMap //actual map component
           mapContainerStyle={mapContainerStyle}
           center={centerRef.current} //center map on selected address
-          zoom={8} //zoom in a lil so u can see
+          zoom={12.7} //zoom in a lil so u can see
         >
             
           {/* sets center marker */}

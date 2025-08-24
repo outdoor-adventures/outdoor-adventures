@@ -1,12 +1,12 @@
 /* Background color for entire page */
 .browse-adventures-page {
     background-color: rgb(0, 83, 21);
-    min-height: 50vw;
-    padding-top: 170px;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    padding-bottom: 20px;
+    min-height: calc(100vh - 120px);
+    padding: 1rem;
+    padding-top: 180px;
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
   }
   
   .search-container {

@@ -2,11 +2,10 @@
 .location-search {
     display: flex;
     flex-direction: column;
-    padding: 1rem;
     font-family: 'Rockwell', serif;
-    overflow-x: auto;
     width: 100%;
-    justify-content: space-evenly;
+    gap: 1rem;
+    flex: 1;
   }
   
   /* Search + Filter bar */
@@ -18,8 +17,9 @@
     justify-content: space-between;
     /* background-color: white;
     border-radius: 10px; */
-    padding: 5px;
-    margin-right: 29px;
+    padding: 1px;
+    margin: -5px;
+    width: 62%;
   }
   
   /* Consistent input + select styles */
@@ -64,17 +64,18 @@
   
   /* Map and list layout */
   .map-list-container {
-    display: flex;
+    display:inline-flexbox;
     flex-direction: row;
     flex-wrap: nowrap; /* Force side-by-side */
-    gap: 0.5rem;
-    width: 100%;
+    width: 99.5vw;
+    margin-right: 10px;
+    margin-top: 10px;
     box-sizing: border-box;
   }
   
   .map-list-container > .map-container,
   .map-list-container > .list-column {
-    height: 42vw;
+    height: 39vw;
   }
   
   /* Map section */
@@ -91,7 +92,11 @@
     padding: 1rem;
     border-radius: 8px;
     overflow-y: auto;
-  }
+    max-height: 100%;
+    align-self: flex-start;
+    margin-top: -5rem;
+    margin-right: 0.5rem;
+    }
   
   /* List items */
   .adventure-card {

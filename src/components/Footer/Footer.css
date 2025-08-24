@@ -10,7 +10,8 @@
     align-items: center;
     flex-wrap: wrap;
     border-top: 4px solid rgba(210, 224, 250, 0.4);
-    margin-top: 0 !important;
+    margin-top: auto;
+    min-height: 60px;
   }
   
   .footer ul {
