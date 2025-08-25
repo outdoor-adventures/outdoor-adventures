@@ -25,7 +25,7 @@ const RecentActivitySection = () => {
 
     // Fetch the 3 most recent adventures when component mounts
     useEffect(() => {
-        fetch('/api/adventures/recents/recent')
+        fetch('/api/adventures')
             .then((res) => {
                 if (!res.ok) {
                     throw new Error(`Server error: ${res.status}`);
@@ -33,7 +33,9 @@ const RecentActivitySection = () => {
                 return res.json();
             })
             .then((data) => {
-                setAdventures(data);
+                // Sort by creation date (most recent first) and take only 3
+                const sortedData = data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+                setAdventures(sortedData.slice(0, 3));
                 setLoading(false);
             })
             .catch((err) => {
