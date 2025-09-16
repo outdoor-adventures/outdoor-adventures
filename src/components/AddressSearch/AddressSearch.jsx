@@ -29,6 +29,7 @@ const circleOptions = {
 function AddressSearch() {
   const [address, setAddress] = useState(''); //stores entered address
   const [center, setCenter] = useState({ lat: 44.977753, lng: -93.265011 }); // Default to Minneapolis
+  const [userLocation, setUserLocation] = useState(null); //stores user's current location
   const [adventures, setAdventures] = useState([]); //stores nearby adventures
   const [radius] = useState(32187); // 20 miles in meters
   const [isLoading, setIsLoading] = useState(false); //indicates loading state
@@ -78,7 +79,34 @@ useEffect(() => {
   axios.get('/api/dropdown/cost')
         .then(response => {console.log('cost data:', response.data)
           setCosts(response.data)});
+
+  // Get user's location on component mount
+  getUserLocation();
 }, []);
+
+// Function to get user's current location
+const getUserLocation = () => {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      async (position) => {
+        const userPos = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        };
+        setUserLocation(userPos);
+        setCenter(userPos);
+        centerRef.current = userPos;
+        
+        // Automatically search for adventures around user's location
+        await searchAdventures(userPos);
+      },
+      (error) => {
+        console.log('Geolocation error:', error);
+        // Keep default center if geolocation fails
+      }
+    );
+  }
+};
 
   //YOU ARE NOT INSANE THIS IS SUPPOSED TO BE HERE
   const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
@@ -101,25 +129,27 @@ useEffect(() => {
 
 
   
+  // Function to search for adventures near a specific location
+  const searchAdventures = async (location = center) => {
+    setIsLoading(true);
+    
+    try {
+      console.log('Searching with coordinates:', location);
+      const adventuresResponse = await axios.get(`/api/adventures/nearby?lat=${location.lat}&lng=${location.lng}&radius=20&category=${selectedCategory}&abilityLevel=${selectedAbilityLevel}&costLevel=${selectedCostLevel}`);
+      console.log('Response:', adventuresResponse.data);
+      setAdventures(adventuresResponse.data);
+    } catch (error) {
+      console.error('Error searching adventures:', error);
+      setAdventures([]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   // Function to search for adventures near the selected location
   const handleSearch = async (e) => {
     e.preventDefault();
-    setIsLoading(true); //shows loading indicator while getting data
-
-    
-    try {
-      console.log('Searching with coordinates:', center);
-      // Fetch adventures within radius using the current center coordinates
-      const adventuresResponse = await axios.get(`/api/adventures/nearby?lat=${center.lat}&lng=${center.lng}&radius=20&category=${selectedCategory}&abilityLevel=${selectedAbilityLevel}&costLevel=${selectedCostLevel}`);
-      console.log('Response:', adventuresResponse.data);
-      setAdventures(adventuresResponse.data); //update useState with retrieved data
-    } catch (error) {
-      console.error('Error searching adventures:', error); //testing console.error cuz ive never used it before
-      // Show empty results with error
-      setAdventures([]);
-    } finally {
-      setIsLoading(false); //stop loading indicator at the end of try
-    }
+    await searchAdventures();
   };
 
   return (
@@ -184,6 +214,22 @@ useEffect(() => {
             
           {/* sets center marker */}
           <Marker position={centerRef.current} />
+          
+          {/* User location marker */}
+          {userLocation && (
+            <Marker 
+              position={userLocation}
+              icon={{
+                url: 'data:image/svg+xml;base64,' + btoa(`
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+                    <circle cx="10" cy="10" r="8" fill="#4285F4" stroke="white" stroke-width="2"/>
+                  </svg>
+                `),
+                scaledSize: { width: 20, height: 20 }
+              }}
+              title="Your Location"
+            />
+          )}
           
           {/* 20-mile radius circle */}
           <Circle
