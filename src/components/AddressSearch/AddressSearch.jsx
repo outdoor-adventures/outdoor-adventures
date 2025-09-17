@@ -250,7 +250,16 @@ const getUserLocation = () => {
               key={adventure.id}
               position={{ lat: adventure.latitude, lng: adventure.longitude }}
               title={adventure.activity_name}
-
+              //icon allows you to change the styling of the markers/pinpoints
+              icon={{
+                url: 'data:image/svg+xml;base64,' + btoa(`
+                  <svg xmlns="http://www.w3.org/2000/svg" width="25" height="40" viewBox="0 0 25 40">
+                    <path d="M12.5 0C5.6 0 0 5.6 0 12.5c0 12.5 12.5 27.5 12.5 27.5s12.5-15 12.5-27.5C25 5.6 19.4 0 12.5 0z" fill="#053570"/>
+                    <circle cx="12.5" cy="12.5" r="6" fill="white"/>
+                  </svg>
+                `),
+                scaledSize: { width: 25, height: 40 }
+              }}
               onMouseOver={() => {
                 setInfoOpen(prev => ({ ...prev, [adventure.id]: true }))}}
               onMouseOut={() => setInfoOpen(prev => ({ ...prev, [adventure.id]: false }))}
