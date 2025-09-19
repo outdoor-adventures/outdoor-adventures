@@ -70,3 +70,7 @@ package-lock.json
 
 # Uploaded Photos Locally for Testing
 public/uploads
+
+.env
+
+node_modules
