@@ -27,15 +27,15 @@ const AboutUs = () => {
                         <h2>Key Features</h2>
                         <div className="features-grid">
                             <div className="feature-card">
-                                <h3>🔍 Browse & Search</h3>
+                                <h3>Browse & Search</h3>
                                 <p>Search adventures by location with filters for category, difficulty, and price. Interactive map view shows nearby activities.</p>
                             </div>
                             <div className="feature-card">
-                                <h3>➕ Add Adventures</h3>
+                                <h3>Add Adventures</h3>
                                 <p>Registered users can submit their own outdoor adventures with photos, descriptions, and location details.</p>
                             </div>
                             <div className="feature-card">
-                                <h3>❤️ Save Favorites</h3>
+                                <h3>Save Favorites</h3>
                                 <p>Create your personal collection of favorite adventures to revisit and plan future trips.</p>
                             </div>
                             <div className="feature-card">
