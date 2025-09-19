@@ -1,39 +1,92 @@
+import React from 'react';
+import Nav from '../Nav/Nav';
+import './AboutUs.css';
+
 const AboutUs = () => {
     return (
         <>
-            <div>AboutUs</div>
-            <h2>About Page</h2>
-            <p>
-                Intelligence doesn’t seem like an aspect of personal character,
-                and it isn’t. Coincidentally, great intelligence is only loosely
-                connected to being a good programmer.
-            </p>
-            <p>What? You don’t have to be superintelligent?</p>
-            <p>
-                No, you don’t. Nobody is really smart enough to program
-                computers. Fully understanding an average program requires an
-                almost limitless capacity to absorb details and an equal
-                capacity to comprehend them all at the same time. The way you
-                focus your intelligence is more important than how much
-                intelligence you have…
-            </p>
-            <p>
-                …most of programming is an attempt to compensate for the
-                strictly limited size of our skulls. The people who are the best
-                programmers are the people who realize how small their brains
-                are. They are humble. The people who are the worst at
-                programming are the people who refuse to accept the fact that
-                their brains aren’t equal to the task. Their egos keep them from
-                being great programmers. The more you learn to compensate for
-                your small brain, the better a programmer you’ll be.
-                <span className="squiggle">
-                    {' '}
-                    The more humble you are, the faster you’ll improve.
-                </span>
-            </p>
-            <p>
-                --From Steve McConnell's <em>Code Complete</em>.
-            </p>
+            <Nav pageTitle="About Us" />
+            <div className="about-container">
+
+                <div className="about-content">
+                    <section>
+                        <h2>Application Overview</h2>
+                        <p>
+                            Outdoor Adventures is a web platform that helps families, especially those less 
+                            experienced in outdoor activities, discover them with ease. The site brings together 
+                            hiking, camping, water sports and other outdoor adventures in one searchable hub. 
+                            Users can explore what's nearby, add their own adventures, and be part of a community 
+                            that inspires getting outside!!
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2>Key Features</h2>
+                        <div className="features-grid">
+                            <div className="feature-card">
+                                <h3>Browse & Search</h3>
+                                <p>Search adventures by location with filters for category, difficulty, and price. Interactive map view shows nearby activities.</p>
+                            </div>
+                            <div className="feature-card">
+                                <h3>Add Adventures</h3>
+                                <p>Registered users can submit their own outdoor adventures with photos, descriptions, and location details.</p>
+                            </div>
+                            <div className="feature-card">
+                                <h3>Save Favorites</h3>
+                                <p>Create your personal collection of favorite adventures to revisit and plan future trips.</p>
+                            </div>
+                            <div className="feature-card">
+                                <h3>👥 Community Driven</h3>
+                                <p>All adventures are shared by fellow outdoor enthusiasts, creating a trusted community resource.</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section>
+                        <h2>How It Works</h2>
+                        <div className="steps-container">
+                            <div className="step">
+                                <div className="step-number">1</div>
+                                <h3>Search</h3>
+                                <p>Enter your city, state, or zip code to find adventures within your area</p>
+                            </div>
+                            <div className="step">
+                                <div className="step-number">2</div>
+                                <h3>Filter</h3>
+                                <p>Use category, difficulty, and price filters to find the perfect adventure</p>
+                            </div>
+                            <div className="step">
+                                <div className="step-number">3</div>
+                                <h3>Explore</h3>
+                                <p>View details, save favorites, and start your outdoor adventure</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section>
+                        <h2>User Features</h2>
+                        <p>
+                            <strong>For All Users:</strong> Browse adventures, view details, and use interactive maps to discover outdoor activities.
+                        </p>
+                        <p>
+                            <strong>For Registered Users:</strong> Save favorite adventures, submit new activities, manage your submissions, and track approval status.
+                        </p>
+                        <p>
+                            <strong>For Administrators:</strong> Review and approve submitted adventures to maintain quality and safety standards.
+                        </p>
+                    </section>
+
+
+                    <section className="get-started">
+                        <h2>Start Your Adventure Today</h2>
+                        <p>
+                            Whether you're a seasoned outdoor enthusiast or just beginning to explore nature, 
+                            Outdoor Adventures connects you with amazing experiences in your area. Join our 
+                            community and discover the great outdoors!
+                        </p>
+                    </section>
+                </div>
+            </div>
         </>
     );
 };
