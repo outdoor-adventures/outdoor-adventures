@@ -7,9 +7,6 @@ const AboutUs = () => {
         <>
             <Nav pageTitle="About Us" />
             <div className="about-container">
-                <div className="about-hero">
-                    <h1>Outdoor Adventures</h1>
-                </div>
 
                 <div className="about-content">
                     <section>
