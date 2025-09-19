@@ -76,17 +76,6 @@ const AboutUs = () => {
                         </p>
                     </section>
 
-                    {/* <section>
-                        <h2>Technologies Used</h2>
-                        <div className="tech-grid">
-                            <div className="tech-item">React</div>
-                            <div className="tech-item">Node.js</div>
-                            <div className="tech-item">Express</div>
-                            <div className="tech-item">PostgreSQL</div>
-                            <div className="tech-item">Google Maps API</div>
-                            <div className="tech-item">AWS S3</div>
-                        </div>
-                    </section> */}
 
                     <section className="get-started">
                         <h2>Start Your Adventure Today</h2>
