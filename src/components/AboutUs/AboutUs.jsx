@@ -9,7 +9,6 @@ const AboutUs = () => {
             <div className="about-container">
                 <div className="about-hero">
                     <h1>Outdoor Adventures</h1>
-                    <p className="hero-subtitle">Rocky Mountain Cohort | 04/23/25</p>
                 </div>
 
                 <div className="about-content">
