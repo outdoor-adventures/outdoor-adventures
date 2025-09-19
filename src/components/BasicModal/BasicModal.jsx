@@ -66,12 +66,19 @@ const contentStyle = {
   }
 };
 
-export default function BasicModal({ adv }) {
-  const [open, setOpen] = useState(false);
+export default function BasicModal({ adv, open: externalOpen, onClose: externalOnClose }) {
+  const [internalOpen, setInternalOpen] = useState(false);
   const [adventureData, setAdventureData] = useState(null);
   
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const open = externalOpen !== undefined ? externalOpen : internalOpen;
+  const handleOpen = () => setInternalOpen(true);
+  const handleClose = () => {
+    if (externalOnClose) {
+      externalOnClose();
+    } else {
+      setInternalOpen(false);
+    }
+  };
   
   const getImageUrl = (photo) => {
     if (!photo) return '/images/default-adventure.jpg';
@@ -102,7 +109,7 @@ export default function BasicModal({ adv }) {
 
   return (
     <div>
-      <Button onClick={handleOpen}>View Details</Button>
+      {externalOpen === undefined && <Button onClick={handleOpen}>View Details</Button>}
       <Modal
         open={open}
         onClose={handleClose}

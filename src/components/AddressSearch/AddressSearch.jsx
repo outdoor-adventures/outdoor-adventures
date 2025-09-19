@@ -63,6 +63,8 @@ function AddressSearch() {
 
   //used for infoOpen
   const [infoOpen, setInfoOpen] = useState({});
+  const [selectedAdventure, setSelectedAdventure] = useState(null);
+  const [modalOpen, setModalOpen] = useState(false);
 
   //navigation
   const navigate = useNavigate();
@@ -263,7 +265,10 @@ const getUserLocation = () => {
               onMouseOver={() => {
                 setInfoOpen(prev => ({ ...prev, [adventure.id]: true }))}}
               onMouseOut={() => setInfoOpen(prev => ({ ...prev, [adventure.id]: false }))}
-              onClick={() => navigate(`/adventures/${adventure.id}`)}
+              onClick={() => {
+                setSelectedAdventure(adventure);
+                setModalOpen(true);
+              }}
             >
             {/* INFO BOX */}
                 {infoOpen[adventure.id] && (
@@ -332,6 +337,18 @@ const getUserLocation = () => {
     </div>
     </div>
     </div>
+    
+    {/* Modal for map marker clicks */}
+    {modalOpen && selectedAdventure && (
+      <BasicModal 
+        adv={selectedAdventure} 
+        open={modalOpen}
+        onClose={() => {
+          setModalOpen(false);
+          setSelectedAdventure(null);
+        }}
+      />
+    )}
     </div>
   );
 }
