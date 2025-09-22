@@ -1,8 +1,10 @@
-import React, { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import useStore from '../../zustand/store'
 import './AddAdventureForm.css';
 import Nav from '../Nav/Nav';
+import Alert from '@mui/material/Alert';
+
 
 //GOOGLE MAPS
 import { StandaloneSearchBox } from '@react-google-maps/api';
@@ -33,8 +35,7 @@ const AddAdventureForm = () => {
       });
 
       const [loading, setLoading] = useState(false);
-
-      const [message, setMessage] = useState('');
+      const [alert, setAlert] = useState({ show: false, type: '', message: '' });
 
       //GOOGLE MAPS
       const searchBoxRef = useRef(null);
@@ -60,6 +61,15 @@ const AddAdventureForm = () => {
                 };
                 fetchOptions(); 
             }, []);
+
+            useEffect(() => {
+              if (alert.show) {
+                const timer = setTimeout(() => {
+                  setAlert({ show: false, type: '', message: '' });
+                }, 3000);
+                return () => clearTimeout(timer);
+              }
+            }, [alert.show]);
             //updates the form data 
 
             const handleChange = (e) => {
@@ -84,8 +94,12 @@ const AddAdventureForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault(); 
 
-    setLoading(true);
-    setMessage('');   
+    if (!formData.photo) {
+      setAlert({ show: true, type: 'error', message: 'Please select an image before submitting' });
+      return;
+    }
+
+    setLoading(true);   
 // formData for submission 
     const form = new FormData();
     form.append('category_id', formData.category);
@@ -104,9 +118,11 @@ const AddAdventureForm = () => {
             headers: { 'Content-Type': 'multipart/form-data' },
         });
 
-        // Handle successful form submission
+      setAlert({ show: true, type: 'success', message: 'Adventure Submitted Successfully' });
+
+      // Handle successful form submission
       console.log('Adventure submitted:', response.data, form);
-      setMessage('Adventure submitted successfully!');
+
       setFormData({
         price: '',          
         category: '',
@@ -123,7 +139,7 @@ const AddAdventureForm = () => {
     } catch (error) {
         // Handle any errors during form submission
         console.error('Submit failed:', error);
-        setMessage('Failed to submit adventure.'); // Show error message
+        setAlert({ show: true, type: 'error', message: 'Failed to Submit Adventure' });
       } finally {
         setLoading(false); 
       }
@@ -155,10 +171,21 @@ const AddAdventureForm = () => {
         <div className="add-adventure-page">
           <Nav pageTitle="Add New Adventure" />
 
-          {/* <h2>Add New Adventure</h2> */}
-          
-          {/* Display success or error message */}
-          {message && <p>{message}</p>}
+          {alert.show && (
+            <Alert 
+              severity={alert.type} 
+              style={{ 
+                position: 'fixed', 
+                top: '20px', 
+                left: '50%', 
+                transform: 'translateX(-50%)', 
+                zIndex: 1000,
+                minWidth: '300px'
+              }}
+            >
+              {alert.message}
+            </Alert>
+          )}
           
           <form className="add-adventure-form" onSubmit={handleSubmit} encType="multipart/form-data">
             {/* File input for photo */}
