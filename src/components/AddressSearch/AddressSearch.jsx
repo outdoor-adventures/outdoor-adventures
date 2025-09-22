@@ -29,8 +29,9 @@ const circleOptions = {
 function AddressSearch() {
   const [address, setAddress] = useState(''); //stores entered address
   const [center, setCenter] = useState({ lat: 44.977753, lng: -93.265011 }); // Default to Minneapolis
+  const [userLocation, setUserLocation] = useState(null); //stores user's current location
   const [adventures, setAdventures] = useState([]); //stores nearby adventures
-  const [radius] = useState(32187); // 20 miles in meters
+  const [selectedRadius, setSelectedRadius] = useState(100); // selected radius in miles
   const [isLoading, setIsLoading] = useState(false); //indicates loading state
   const searchBoxRef = useRef(null); //references the google maps api autocomplete search bar
   const centerRef = useRef(center); //looks weird but using to try and prevent google maps marker re-render
@@ -60,8 +61,12 @@ function AddressSearch() {
   const [abilities, setAbilities] = useState([]);
   const [costs, setCosts] = useState([]);
 
+  const radiusOptions = [5, 10, 20, 30, 40, 50, 100, 150, 200, 250, 300];
+
   //used for infoOpen
   const [infoOpen, setInfoOpen] = useState({});
+  const [selectedAdventure, setSelectedAdventure] = useState(null);
+  const [modalOpen, setModalOpen] = useState(false);
 
   //navigation
   const navigate = useNavigate();
@@ -78,7 +83,34 @@ useEffect(() => {
   axios.get('/api/dropdown/cost')
         .then(response => {console.log('cost data:', response.data)
           setCosts(response.data)});
+
+  // Get user's location on component mount
+  getUserLocation();
 }, []);
+
+// Function to get user's current location
+const getUserLocation = () => {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      async (position) => {
+        const userPos = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        };
+        setUserLocation(userPos);
+        setCenter(userPos);
+        centerRef.current = userPos;
+        
+        // Automatically search for adventures around user's location
+        await searchAdventures(userPos);
+      },
+      (error) => {
+        console.log('Geolocation error:', error);
+        // Keep default center if geolocation fails
+      }
+    );
+  }
+};
 
   //YOU ARE NOT INSANE THIS IS SUPPOSED TO BE HERE
   const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
@@ -101,25 +133,27 @@ useEffect(() => {
 
 
   
+  // Function to search for adventures near a specific location
+  const searchAdventures = async (location = center) => {
+    setIsLoading(true);
+    
+    try {
+      console.log('Searching with coordinates:', location);
+      const adventuresResponse = await axios.get(`/api/adventures/nearby?lat=${location.lat}&lng=${location.lng}&radius=${selectedRadius}&category=${selectedCategory}&abilityLevel=${selectedAbilityLevel}&costLevel=${selectedCostLevel}`);
+      console.log('Response:', adventuresResponse.data);
+      setAdventures(adventuresResponse.data);
+    } catch (error) {
+      console.error('Error searching adventures:', error);
+      setAdventures([]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   // Function to search for adventures near the selected location
   const handleSearch = async (e) => {
     e.preventDefault();
-    setIsLoading(true); //shows loading indicator while getting data
-
-    
-    try {
-      console.log('Searching with coordinates:', center);
-      // Fetch adventures within radius using the current center coordinates
-      const adventuresResponse = await axios.get(`/api/adventures/nearby?lat=${center.lat}&lng=${center.lng}&radius=20&category=${selectedCategory}&abilityLevel=${selectedAbilityLevel}&costLevel=${selectedCostLevel}`);
-      console.log('Response:', adventuresResponse.data);
-      setAdventures(adventuresResponse.data); //update useState with retrieved data
-    } catch (error) {
-      console.error('Error searching adventures:', error); //testing console.error cuz ive never used it before
-      // Show empty results with error
-      setAdventures([]);
-    } finally {
-      setIsLoading(false); //stop loading indicator at the end of try
-    }
+    await searchAdventures();
   };
 
   return (
@@ -139,6 +173,15 @@ useEffect(() => {
           </StandaloneSearchBox>
 
           {/* FILTERS  */}
+
+          <div className='radius-filter'>
+            <select onChange={(e) => setSelectedRadius(parseInt(e.target.value))} value={selectedRadius}>
+              {radiusOptions.map(radius => (
+                <option key={radius} value={radius}>{radius} Miles</option>
+              ))}
+            </select>
+          </div> {/*END RADIUS FILTER*/}
+        
           <div className='category-filter'>
             <select onChange={(e) => setSelectedCategory(e.target.value)}>
               <option value=''>All Categories</option>
@@ -185,10 +228,26 @@ useEffect(() => {
           {/* sets center marker */}
           <Marker position={centerRef.current} />
           
-          {/* 20-mile radius circle */}
+          {/* User location marker */}
+          {userLocation && (
+            <Marker 
+              position={userLocation}
+              icon={{
+                url: 'data:image/svg+xml;base64,' + btoa(`
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+                    <circle cx="10" cy="10" r="8" fill="#4285F4" stroke="white" stroke-width="2"/>
+                  </svg>
+                `),
+                scaledSize: { width: 20, height: 20 }
+              }}
+              title="Your Location"
+            />
+          )}
+          
+          {/* radius circle */}
           <Circle
             center={center} //center circle on selected address
-            radius={radius} //set radius to pre-determined radius size
+            radius={selectedRadius * 1609.34} //convert miles to meters
             options={circleOptions} //sets circle options STILL IN PROGRESS
           />
           
@@ -204,11 +263,23 @@ useEffect(() => {
               key={adventure.id}
               position={{ lat: adventure.latitude, lng: adventure.longitude }}
               title={adventure.activity_name}
-
+              //icon allows you to change the styling of the markers/pinpoints
+              icon={{
+                url: 'data:image/svg+xml;base64,' + btoa(`
+                  <svg xmlns="http://www.w3.org/2000/svg" width="25" height="40" viewBox="0 0 25 40">
+                    <path d="M12.5 0C5.6 0 0 5.6 0 12.5c0 12.5 12.5 27.5 12.5 27.5s12.5-15 12.5-27.5C25 5.6 19.4 0 12.5 0z" fill="#053570"/>
+                    <circle cx="12.5" cy="12.5" r="6" fill="white"/>
+                  </svg>
+                `),
+                scaledSize: { width: 25, height: 40 }
+              }}
               onMouseOver={() => {
                 setInfoOpen(prev => ({ ...prev, [adventure.id]: true }))}}
               onMouseOut={() => setInfoOpen(prev => ({ ...prev, [adventure.id]: false }))}
-              onClick={() => navigate(`/adventures/${adventure.id}`)}
+              onClick={() => {
+                setSelectedAdventure(adventure);
+                setModalOpen(true);
+              }}
             >
             {/* INFO BOX */}
                 {infoOpen[adventure.id] && (
@@ -230,7 +301,7 @@ useEffect(() => {
       <div className='list-section'>
       {adventures.length > 0 && (
         <div className="adventure-list">
-          <h3>Adventures within 20 miles</h3>
+          <h3>Adventures within {selectedRadius} miles</h3>
 
             {adventures.map(adventure => (
               
@@ -277,6 +348,18 @@ useEffect(() => {
     </div>
     </div>
     </div>
+    
+    {/* Modal for map marker clicks */}
+    {modalOpen && selectedAdventure && (
+      <BasicModal 
+        adv={selectedAdventure} 
+        open={modalOpen}
+        onClose={() => {
+          setModalOpen(false);
+          setSelectedAdventure(null);
+        }}
+      />
+    )}
     </div>
   );
 }

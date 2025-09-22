@@ -24,6 +24,7 @@
   
   /* Consistent input + select styles */
   .autocomplete-input,
+  .radius-filter select,
   .category-filter select,
   .ability-filter select,
   .cost-filter select,
@@ -42,6 +43,7 @@
     color: rgb(18, 37, 72);
   }
   
+  .radius-filter select,
   .category-filter select,
   .ability-filter select,
   .cost-filter select {
