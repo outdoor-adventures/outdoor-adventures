@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState }from 'react';
+import { useEffect, useState }from 'react';
 import { NavLink } from "react-router-dom";
 import useStore from "../../zustand/store";
 import './Footer.css';
@@ -28,7 +28,7 @@ const Footer = () => {
   return (
     <div className="footer">
       <div className="footer-container">
-        <ul>
+        <ul className='nav-links'>
             <li>
             <NavLink to="/contact" className="contact-button">Contact</NavLink>
             </li>
@@ -36,17 +36,25 @@ const Footer = () => {
             <NavLink to="/about" className="about-button">About</NavLink>
             </li>
         </ul>
+      
+
+        <div className="dropdown">
+          <button className="dropdown-btn">Info</button>
+          <div className="dropdown-content">
+            <NavLink to="/contact">Contact</NavLink>
+            <NavLink to="/about">About</NavLink>
+          </div>
+        </div>
         
       {user.id && (
             <ul>
               {user.user_rank === 1 && (
                 <li>
                   <NavLink to="/admin" className="admin-button">
-                    Pending Adventures {pendingCount > 0 && `(${pendingCount})`} 
+                    Pending Advs. {pendingCount > 0 && `(${pendingCount})`} 
                   </NavLink>
                 </li>
                 )}
-
                 <li>
                 <button onClick={logOut} className="logout_button">Log Out</button>
                 </li>
