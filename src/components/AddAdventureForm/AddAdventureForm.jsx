@@ -37,6 +37,7 @@ const AddAdventureForm = () => {
 
       const [loading, setLoading] = useState(false);
       const [alert, setAlert] = useState({ show: false, type: '', message: '' });
+      const [validLocation, setValidLocation] = useState(false);
 
       //GOOGLE MAPS
       const searchBoxRef = useRef(null);
@@ -75,6 +76,9 @@ const AddAdventureForm = () => {
 
             const handleChange = (e) => {
                 const { name, value } = e.target;
+                if (name === 'address') {
+                  setValidLocation(false);
+                }
                 setFormData((prev) => ({ ...prev, [name]: value }));
             };
             //update the photos when user select photo
@@ -96,7 +100,13 @@ const AddAdventureForm = () => {
     e.preventDefault(); 
 
     if (!formData.photo) {
+      console.log('Setting alert for missing photo');
       setAlert({ show: true, type: 'error', message: 'Please select an image before submitting' });
+      return;
+    }
+
+    if (!validLocation || !formData.latitude || !formData.longitude) {
+      setAlert({ show: true, type: 'error', message: 'Please select a location from the dropdown suggestions' });
       return;
     }
 
@@ -160,6 +170,7 @@ const AddAdventureForm = () => {
               latitude: place.geometry.location.lat(),
               longitude: place.geometry.location.lng(),
             }))
+            setValidLocation(true);
           } else {
             console.log('ERROR: places geometry is missing', place)
           }
@@ -173,19 +184,11 @@ const AddAdventureForm = () => {
           <Nav pageTitle="Add New Adventure" />
 
           {alert.show && (
-            <Alert 
-              severity={alert.type} 
-              style={{ 
-                position: 'fixed', 
-                top: '20px', 
-                left: '50%', 
-                transform: 'translateX(-50%)', 
-                zIndex: 1000,
-                minWidth: '300px'
-              }}
-            >
-              {alert.message}
-            </Alert>
+            <div style={{ position: 'fixed', top: '20px', left: '50%', transform: 'translateX(-50%)', zIndex: 9999 }}>
+              <Alert severity={alert.type}>
+                {alert.message}
+              </Alert>
+            </div>
           )}
           
           <form className="add-adventure-form" onSubmit={handleSubmit} encType="multipart/form-data">
@@ -209,7 +212,6 @@ const AddAdventureForm = () => {
                 name="photo" 
                 accept="image/*" 
                 onChange={handleFileChange} 
-                required 
                 style={{ display: 'none' }}
               />
             </div>
