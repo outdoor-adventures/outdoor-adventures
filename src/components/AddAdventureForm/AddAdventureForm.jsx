@@ -1,8 +1,10 @@
-import React, { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import useStore from '../../zustand/store'
 import './AddAdventureForm.css';
 import Nav from '../Nav/Nav';
+import Alert from '@mui/material/Alert';
+import { useNavigate } from 'react-router-dom';
 
 //GOOGLE MAPS
 import { StandaloneSearchBox } from '@react-google-maps/api';
@@ -10,6 +12,7 @@ import { StandaloneSearchBox } from '@react-google-maps/api';
 
 const AddAdventureForm = () => {
     const user = useStore((store) => store.user);
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
       price: '',
       category: '',
@@ -33,8 +36,8 @@ const AddAdventureForm = () => {
       });
 
       const [loading, setLoading] = useState(false);
-
-      const [message, setMessage] = useState('');
+      const [alert, setAlert] = useState({ show: false, type: '', message: '' });
+      const [validLocation, setValidLocation] = useState(false);
 
       //GOOGLE MAPS
       const searchBoxRef = useRef(null);
@@ -60,10 +63,22 @@ const AddAdventureForm = () => {
                 };
                 fetchOptions(); 
             }, []);
+
+            useEffect(() => {
+              if (alert.show) {
+                const timer = setTimeout(() => {
+                  setAlert({ show: false, type: '', message: '' });
+                }, 3000);
+                return () => clearTimeout(timer);
+              }
+            }, [alert.show]);
             //updates the form data 
 
             const handleChange = (e) => {
                 const { name, value } = e.target;
+                if (name === 'address') {
+                  setValidLocation(false);
+                }
                 setFormData((prev) => ({ ...prev, [name]: value }));
             };
             //update the photos when user select photo
@@ -84,8 +99,18 @@ const AddAdventureForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault(); 
 
-    setLoading(true);
-    setMessage('');   
+    if (!formData.photo) {
+      console.log('Setting alert for missing photo');
+      setAlert({ show: true, type: 'error', message: 'Please select an image before submitting' });
+      return;
+    }
+
+    if (!validLocation || !formData.latitude || !formData.longitude) {
+      setAlert({ show: true, type: 'error', message: 'Please select a location from the dropdown suggestions' });
+      return;
+    }
+
+    setLoading(true);   
 // formData for submission 
     const form = new FormData();
     form.append('category_id', formData.category);
@@ -104,9 +129,11 @@ const AddAdventureForm = () => {
             headers: { 'Content-Type': 'multipart/form-data' },
         });
 
-        // Handle successful form submission
+      setAlert({ show: true, type: 'success', message: 'Adventure Submitted Successfully' });
+
+      // Handle successful form submission
       console.log('Adventure submitted:', response.data, form);
-      setMessage('Adventure submitted successfully!');
+
       setFormData({
         price: '',          
         category: '',
@@ -123,7 +150,7 @@ const AddAdventureForm = () => {
     } catch (error) {
         // Handle any errors during form submission
         console.error('Submit failed:', error);
-        setMessage('Failed to submit adventure.'); // Show error message
+        setAlert({ show: true, type: 'error', message: 'Failed to Submit Adventure' });
       } finally {
         setLoading(false); 
       }
@@ -143,6 +170,7 @@ const AddAdventureForm = () => {
               latitude: place.geometry.location.lat(),
               longitude: place.geometry.location.lng(),
             }))
+            setValidLocation(true);
           } else {
             console.log('ERROR: places geometry is missing', place)
           }
@@ -155,10 +183,13 @@ const AddAdventureForm = () => {
         <div className="add-adventure-page">
           <Nav pageTitle="Add New Adventure" />
 
-          {/* <h2>Add New Adventure</h2> */}
-          
-          {/* Display success or error message */}
-          {message && <p>{message}</p>}
+          {alert.show && (
+            <div style={{ position: 'fixed', top: '20px', left: '50%', transform: 'translateX(-50%)', zIndex: 9999 }}>
+              <Alert severity={alert.type}>
+                {alert.message}
+              </Alert>
+            </div>
+          )}
           
           <form className="add-adventure-form" onSubmit={handleSubmit} encType="multipart/form-data">
             {/* File input for photo */}
@@ -181,7 +212,6 @@ const AddAdventureForm = () => {
                 name="photo" 
                 accept="image/*" 
                 onChange={handleFileChange} 
-                required 
                 style={{ display: 'none' }}
               />
             </div>
@@ -283,22 +313,8 @@ const AddAdventureForm = () => {
               {loading ? 'Submitting...' : 'Submit'}
             </button>
     
-            {/* Cancel button: Clears the form */}
-            <button type="button" onClick={() => {
-              setFormData({
-                price: '',
-                category: '',
-                difficulty: '',
-                address: '',
-                link: '',
-                name: '',
-                description: '',
-                photo: '',
-                latitude: '',
-                longitude: '',
-              });
-              setImagePreview(null);
-            }}>
+            {/* Cancel button: Navigate to home */}
+            <button type="button" onClick={() => navigate('/')}>
               Cancel
             </button>
             </div>
