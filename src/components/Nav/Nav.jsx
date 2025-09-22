@@ -55,20 +55,14 @@ function Nav({pageTitle}) {
         )
       }
       { // User is logged in, render these links:
-        user.id && (
-          <div className="nav-user-controls">
-            {/* Only show admin button if user has admin rank (1) */}
-            {user.user_rank === 1 && (
-              <NavLink to="/admin" className="admin-button">
-                Pending Adventures {pendingCount > 0 && `(${pendingCount})`}
+          user.id && (
+            <div className="nav-user-controls">
+              <NavLink to="/user" className="profile-image">
+                <img src={prof} alt="Profile" style={{width: '120px', marginTop: '0'}} />
               </NavLink>
-            )}
-            <NavLink to="/user" className="profile-image">
-              <img src={prof} alt="Profile" style={{width: '120px', marginTop: '0'}} />
-            </NavLink>
-          </div>
-        )
-      }
+            </div>
+          )
+        }
       </div>
       </div>
     </nav>
