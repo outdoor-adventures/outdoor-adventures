@@ -4,7 +4,7 @@ import useStore from '../../zustand/store'
 import './AddAdventureForm.css';
 import Nav from '../Nav/Nav';
 import Alert from '@mui/material/Alert';
-
+import { useNavigate } from 'react-router-dom';
 
 //GOOGLE MAPS
 import { StandaloneSearchBox } from '@react-google-maps/api';
@@ -12,6 +12,7 @@ import { StandaloneSearchBox } from '@react-google-maps/api';
 
 const AddAdventureForm = () => {
     const user = useStore((store) => store.user);
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
       price: '',
       category: '',
@@ -310,22 +311,8 @@ const AddAdventureForm = () => {
               {loading ? 'Submitting...' : 'Submit'}
             </button>
     
-            {/* Cancel button: Clears the form */}
-            <button type="button" onClick={() => {
-              setFormData({
-                price: '',
-                category: '',
-                difficulty: '',
-                address: '',
-                link: '',
-                name: '',
-                description: '',
-                photo: '',
-                latitude: '',
-                longitude: '',
-              });
-              setImagePreview(null);
-            }}>
+            {/* Cancel button: Navigate to home */}
+            <button type="button" onClick={() => navigate('/')}>
               Cancel
             </button>
             </div>
