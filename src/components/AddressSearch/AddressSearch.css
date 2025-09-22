@@ -24,6 +24,7 @@
   
   /* Consistent input + select styles */
   .autocomplete-input,
+  .radius-filter select,
   .category-filter select,
   .ability-filter select,
   .cost-filter select,
@@ -42,53 +43,12 @@
     color: rgb(18, 37, 72);
   }
   
+  .radius-filter select,
   .category-filter select,
   .ability-filter select,
   .cost-filter select {
     background-color: white;
     flex: 0 0 180px;
-  }
-  
-  /* Radius slider styling */
-  .radius-filter {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    flex: 0 0 150px;
-  }
-  
-  .radius-filter label {
-    font-size: 0.9rem;
-    color: rgb(18, 37, 72);
-    font-weight: 500;
-  }
-  
-  .radius-slider {
-    width: 100%;
-    height: 6px;
-    border-radius: 3px;
-    background: #ddd;
-    outline: none;
-    -webkit-appearance: none;
-  }
-  
-  .radius-slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    background: rgb(18, 37, 72);
-    cursor: pointer;
-  }
-  
-  .radius-slider::-moz-range-thumb {
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    background: rgb(18, 37, 72);
-    cursor: pointer;
-    border: none;
   }
   
   .search-button {
@@ -239,10 +199,6 @@
     .search-box-container {
       flex-direction: column;
       align-items: stretch;
-    }
-    
-    .radius-filter {
-      flex: 1 1 100%;
     }
   
     .map-list-container {

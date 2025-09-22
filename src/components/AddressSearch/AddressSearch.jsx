@@ -31,7 +31,7 @@ function AddressSearch() {
   const [center, setCenter] = useState({ lat: 44.977753, lng: -93.265011 }); // Default to Minneapolis
   const [userLocation, setUserLocation] = useState(null); //stores user's current location
   const [adventures, setAdventures] = useState([]); //stores nearby adventures
-  const [radiusMiles, setRadiusMiles] = useState(20); // radius in miles (5-100)
+  const [selectedRadius, setSelectedRadius] = useState(100); // selected radius in miles
   const [isLoading, setIsLoading] = useState(false); //indicates loading state
   const searchBoxRef = useRef(null); //references the google maps api autocomplete search bar
   const centerRef = useRef(center); //looks weird but using to try and prevent google maps marker re-render
@@ -60,6 +60,8 @@ function AddressSearch() {
   const [categories, setCategories] = useState([]);
   const [abilities, setAbilities] = useState([]);
   const [costs, setCosts] = useState([]);
+
+  const radiusOptions = [5, 10, 20, 30, 40, 50, 100, 150, 200, 250, 300];
 
   //used for infoOpen
   const [infoOpen, setInfoOpen] = useState({});
@@ -137,7 +139,7 @@ const getUserLocation = () => {
     
     try {
       console.log('Searching with coordinates:', location);
-      const adventuresResponse = await axios.get(`/api/adventures/nearby?lat=${location.lat}&lng=${location.lng}&radius=${radiusMiles}&category=${selectedCategory}&abilityLevel=${selectedAbilityLevel}&costLevel=${selectedCostLevel}`);
+      const adventuresResponse = await axios.get(`/api/adventures/nearby?lat=${location.lat}&lng=${location.lng}&radius=${selectedRadius}&category=${selectedCategory}&abilityLevel=${selectedAbilityLevel}&costLevel=${selectedCostLevel}`);
       console.log('Response:', adventuresResponse.data);
       setAdventures(adventuresResponse.data);
     } catch (error) {
@@ -170,21 +172,16 @@ const getUserLocation = () => {
             />
           </StandaloneSearchBox>
 
-          {/* RADIUS SLIDER */}
-          <div className='radius-filter'>
-            <label htmlFor='radius-slider'>Search Radius: {radiusMiles} miles</label>
-            <input
-              id='radius-slider'
-              type='range'
-              min='5'
-              max='100'
-              value={radiusMiles}
-              onChange={(e) => setRadiusMiles(parseInt(e.target.value))}
-              className='radius-slider'
-            />
-          </div> {/*END RADIUS FILTER*/}
-
           {/* FILTERS  */}
+
+          <div className='radius-filter'>
+            <select onChange={(e) => setSelectedRadius(parseInt(e.target.value))} value={selectedRadius}>
+              {radiusOptions.map(radius => (
+                <option key={radius} value={radius}>{radius} Miles</option>
+              ))}
+            </select>
+          </div> {/*END RADIUS FILTER*/}
+        
           <div className='category-filter'>
             <select onChange={(e) => setSelectedCategory(e.target.value)}>
               <option value=''>All Categories</option>
@@ -250,7 +247,7 @@ const getUserLocation = () => {
           {/* radius circle */}
           <Circle
             center={center} //center circle on selected address
-            radius={radiusMiles * 1609.34} //convert miles to meters
+            radius={selectedRadius * 1609.34} //convert miles to meters
             options={circleOptions} //sets circle options STILL IN PROGRESS
           />
           
@@ -304,7 +301,7 @@ const getUserLocation = () => {
       <div className='list-section'>
       {adventures.length > 0 && (
         <div className="adventure-list">
-          <h3>Adventures within {radiusMiles} miles</h3>
+          <h3>Adventures within {selectedRadius} miles</h3>
 
             {adventures.map(adventure => (
               
