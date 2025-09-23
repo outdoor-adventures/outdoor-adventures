@@ -26,14 +26,13 @@ function Nav({pageTitle}) {
 
   return (
     <>
-    <nav className="banner">
 
       <div className='nav-container'>
 
         <div className="nav-left">
           {/* <NavLink to="/" className='logo'><a href="" className="logo"><img src={logo} alt="" style={{width: '100px', marginTop: '10px'  }} /></a></NavLink> */}
           <NavLink to="/" className="logo" >
-            <img src={logo} alt="" style={{width: '113px', marginTop: '20px'}} />
+            <img src={logo} alt="" style={{width: '7rem', marginTop: '0'}} />
           </NavLink>
         </div>
 
@@ -58,14 +57,13 @@ function Nav({pageTitle}) {
           user.id && (
             <div className="nav-user-controls">
               <NavLink to="/user" className="profile-image">
-                <img src={prof} alt="Profile" style={{width: '120px', marginTop: '0'}} />
+                <img src={prof} alt="Profile" style={{width: '7rem', marginTop: '0'}} />
               </NavLink>
             </div>
           )
         }
       </div>
       </div>
-    </nav>
     </>
   );
 }
