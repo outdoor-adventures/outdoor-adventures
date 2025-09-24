@@ -1,7 +1,7 @@
 /* UserPage.css */
 
 .user-page {
-    padding: 0;
+  padding-top: 154px; 
   }
   
   .section-header {
@@ -9,7 +9,6 @@
     align-items: center;
     justify-content: center;
     margin-bottom: 1rem;
-    /* margin-top: 10px; */
     height: 100px;
   }
   

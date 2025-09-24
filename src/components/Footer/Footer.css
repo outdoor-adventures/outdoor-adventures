@@ -88,7 +88,7 @@
     color: white;
 }
 
-/* Dropdown styling */
+
 .dropdown {
     position: relative;
     display: none;
@@ -111,12 +111,12 @@
     display: block;
 }
 
-/* Show nav-links by default, hide dropdown */
+
 .nav-links {
     display: flex;
 }
 
-/* At 775px and below, hide nav-links and show dropdown */
+
 @media (max-width: 775px) {
     .nav-links {
         display: none !important;
