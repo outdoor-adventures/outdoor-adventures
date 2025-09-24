@@ -11,18 +11,21 @@
     flex-wrap: wrap;
     border-top: 4px solid rgba(210, 224, 250, 0.4);
     margin-top: 0 !important;
-  }
-  
-  .footer ul {
+    height: 60px;
+    position: fixed;
+    bottom: 0;
+}
+
+.footer ul {
     list-style: none;
     display: flex;
     gap: 1em;
     margin: 0;
     padding: 0;
-  }
+}
 
-  .footer-container {
-    max-width: 1600px;
+.footer-container {
+    position: sticky;
     margin: 0 auto;
     width: 100%;
     display: flex;
@@ -30,16 +33,16 @@
     align-items: center;
     padding: 0.5em 1.5em;
     box-sizing: border-box;
-  }
-  
-  .footer li {
+}
+
+.footer li {
     margin: 0;
     padding: 0;
     line-height: 1;
-  }
-  
-  .footer a,
-  .footer .logout_button {
+}
+
+.footer a,
+.footer .logout_button {
     font-family: 'Rockwell', serif;
     background-color: rgb(18, 37, 72);
     color: rgb(210, 224, 250);
@@ -52,12 +55,95 @@
     text-align: center;
     display: inline-block;
     width: 120px;
-  }
-  
-  .footer a:hover,
-  .footer .logout_button:hover {
+}
+
+.footer a:hover,
+.footer .logout_button:hover {
     background-color: rgb(210, 224, 250);
     color: rgb(18, 37, 72);
     cursor: pointer;
-  }
-  
+}
+
+.footer .admin-button {
+    font-family: 'Rockwell', serif;
+    background-color: #4CAF50;
+    color: white;
+    border: 1px solid #4CAF50;
+    padding: 0.5em 1em;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    text-align: center;
+    display: inline-block;
+    width: auto;
+    min-width: 180px;
+    height: 17px;
+    line-height: 1.3;
+    margin: 2px;
+}
+
+.footer .admin-button:hover {
+    background-color: #45a049;
+    color: white;
+}
+
+
+.dropdown {
+    position: relative;
+    display: none;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;  
+    bottom: 20px;
+}
+
+.dropdown-content a {
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+
+.nav-links {
+    display: flex;
+}
+
+
+@media (max-width: 775px) {
+    .nav-links {
+        display: none !important;
+    }
+    
+    .dropdown {
+        display: inline-block !important;
+    }
+    
+    .dropdown-btn {
+        background-color: rgb(18, 37, 72);
+        color: rgb(210, 224, 250);
+        border: 1px solid rgb(210, 224, 250);
+        padding: 0.5em 1em;
+        border-radius: 4px;
+        font-family: 'Rockwell', serif;
+        font-size: 1rem;
+        cursor: pointer;
+    }
+    
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+    
+    .dropdown-content a {
+        background-color: rgb(18, 37, 72);
+        color: rgb(210, 224, 250);
+        width: 120px;
+    }
+}

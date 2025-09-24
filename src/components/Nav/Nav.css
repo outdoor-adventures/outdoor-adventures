@@ -1,146 +1,58 @@
 .banner {
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
-  overflow-x: hidden;
-  box-sizing: border-box;
+  background-color: rgb(210, 224, 250);
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
+
 
 .nav-container {
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  max-width: 1600px;
-  margin: 0 auto;
-  padding: 0 1rem;
+  padding: 2rem;
+  height: 150px;
   box-sizing: border-box;
 }
 
-.nav-left,
-.nav-center,
-.nav-right {
-  display: flex;
-  align-items: center;
-}
-
-.nav-center {
-  flex: 2;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-}
-
-/* Left side: logo */
-.nav-left {
-  flex: 1;
-  display: flex;
-  align-items: center;
-}
-
-.banner .page-title {
-  margin: 0;
-  font-size: 4rem;
-  font-weight: bold;
-  font-family: 'Rockwell', serif;
-  white-space: nowrap;
-  line-height: 1;
-  display: flex;
-  align-items: center;
-}
-
-/* Right side: login/register or profile */
-.nav-right {
-  flex: 1;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  height: 100%;
-}
-
-/* Login/Register buttons */
-.nav-right ul a {
-  font-family: 'Rockwell', serif;
-  background-color: rgb(18, 37, 72);
-  color: rgb(210, 224, 250);
-  border: 1px solid rgb(210, 224, 250);
-  padding: 0.5em 1em;
-  border-radius: 4px;
-  text-decoration: none;
-  font-size: 0.95em;
-  transition: all 0.3s ease;
-  display: inline-block;
-  width: 120px;
-  text-align: center;
-}
-
-.nav-right a:hover {
-  background-color: rgb(210, 224, 250);
-  color: rgb(18, 37, 72);
-}
-
-/* Profile image styling (no button look) */
-.profile-image {
-  background: none;
-  padding: 0;
-  border: none;
-}
-
+.logo img,
 .profile-image img {
-  width: 50px;
-  margin-top: 10px;
-  border-radius: 8px;
+  width: 100px;
+  height: auto;
 }
 
-.nav-right ul {
-  list-style: none;
+.page-title {
+  font-size: clamp(1.2rem, 4vw, 2.5rem);
   margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  align-items: flex-end;
-}
-
-/* User controls container for logged in users */
-.nav-user-controls {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
-
-/* Admin button specific styling */
-.admin-button {
   font-family: 'Rockwell', serif;
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  padding: 0.5em 1em;
-  border-radius: 4px;
-  text-decoration: none;
-  font-size: 0.95em;
-  transition: all 0.3s ease;
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  color: rgb(18, 37, 72);
+  white-space: nowrap;
 }
 
-.admin-button:hover {
-  background-color: #45a049;
-  color: white;
-}
 
-/* When user is not logged in, display nav items in a row */
-.nav-right ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+ul {
   display: flex;
   gap: 10px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
-.nav-right ul li {
-  display: inline-block;
+ul a {
+  padding: 0.5em 1em;
+  font-size: 0.9rem;
+  text-decoration: none;
+  background-color: rgb(18, 37, 72);
+  color: rgb(210, 224, 250);
+  border-radius: 4px;
+  white-space: nowrap;
 }
 
+body {
+  padding-top: 80px;
+}
 

@@ -33,7 +33,7 @@ function App() {
     return (
         <>
       <LoadScript googleMapsApiKey={apiKey} libraries={libraries}>
-            <Nav />
+            {/* <Nav /> */}
             <main>
                 <Routes>
                     <Route exact path="/" element={<HomePage />} />

@@ -15,10 +15,6 @@ function HomePage() {
 
         <div className="home-background">
               <Nav pageTitle="My Outdoor Adventures" />
-       
-            <button onClick={logOut}>Log Out</button>
-
-
 
             {/* Home Page Sections (Components) */}
             <HeroSection />

@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import useStore from '../../zustand/store';
-import logo from '../../../public/images/HomeIcon.png';
+import logo from '../../../public/images/OALogo.png';
 import prof from '../../../public/images/prof.png';
 import './Nav.css';
 
@@ -26,52 +26,29 @@ function Nav({pageTitle}) {
 
   return (
     <>
-    <nav className="banner">
 
-      <div className='nav-container'>
-
-        <div className="nav-left">
-          {/* <NavLink to="/" className='logo'><a href="" className="logo"><img src={logo} alt="" style={{width: '100px', marginTop: '10px'  }} /></a></NavLink> */}
-          <NavLink to="/" className="logo" >
-            <img src={logo} alt="" style={{width: '113px', marginTop: '20px'}} />
-          </NavLink>
-        </div>
-
-          <div className="nav-center">
-            <h1 className='page-title'>{pageTitle}</h1>
-          </div>
-
-      <div className='nav-right'>
-      { // User is not logged in, render these links:
-        !user.id && (
-          <ul>
-            <li>
-              <NavLink to="/login">Login</NavLink>
-            </li>
-            <li>
-              <NavLink to="/registration">Register</NavLink>
-            </li>
-          </ul>
-        )
-      }
-      { // User is logged in, render these links:
-        user.id && (
-          <div className="nav-user-controls">
-            {/* Only show admin button if user has admin rank (1) */}
-            {user.user_rank === 1 && (
-              <NavLink to="/admin" className="admin-button">
-                Pending Adventures {pendingCount > 0 && `(${pendingCount})`}
-              </NavLink>
-            )}
-            <NavLink to="/user" className="profile-image">
-              <img src={prof} alt="Profile" style={{width: '120px', marginTop: '0'}} />
-            </NavLink>
-          </div>
-        )
-      }
-      </div>
-      </div>
-    </nav>
+      <nav className="banner">
+  <div className='nav-container'>
+    <NavLink to="/" className="logo">
+      <img src={logo} alt="" />
+    </NavLink>
+    
+    <h1 className='page-title'>{pageTitle}</h1>
+    
+    {!user.id && (
+      <ul>
+        <li><NavLink to="/login">Login</NavLink></li>
+        <li><NavLink to="/registration">Register</NavLink></li>
+      </ul>
+    )}
+    
+    {user.id && (
+      <NavLink to="/user" className="profile-image">
+        <img src={prof} alt="Profile" />
+      </NavLink>
+    )}
+  </div>
+</nav>
     </>
   );
 }

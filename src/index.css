@@ -4,23 +4,11 @@ body {
   color: rgb(18, 37, 72);
   margin: 0; 
   padding: 0; 
-  overflow-x: hidden;
+  overflow-x: auto; 
+  min-width: 925px; 
 }
 
-/* Banner and Footer Styles */
-.banner {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: rgb(210, 224, 250);
-  color: rgb(18, 37, 72);
-  padding: 1em 1.5em;
-  height: auto;
-  position: fixed;
-  width: 100%;
-  top: 0;
-  z-index: 999;
-}
+
 
 .banner-transparent-strip {
   background-color: rgba(210, 224, 250, 0.4);
@@ -32,12 +20,6 @@ body {
   z-index: 998;
 }
 
-/* Background color for main page sections */
-.home-background {
-  background-color: rgb(0, 83, 21);
-  padding-top: 140px;
-  padding-bottom: 2em;
-}
 
 /* Shared box style */
 .shared-box {
