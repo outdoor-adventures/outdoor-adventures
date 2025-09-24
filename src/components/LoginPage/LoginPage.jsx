@@ -29,7 +29,7 @@ function LoginPage() {
     });
   };
   const handleRegisterClick = () => {
-    navigate('/register');
+    navigate('/registration');
   };
   const handleRegister= () => {
     register(username, password);
