@@ -1,20 +1,58 @@
+.banner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgb(210, 224, 250);
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
 
 .nav-container {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 100vw;
-  padding: 100px;
-  height: 80px;
+  width: 100%;
+  padding: 2rem;
+  height: 150px;
   box-sizing: border-box;
-  background-color: rgb(210, 224, 250);
-  min-width: 925px;
+}
+
+.logo img,
+.profile-image img {
+  width: 100px;
+  height: auto;
+}
+
+.page-title {
+  font-size: clamp(1.2rem, 4vw, 2.5rem);
+  margin: 0;
+  font-family: 'Rockwell', serif;
+  color: rgb(18, 37, 72);
+  white-space: nowrap;
+}
+
+
+ul {
+  display: flex;
+  gap: 10px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+ul a {
+  padding: 0.5em 1em;
+  font-size: 0.9rem;
+  text-decoration: none;
+  background-color: rgb(18, 37, 72);
+  color: rgb(210, 224, 250);
+  border-radius: 4px;
+  white-space: nowrap;
 }
 
 body {
   padding-top: 80px;
 }
 
-.logo {
-  margin: 0 auto;
-}

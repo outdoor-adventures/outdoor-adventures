@@ -27,43 +27,28 @@ function Nav({pageTitle}) {
   return (
     <>
 
-      <div className='nav-container'>
-
-        <div className="nav-left">
-          {/* <NavLink to="/" className='logo'><a href="" className="logo"><img src={logo} alt="" style={{width: '100px', marginTop: '10px'  }} /></a></NavLink> */}
-          <NavLink to="/" className="logo" >
-            <img src={logo} alt="" style={{width: '7rem', marginTop: '0'}} />
-          </NavLink>
-        </div>
-
-          <div className="nav-center">
-            <h1 className='page-title'>{pageTitle}</h1>
-          </div>
-
-      <div className='nav-right'>
-      { // User is not logged in, render these links:
-        !user.id && (
-          <ul>
-            <li>
-              <NavLink to="/login">Login</NavLink>
-            </li>
-            <li>
-              <NavLink to="/registration">Register</NavLink>
-            </li>
-          </ul>
-        )
-      }
-      { // User is logged in, render these links:
-          user.id && (
-            <div className="nav-user-controls">
-              <NavLink to="/user" className="profile-image">
-                <img src={prof} alt="Profile" style={{width: '7rem', marginTop: '0'}} />
-              </NavLink>
-            </div>
-          )
-        }
-      </div>
-      </div>
+      <nav className="banner">
+  <div className='nav-container'>
+    <NavLink to="/" className="logo">
+      <img src={logo} alt="" />
+    </NavLink>
+    
+    <h1 className='page-title'>{pageTitle}</h1>
+    
+    {!user.id && (
+      <ul>
+        <li><NavLink to="/login">Login</NavLink></li>
+        <li><NavLink to="/registration">Register</NavLink></li>
+      </ul>
+    )}
+    
+    {user.id && (
+      <NavLink to="/user" className="profile-image">
+        <img src={prof} alt="Profile" />
+      </NavLink>
+    )}
+  </div>
+</nav>
     </>
   );
 }
