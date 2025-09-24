@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import useStore from '../../zustand/store';
-import logo from '../../../public/images/HomeIcon.png';
+import logo from '../../../public/images/OALogo.png';
 import prof from '../../../public/images/prof.png';
 import './Nav.css';
 
