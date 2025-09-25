@@ -24,10 +24,6 @@ const Footer = () => {
     }
   }, [user.id, user.user_rank]);
 
-console.log('Footer render - user.id:', user.id);
-console.log('Footer render - user.user_rank:', user.user_rank);
-console.log('Footer render - comparison result:', user.user_rank === '1');
-console.log('Footer render - should show admin:', user.id && user.user_rank === '1');
 
 
   return (
@@ -53,7 +49,6 @@ console.log('Footer render - should show admin:', user.id && user.user_rank === 
         
 {user.id && (
     <ul>
-      <li>DEBUG: user_rank is "{user.user_rank}"</li>
       {user.user_rank === '1' && (
         <li>
           <NavLink to="/admin" className="admin-button">
