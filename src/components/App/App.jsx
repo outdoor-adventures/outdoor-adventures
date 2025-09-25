@@ -75,7 +75,7 @@ function App() {
                             )
                         }
                     />
-                    <Route
+                    {/* <Route
                         exact
                         path="/admin/pending"
                         element={
@@ -85,13 +85,13 @@ function App() {
                                 <Navigate to="/login" replace />
                             )
                         }
-                    />
+                    /> */}
 
                     <Route
                         exact
                         path="/admin"
                         element={
-                          user.id && user.user_rank === 1 ? (
+                          user.id && user.user_rank === '1' ? (
                             <AdminPage />
                           ) : (
                             <Navigate to="/404" replace />
