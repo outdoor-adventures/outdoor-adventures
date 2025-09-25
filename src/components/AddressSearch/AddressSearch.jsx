@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
-import { GoogleMap, Marker, Circle, StandaloneSearchBox, InfoWindow } from '@react-google-maps/api';
+import { GoogleMap, Marker, Circle, StandaloneSearchBox, OverlayView } from '@react-google-maps/api';
 import { useNavigate } from 'react-router-dom';
 import './AddressSearch.css';
 import BasicModal from '../BasicModal/BasicModal';
@@ -63,10 +63,10 @@ function AddressSearch() {
 
   const radiusOptions = [5, 10, 20, 30, 40, 50, 100, 150, 200, 250, 300];
 
-  //used for infoOpen
-  const [infoOpen, setInfoOpen] = useState({});
+  const [hoveredAdventure, setHoveredAdventure] = useState(null);
   const [selectedAdventure, setSelectedAdventure] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
+  const hoverTimeoutRef = useRef(null);
 
   //navigation
   const navigate = useNavigate();
@@ -223,6 +223,14 @@ const getUserLocation = () => {
           mapContainerStyle={mapContainerStyle}
           center={centerRef.current} //center map on selected address
           zoom={8} //zoom in a lil so u can see
+          options={{
+            clickableIcons: false,
+            disableDefaultUI: false,
+            zoomControl: true,
+            mapTypeControl: false,
+            streetViewControl: false,
+            fullscreenControl: false
+          }}
         >
             
           {/* sets center marker */}
@@ -240,7 +248,7 @@ const getUserLocation = () => {
                 `),
                 scaledSize: { width: 20, height: 20 }
               }}
-              title="Your Location"
+
             />
           )}
           
@@ -262,8 +270,6 @@ const getUserLocation = () => {
             <Marker
               key={adventure.id}
               position={{ lat: adventure.latitude, lng: adventure.longitude }}
-              title={adventure.activity_name}
-              //icon allows you to change the styling of the markers/pinpoints
               icon={{
                 url: 'data:image/svg+xml;base64,' + btoa(`
                   <svg xmlns="http://www.w3.org/2000/svg" width="25" height="40" viewBox="0 0 25 40">
@@ -274,25 +280,90 @@ const getUserLocation = () => {
                 scaledSize: { width: 25, height: 40 }
               }}
               onMouseOver={() => {
-                setInfoOpen(prev => ({ ...prev, [adventure.id]: true }))}}
-              onMouseOut={() => setInfoOpen(prev => ({ ...prev, [adventure.id]: false }))}
+                if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
+                setHoveredAdventure(adventure);
+              }}
+              onMouseOut={() => {
+                hoverTimeoutRef.current = setTimeout(() => {
+                  setHoveredAdventure(null);
+                }, 100);
+              }}
               onClick={() => {
                 setSelectedAdventure(adventure);
                 setModalOpen(true);
               }}
-            >
-            {/* INFO BOX */}
-                {infoOpen[adventure.id] && (
-                  <InfoWindow>
-                    <div className='map-pin-info'>
-                      {adventure.activity_name} <br />
-                      {adventure.description} <br />
-                      {adventure.address}
-                    </div>
-                  </InfoWindow>
-              )}
-            </Marker>
+            />
           ))}
+          
+          {/* Custom overlay on hover */}
+          {hoveredAdventure && (
+            <OverlayView
+              position={{ lat: hoveredAdventure.latitude, lng: hoveredAdventure.longitude }}
+              mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
+            >
+              <div 
+                className='map-pin-info' 
+                style={{ 
+                  width: '180px',
+                  background: 'linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)',
+                  border: 'none',
+                  borderRadius: '10px',
+                  padding: '0',
+                  boxShadow: '0 6px 20px rgba(0,0,0,0.15), 0 2px 8px rgba(0,0,0,0.1)',
+                  transform: 'translate(-50%, -100%)',
+                  marginTop: '-12px',
+                  overflow: 'hidden',
+                  fontFamily: 'system-ui, -apple-system, sans-serif',
+                  cursor: 'pointer'
+                }}
+                onMouseEnter={() => {
+                  if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
+                }}
+                onMouseLeave={() => {
+                  hoverTimeoutRef.current = setTimeout(() => {
+                    setHoveredAdventure(null);
+                  }, 100);
+                }}
+                onClick={() => {
+                  setSelectedAdventure(hoveredAdventure);
+                  setModalOpen(true);
+                }}
+              >
+                <img 
+                  src={getImageUrl(hoveredAdventure.photo)} 
+                  alt={hoveredAdventure.activity_name}
+                  style={{ 
+                    width: '100%', 
+                    height: '90px', 
+                    objectFit: 'cover',
+                    display: 'block'
+                  }}
+                />
+                <div style={{ padding: '10px' }}>
+                  <h3 style={{ 
+                    margin: '0', 
+                    fontSize: '14px', 
+                    fontWeight: '600',
+                    color: '#2c3e50',
+                    lineHeight: '1.3'
+                  }}>
+                    {hoveredAdventure.activity_name}
+                  </h3>
+                </div>
+                <div style={{
+                  position: 'absolute',
+                  bottom: '-8px',
+                  left: '50%',
+                  transform: 'translateX(-50%)',
+                  width: '0',
+                  height: '0',
+                  borderLeft: '8px solid transparent',
+                  borderRight: '8px solid transparent',
+                  borderTop: '8px solid #f8f9fa'
+                }} />
+              </div>
+            </OverlayView>
+          )}
         </GoogleMap>
 
       
@@ -332,13 +403,6 @@ const getUserLocation = () => {
                       </div>
                     </div>
                     
-                    
-                    {/* Rendering the adventure image using Multer */}
-
-                    
-                    {/* <ToggleFavorites /> */}
-                    {/* - {adventure.address},
-                    {adventure.distance && ` - ${adventure.distance.toFixed(1)} miles`} */}
 
                 </div>
               </div>
