@@ -79,7 +79,7 @@ function App() {
                         exact
                         path="/admin/pending"
                         element={
-                            user.id && user.rank === 1 ? (
+                            user.id && user.user_rank === 1 ? (
                                 <PendingAdventure />
                             ) : (
                                 <Navigate to="/login" replace />
