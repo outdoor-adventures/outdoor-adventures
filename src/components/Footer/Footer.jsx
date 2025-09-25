@@ -24,6 +24,10 @@ const Footer = () => {
     }
   }, [user.id, user.user_rank]);
 
+console.log('Footer render - user.id:', user.id);
+console.log('Footer render - user.user_rank:', user.user_rank);
+console.log('Footer render - comparison result:', user.user_rank === '1');
+console.log('Footer render - should show admin:', user.id && user.user_rank === '1');
 
 
   return (
@@ -47,15 +51,16 @@ const Footer = () => {
           </div>
         </div>
         
-      {user.id && (
-            <ul>
-              {user.user_rank === '1' && (
-                <li>
-                  <NavLink to="/admin" className="admin-button">
-                    Pending Advs. {pendingCount > 0 && `(${pendingCount})`} 
-                  </NavLink>
-                </li>
-                )}
+{user.id && (
+    <ul>
+      <li>DEBUG: user_rank is "{user.user_rank}"</li>
+      {user.user_rank === '1' && (
+        <li>
+          <NavLink to="/admin" className="admin-button">
+            Pending Advs. {pendingCount > 0 && `(${pendingCount})`} 
+          </NavLink>
+        </li>
+      )}
                 <li>
                 <button onClick={logOut} className="logout_button">Log Out</button>
                 </li>
