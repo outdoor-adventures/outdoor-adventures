@@ -46,6 +46,9 @@ export default function FavoriteButton({ adventureId }) {
             setLiked(prev => !prev);
         } catch (err) {
             console.error('Failed to toggle favorite:', err);
+            if (err.response?.status === 500 && err.response?.data?.includes?.('foreign key constraint')) {
+                console.error('Adventure ID does not exist in database:', adventureId);
+            }
         }
     };
 

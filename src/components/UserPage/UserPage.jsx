@@ -101,8 +101,6 @@ const UserPage = () => {
                             <h3 className="card-category">{adv.category_name}</h3>
                             <p className="card-location">{adv.address}</p>
                             <p className="card-status">Status: {adv.status}</p>
-                            
-                            
                             <BasicModal adv={adv} />
                         </div>
                     ))}
