@@ -9,11 +9,6 @@ const Footer = () => {
   const logOut = useStore((state) => state.logOut);
   const [pendingCount, setPendingCount] = useState(0);
 
-  console.log('User object:', user);
-console.log('User ID:', user.id);
-console.log('User rank:', user.user_rank);
-console.log('User rank type:', typeof user.user_rank);
-
 
   // Fetch pending adventures count when user is admin
   useEffect(() => {
