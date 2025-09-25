@@ -89,7 +89,7 @@ export default function BasicModal({ adv, open: externalOpen, onClose: externalO
   
   // Set adventure data when modal opens or adv changes
   useEffect(() => {
-    if (typeof adv === 'object') {
+    if (typeof adv === 'object' && adv !== null) {
       // If adv is already an object, use it directly
       setAdventureData(adv);
     } else if (adv && open) {
@@ -274,7 +274,7 @@ export default function BasicModal({ adv, open: externalOpen, onClose: externalO
                     <Typography sx={{ fontWeight: 'bold', fontSize: '14px', color: '#666', marginBottom: '8px' }}>
                       FAVORITE ADVENTURE
                     </Typography>
-                    <FavoriteButton adventureId={adventureData.id} />
+                    <FavoriteButton adventureId={adventureData.id} key={`favorite-${adventureData.id}`} />
                   </Box>
                 </Box>
                 

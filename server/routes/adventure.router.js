@@ -132,7 +132,7 @@ router.get('/:id', async (req, res) => {
 router.get('/my/:createdby', async (req,res) => {
     const created_by = req.params.createdby; 
     const sqlText = `
-    SELECT * FROM "adventures"
+    SELECT "adventures".*, "category_table"."category_name", "cost_table"."cost_level", "ability_table"."ability_level" FROM "adventures"
             JOIN "category_table" ON "adventures"."category_id" = "category_table"."id"
             JOIN "cost_table" ON "adventures"."cost_level_id" = "cost_table"."id"
             JOIN "ability_table" ON "adventures"."ability_level_id" = "ability_table"."id"
@@ -197,7 +197,7 @@ router.get('/admin/pending', async (req, res) => {
 router.get('/my/favorites/:userId', async (req,res) => {
     const userId = req.params.userId; 
     const sqlText = `
-    SELECT "activity_name", "category_name", "ability_level", "cost_level", "photo", "link", "description", "address" FROM "adventures" 
+    SELECT "adventures"."id", "activity_name", "category_name", "ability_level", "cost_level", "photo", "link", "description", "address" FROM "adventures" 
  JOIN "favorite_adventures" 
  ON "adventures"."id" = "favorite_adventures"."adventure_id"
  JOIN "user" 

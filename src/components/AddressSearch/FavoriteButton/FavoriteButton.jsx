@@ -15,6 +15,8 @@ export default function FavoriteButton({ adventureId }) {
 
     // Check if adventure is already favorited
     useEffect(() => {
+        if (!adventureId) return;
+        
         const checkFavoriteStatus = async () => {
             try {
                 const response = await axios.get(`/api/adventures/favorites/${user.id}/${adventureId}`);
@@ -28,6 +30,11 @@ export default function FavoriteButton({ adventureId }) {
     }, [user.id, adventureId]);
 
     const toggleLike = async () => {
+        if (!adventureId) {
+            console.error('Cannot toggle favorite: adventureId is missing');
+            return;
+        }
+        
         try {
             if (liked) {
                 // Remove from favorites
@@ -39,6 +46,9 @@ export default function FavoriteButton({ adventureId }) {
             setLiked(prev => !prev);
         } catch (err) {
             console.error('Failed to toggle favorite:', err);
+            if (err.response?.status === 500 && err.response?.data?.includes?.('foreign key constraint')) {
+                console.error('Adventure ID does not exist in database:', adventureId);
+            }
         }
     };
 

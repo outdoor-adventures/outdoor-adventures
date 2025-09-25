@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './RecentActivitySection.css';
 import BasicModal from '../BasicModal/BasicModal';
+import FavoriteButton from '../AddressSearch/FavoriteButton/FavoriteButton';
 
 const RecentActivitySection = () => {
     // State for the list of adventures
@@ -25,7 +26,7 @@ const RecentActivitySection = () => {
 
     // Fetch the 3 most recent adventures when component mounts
     useEffect(() => {
-        fetch('/api/adventures')
+        fetch('/api/adventures/recents/recent')
             .then((res) => {
                 if (!res.ok) {
                     throw new Error(`Server error: ${res.status}`);
@@ -33,9 +34,8 @@ const RecentActivitySection = () => {
                 return res.json();
             })
             .then((data) => {
-                // Sort by creation date (most recent first) and take only 3
-                const sortedData = data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
-                setAdventures(sortedData.slice(0, 3));
+                console.log('RecentActivitySection fetched adventures:', data);
+                setAdventures(data);
                 setLoading(false);
             })
             .catch((err) => {
@@ -86,7 +86,9 @@ const RecentActivitySection = () => {
                         <h3 className="ra-card-title">{adventure.activity_name}</h3>
                         <p className="ra-card-location">{adventure.address}</p>
                         <p className="ra-card-description">{adventure.description}</p>
+                        <div className="modal-button-container">
                         <BasicModal adv={adventure} />
+                        </div>
 
                     </div>
                 ))}
