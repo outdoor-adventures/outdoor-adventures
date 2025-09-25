@@ -17,7 +17,7 @@ console.log('User rank type:', typeof user.user_rank);
 
   // Fetch pending adventures count when user is admin
   useEffect(() => {
-    if (user.id && user.user_rank === 1) {
+    if (user.id && user.user_rank === '1') {
       fetch('/api/adventures/admin/pending')
         .then(response => response.json())
         .then(data => {
@@ -54,7 +54,7 @@ console.log('User rank type:', typeof user.user_rank);
         
       {user.id && (
             <ul>
-              {user.user_rank === 1 && (
+              {user.user_rank === '1' && (
                 <li>
                   <NavLink to="/admin" className="admin-button">
                     Pending Advs. {pendingCount > 0 && `(${pendingCount})`} 

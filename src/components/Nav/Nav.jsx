@@ -12,7 +12,7 @@ function Nav({pageTitle}) {
   
   // Fetch pending adventures count when user is admin
   useEffect(() => {
-    if (user.id && user.user_rank === 1) {
+    if (user.id && user.user_rank === '1') {
       fetch('/api/adventures/admin/pending')
         .then(response => response.json())
         .then(data => {
