@@ -9,9 +9,10 @@ const Footer = () => {
   const logOut = useStore((state) => state.logOut);
   const [pendingCount, setPendingCount] = useState(0);
 
+
   // Fetch pending adventures count when user is admin
   useEffect(() => {
-    if (user.id && user.user_rank === 1) {
+    if (user.id && user.user_rank === '1') {
       fetch('/api/adventures/admin/pending')
         .then(response => response.json())
         .then(data => {
@@ -23,6 +24,10 @@ const Footer = () => {
     }
   }, [user.id, user.user_rank]);
 
+console.log('Footer render - user.id:', user.id);
+console.log('Footer render - user.user_rank:', user.user_rank);
+console.log('Footer render - comparison result:', user.user_rank === '1');
+console.log('Footer render - should show admin:', user.id && user.user_rank === '1');
 
 
   return (
@@ -46,15 +51,16 @@ const Footer = () => {
           </div>
         </div>
         
-      {user.id && (
-            <ul>
-              {user.user_rank === 1 && (
-                <li>
-                  <NavLink to="/admin" className="admin-button">
-                    Pending Advs. {pendingCount > 0 && `(${pendingCount})`} 
-                  </NavLink>
-                </li>
-                )}
+{user.id && (
+    <ul>
+      <li>DEBUG: user_rank is "{user.user_rank}"</li>
+      {user.user_rank === '1' && (
+        <li>
+          <NavLink to="/admin" className="admin-button">
+            Pending Advs. {pendingCount > 0 && `(${pendingCount})`} 
+          </NavLink>
+        </li>
+      )}
                 <li>
                 <button onClick={logOut} className="logout_button">Log Out</button>
                 </li>
