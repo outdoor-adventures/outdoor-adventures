@@ -23,8 +23,11 @@ const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY; //google mapsi api key
 const libraries = ["places"]; //used for google maps api
 
 function App() {
+    console.log('App is rendering!');
     const user = useStore((state) => state.user);
     const fetchUser = useStore((state) => state.fetchUser);
+    console.log('User object:', user);
+
 
     useEffect(() => {
         fetchUser();
@@ -76,7 +79,7 @@ function App() {
                         exact
                         path="/admin/pending"
                         element={
-                            user.id && user.rank === 'ADMIN' ? (
+                            user.id && user.rank === 1 ? (
                                 <PendingAdventure />
                             ) : (
                                 <Navigate to="/login" replace />
