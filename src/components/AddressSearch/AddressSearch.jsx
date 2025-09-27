@@ -9,8 +9,8 @@ import FavoriteButton from './FavoriteButton/FavoriteButton';
 
 // Map container style sets size of map component
 const mapContainerStyle = {
-  width: '60vw',
-  height: '40vw'
+  width: '60%',
+  height: '70vh'
 };
 
 // Circle options for 20-mile radius IN PROGRESS
@@ -35,6 +35,7 @@ function AddressSearch() {
   const [isLoading, setIsLoading] = useState(false); //indicates loading state
   const searchBoxRef = useRef(null); //references the google maps api autocomplete search bar
   const centerRef = useRef(center); //looks weird but using to try and prevent google maps marker re-render
+  const [showFiltersDropdown, setShowFiltersDropdown] = useState(true);
 
   // Helper function to get correct image URL
   const getImageUrl = (photo) => {
@@ -159,6 +160,7 @@ const getUserLocation = () => {
   return (
     <div className="location-search">
         <div className="search-box-container">
+          <div className="search-input-group">
           <StandaloneSearchBox //allows user to enter an address
             onLoad={ref => searchBoxRef.current = ref}
             onPlacesChanged={onPlacesChanged} //handle place selection
@@ -172,15 +174,23 @@ const getUserLocation = () => {
             />
           </StandaloneSearchBox>
 
-          {/* FILTERS  */}
+      {/* FILTERS  */}
+        <div style={{ position: 'relative' }}></div>
+        <button 
+          className="filters-button"
+          onClick={() => setShowFiltersDropdown(!showFiltersDropdown)}
+        > Filters </button>
 
+        {/* Filters Dropdown */}
+        <div className={`filters-dropdown ${showFiltersDropdown ? 'show' : ''}`}>
           <div className='radius-filter'>
             <select onChange={(e) => setSelectedRadius(parseInt(e.target.value))} value={selectedRadius}>
               {radiusOptions.map(radius => (
                 <option key={radius} value={radius}>{radius} Miles</option>
               ))}
             </select>
-          </div> {/*END RADIUS FILTER*/}
+          </div>
+         {/*END RADIUS FILTER*/}
         
           <div className='category-filter'>
             <select onChange={(e) => setSelectedCategory(e.target.value)}>
@@ -208,6 +218,9 @@ const getUserLocation = () => {
               ))}
             </select>
           </div> {/*END COST FILTER*/}
+          </div>
+          </div>
+  
 
           <button //on click api call to get adventures
             onClick={handleSearch} 
@@ -219,10 +232,13 @@ const getUserLocation = () => {
         </div>
 
         <div className='map-list-container'>
+          <div className='map-container'>
+            <div className='google-map'>
         <GoogleMap //actual map component
           mapContainerStyle={mapContainerStyle}
           center={centerRef.current} //center map on selected address
           zoom={8} //zoom in a lil so u can see
+          className="google-map-component"
           options={{
             clickableIcons: false,
             disableDefaultUI: false,
@@ -365,6 +381,9 @@ const getUserLocation = () => {
             </OverlayView>
           )}
         </GoogleMap>
+        </div>
+        </div>
+        
 
       
       <div className='list-column'>

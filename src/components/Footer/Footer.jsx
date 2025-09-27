@@ -49,7 +49,7 @@ const Footer = () => {
         
 {user.id && (
     <ul>
-      {user.user_rank === '1' && (
+      {user.user_rank === 1 && (
         <li>
           <NavLink to="/admin" className="admin-button">
             Pending Advs. {pendingCount > 0 && `(${pendingCount})`} 
