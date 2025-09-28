@@ -1,7 +1,7 @@
 /* Background color for entire page */
 .browse-adventures-page {
     background-color: rgb(0, 83, 21);
-    min-height: 100%;
+    min-height: 70%;
     padding-left: 0;
     padding-right: 0;
     box-sizing: border-box;
