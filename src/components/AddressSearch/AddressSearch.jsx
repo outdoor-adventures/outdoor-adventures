@@ -35,7 +35,7 @@ function AddressSearch() {
   const [isLoading, setIsLoading] = useState(false); //indicates loading state
   const searchBoxRef = useRef(null); //references the google maps api autocomplete search bar
   const centerRef = useRef(center); //looks weird but using to try and prevent google maps marker re-render
-  const [showFiltersDropdown, setShowFiltersDropdown] = useState(true);
+  const [showFiltersDropdown, setShowFiltersDropdown] = useState(false);
 
   // Helper function to get correct image URL
   const getImageUrl = (photo) => {
@@ -84,10 +84,23 @@ useEffect(() => {
   axios.get('/api/dropdown/cost')
         .then(response => {console.log('cost data:', response.data)
           setCosts(response.data)});
-
-  // Get user's location on component mount
+  
+    // Get user's location on component mount
   getUserLocation();
 }, []);
+
+ useEffect(() => {
+  const handleClickOutside = (event) => {
+    if (showFiltersDropdown && !event.target.closest('.filters-dropdown') && !event.target.closest('.filters-button')) {
+      setShowFiltersDropdown(false);
+    }
+  };
+
+  document.addEventListener('mousedown', handleClickOutside);
+  return () => {
+    document.removeEventListener('mousedown', handleClickOutside);
+  };
+}, [showFiltersDropdown]);
 
 // Function to get user's current location
 const getUserLocation = () => {
