@@ -416,7 +416,12 @@ const getUserLocation = () => {
 
             {adventures.map(adventure => (
               
-              <div key={adventure.id} className='adventure-card'>
+              <div key={adventure.id} className='adventure-card'
+              onClick={() => {
+                setSelectedAdventure(adventure);
+                setModalOpen(true);
+              }}
+              style={{ cursor: 'pointer' }}>
                 {/* <AdventureItem adventure={adventure}/> */}
                 <div className='adventure-info' style={{minWidth: '50%', width: '100%'}}>
 
@@ -430,7 +435,7 @@ const getUserLocation = () => {
 
                     <div className="title-favorite-container">
                       <p className='browse-title'>{adventure.activity_name}</p>
-                      <FavoriteButton adventureId={adventure.id} />
+                      {/* <FavoriteButton adventureId={adventure.id} /> */}
                     </div>
                     <p>Category: {adventure.category_name}</p>
                     <p>Cost: {adventure.cost_level}</p>
