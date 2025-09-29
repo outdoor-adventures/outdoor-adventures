@@ -15,7 +15,7 @@
   justify-content: space-between;
   width: 100%;
   padding: 2rem;
-  height: 150px;
+  height: 120px;
   box-sizing: border-box;
 }
 
@@ -56,3 +56,24 @@ body {
   padding-top: 80px;
 }
 
+@media (max-width: 480px) {
+  .logo img,
+  .profile-image img {
+    width: 60px;
+  }
+  
+  .nav-container {
+    padding: 0.5rem;
+    height: 80px;
+  }
+
+  .profile-image {
+    margin-right: 32px;
+  }
+  
+  ul a {
+    padding: 0.4em 0.8em;
+    font-size: 2rem;
+  }
+
+}

@@ -5,41 +5,17 @@ import './AboutUs.css';
 const AboutUs = () => {
     return (
         <>
-            <Nav pageTitle="About Us" />
+            <Nav pageTitle="Be Out There" />
             <div className="about-container">
-
+                <img src="/images/OALogo.png" alt="Outdoor Adventures Logo" className="about-logo" />
+                
                 <div className="about-content">
                     <section>
-                        <h2>Application Overview</h2>
+                        <h2>About Outdoor Adventures</h2>
                         <p>
-                            Outdoor Adventures is a web platform that helps families, especially those less 
-                            experienced in outdoor activities, discover them with ease. The site brings together 
-                            hiking, camping, water sports and other outdoor adventures in one searchable hub. 
-                            Users can explore what's nearby, add their own adventures, and be part of a community 
-                            that inspires getting outside!!
+                            Outdoor Adventures helps families discover hiking, camping, water sports and other outdoor activities in one searchable hub. 
+                            Join our community-driven platform to explore what's nearby and share your own adventures!
                         </p>
-                    </section>
-
-                    <section>
-                        <h2>Key Features</h2>
-                        <div className="features-grid">
-                            <div className="feature-card">
-                                <h3>Browse & Search</h3>
-                                <p>Search adventures by location with filters for category, difficulty, and price. Interactive map view shows nearby activities.</p>
-                            </div>
-                            <div className="feature-card">
-                                <h3>Add Adventures</h3>
-                                <p>Registered users can submit their own outdoor adventures with photos, descriptions, and location details.</p>
-                            </div>
-                            <div className="feature-card">
-                                <h3>Save Favorites</h3>
-                                <p>Create your personal collection of favorite adventures to revisit and plan future trips.</p>
-                            </div>
-                            <div className="feature-card">
-                                <h3>👥 Community Driven</h3>
-                                <p>All adventures are shared by fellow outdoor enthusiasts, creating a trusted community resource.</p>
-                            </div>
-                        </div>
                     </section>
 
                     <section>
@@ -48,41 +24,26 @@ const AboutUs = () => {
                             <div className="step">
                                 <div className="step-number">1</div>
                                 <h3>Search</h3>
-                                <p>Enter your city, state, or zip code to find adventures within your area</p>
+                                <p>Enter your location to find nearby adventures</p>
                             </div>
                             <div className="step">
                                 <div className="step-number">2</div>
                                 <h3>Filter</h3>
-                                <p>Use category, difficulty, and price filters to find the perfect adventure</p>
+                                <p>Use filters for category, difficulty, and price</p>
                             </div>
                             <div className="step">
                                 <div className="step-number">3</div>
                                 <h3>Explore</h3>
-                                <p>View details, save favorites, and start your outdoor adventure</p>
+                                <p>Save favorites and start your adventure</p>
                             </div>
                         </div>
                     </section>
 
-                    <section>
-                        <h2>User Features</h2>
-                        <p>
-                            <strong>For All Users:</strong> Browse adventures, view details, and use interactive maps to discover outdoor activities.
-                        </p>
-                        <p>
-                            <strong>For Registered Users:</strong> Save favorite adventures, submit new activities, manage your submissions, and track approval status.
-                        </p>
-                        <p>
-                            <strong>For Administrators:</strong> Review and approve submitted adventures to maintain quality and safety standards.
-                        </p>
-                    </section>
-
-
                     <section className="get-started">
                         <h2>Start Your Adventure Today</h2>
                         <p>
-                            Whether you're a seasoned outdoor enthusiast or just beginning to explore nature, 
-                            Outdoor Adventures connects you with amazing experiences in your area. Join our 
-                            community and discover the great outdoors!
+                            Whether you're new to outdoor activities or a seasoned enthusiast, 
+                            join our community and discover amazing experiences in your area!
                         </p>
                     </section>
                 </div>

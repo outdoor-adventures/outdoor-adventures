@@ -9,8 +9,8 @@ import FavoriteButton from './FavoriteButton/FavoriteButton';
 
 // Map container style sets size of map component
 const mapContainerStyle = {
-  width: '60vw',
-  height: '40vw'
+  width: '60%',
+  height: '70vh'
 };
 
 // Circle options for 20-mile radius IN PROGRESS
@@ -35,6 +35,7 @@ function AddressSearch() {
   const [isLoading, setIsLoading] = useState(false); //indicates loading state
   const searchBoxRef = useRef(null); //references the google maps api autocomplete search bar
   const centerRef = useRef(center); //looks weird but using to try and prevent google maps marker re-render
+  const [showFiltersDropdown, setShowFiltersDropdown] = useState(false);
 
   // Helper function to get correct image URL
   const getImageUrl = (photo) => {
@@ -83,10 +84,23 @@ useEffect(() => {
   axios.get('/api/dropdown/cost')
         .then(response => {console.log('cost data:', response.data)
           setCosts(response.data)});
-
-  // Get user's location on component mount
+  
+    // Get user's location on component mount
   getUserLocation();
 }, []);
+
+ useEffect(() => {
+  const handleClickOutside = (event) => {
+    if (showFiltersDropdown && !event.target.closest('.filters-dropdown') && !event.target.closest('.filters-button')) {
+      setShowFiltersDropdown(false);
+    }
+  };
+
+  document.addEventListener('mousedown', handleClickOutside);
+  return () => {
+    document.removeEventListener('mousedown', handleClickOutside);
+  };
+}, [showFiltersDropdown]);
 
 // Function to get user's current location
 const getUserLocation = () => {
@@ -159,6 +173,7 @@ const getUserLocation = () => {
   return (
     <div className="location-search">
         <div className="search-box-container">
+          <div className="search-input-group">
           <StandaloneSearchBox //allows user to enter an address
             onLoad={ref => searchBoxRef.current = ref}
             onPlacesChanged={onPlacesChanged} //handle place selection
@@ -170,17 +185,29 @@ const getUserLocation = () => {
               placeholder="Enter an address"
               className="autocomplete-input"
             />
+          
+          
           </StandaloneSearchBox>
 
-          {/* FILTERS  */}
 
+      {/* FILTERS  */}
+        <div style={{ position: 'relative' }}></div>
+        <button 
+          className="filters-button"
+          onClick={() => setShowFiltersDropdown(!showFiltersDropdown)}
+        > Filters </button>
+
+        {/* Filters Dropdown */}
+        <div className={`filters-dropdown ${showFiltersDropdown ? 'show' : ''}`}>
           <div className='radius-filter'>
             <select onChange={(e) => setSelectedRadius(parseInt(e.target.value))} value={selectedRadius}>
               {radiusOptions.map(radius => (
                 <option key={radius} value={radius}>{radius} Miles</option>
               ))}
             </select>
-          </div> {/*END RADIUS FILTER*/}
+          </div>
+         {/*END RADIUS FILTER*/}
+         
         
           <div className='category-filter'>
             <select onChange={(e) => setSelectedCategory(e.target.value)}>
@@ -208,6 +235,11 @@ const getUserLocation = () => {
               ))}
             </select>
           </div> {/*END COST FILTER*/}
+          </div>          
+          </div>
+
+
+  
 
           <button //on click api call to get adventures
             onClick={handleSearch} 
@@ -215,14 +247,19 @@ const getUserLocation = () => {
             className="search-button"
           >
             {isLoading ? 'Searching...' : 'Find Adventures'}
-          </button>
+          </button> 
+
+
         </div>
 
         <div className='map-list-container'>
+          <div className='map-container'>
+
         <GoogleMap //actual map component
           mapContainerStyle={mapContainerStyle}
           center={centerRef.current} //center map on selected address
           zoom={8} //zoom in a lil so u can see
+          className="google-map-component"
           options={{
             clickableIcons: false,
             disableDefaultUI: false,
@@ -365,6 +402,9 @@ const getUserLocation = () => {
             </OverlayView>
           )}
         </GoogleMap>
+        </div>
+
+        
 
       
       <div className='list-column'>
@@ -372,11 +412,16 @@ const getUserLocation = () => {
       <div className='list-section'>
       {adventures.length > 0 && (
         <div className="adventure-list">
-          <h3>Adventures within {selectedRadius} miles</h3>
+          <h3 className='adventures-within-text'>Adventures within {selectedRadius} miles</h3>
 
             {adventures.map(adventure => (
               
-              <div key={adventure.id} className='adventure-card'>
+              <div key={adventure.id} className='adventure-card'
+              onClick={() => {
+                setSelectedAdventure(adventure);
+                setModalOpen(true);
+              }}
+              style={{ cursor: 'pointer' }}>
                 {/* <AdventureItem adventure={adventure}/> */}
                 <div className='adventure-info' style={{minWidth: '50%', width: '100%'}}>
 
@@ -390,7 +435,7 @@ const getUserLocation = () => {
 
                     <div className="title-favorite-container">
                       <p className='browse-title'>{adventure.activity_name}</p>
-                      <FavoriteButton adventureId={adventure.id} />
+                      {/* <FavoriteButton adventureId={adventure.id} /> */}
                     </div>
                     <p>Category: {adventure.category_name}</p>
                     <p>Cost: {adventure.cost_level}</p>

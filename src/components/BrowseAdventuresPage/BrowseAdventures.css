@@ -1,22 +1,20 @@
 /* Background color for entire page */
 .browse-adventures-page {
     background-color: rgb(0, 83, 21);
-    min-height: 50vw;
-    padding-top: 170px;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    padding-bottom: 20px;
+    min-height: 70%;
+    padding-left: 0;
+    padding-right: 0;
     box-sizing: border-box;
+    padding-top: 110px;
   }
   
   .search-container {
     display: flex;
     justify-content: center;
-    gap: 1.5rem;
-    padding: 1rem;
+    gap: 1rem;
     background-color: rgb(210, 224, 250);
     border: none;
-    margin-bottom: 1.5rem;
+    margin-top: 1.5rem;
     flex-wrap: wrap;
     box-sizing: border-box;
   }
@@ -34,55 +32,12 @@
     width: 220px !important;
   }
 
-  .search-container button,
-  .search-container .find-adventure-button  {
-    font-family: 'Rockwell', serif;
-    background-color: rgb(18, 37, 72);
-    color: rgb(210, 224, 250);
-    border: 1px solid rgb(210, 224, 250);
-    padding: 0.5em 1em;
-    border-radius: 6px;
-    font-size: 1rem;
-    transition: all 0.3s ease;
-    cursor: pointer;
-    width: 220px;
-  }
-  
   .search-container button:hover, 
   .search-container .find-adventure-button  {
     background-color: rgb(210, 224, 250);
     color: rgb(18, 37, 72);
   }
-  
-  /* Map + List container*/
-  .map-list-container {
-    display: flex;
-    gap: 1.5rem;
-    width: 100%;
-    height: auto;
-    border: none;
-    margin-bottom: 2rem;
-    box-sizing: border-box;
-  }
-  
-  /* Map section */
-  .map-container {
-    flex: 3;
-    background-color: rgb(208, 221, 245);
-    padding: 1rem;
-    border-radius: 8px;
-    border: none;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .map-container > div,
-  .map-container iframe,
-  .map-container .google-map {
-    flex-grow: 1;
-    width: 100%;
-    height: 100%;
-  }
+
   
   /* List section */
   .adventure-list-container {
@@ -123,17 +78,6 @@
     padding: 30px;
 } */
 
-.map-list-container {
-    display: flex;
-    flex-wrap: nowrap;
-
-    height: 50%;
-    width: 100vw;
-    margin-bottom: 50px;
-    padding: 20px;
-    gap: 5px;
-    display: flex;
-}
 
 .map-container {
     display: flex;
@@ -147,17 +91,6 @@
     margin-right: 10px;
 }
 
-.adventure-list-container {
-    display: flex;
-    border-style: solid;
-    border-width: 1px;
-    height: 100%;;
-    width: 100%;
-    margin-top: 5px;
-    margin-bottom: 50px;
-    padding: 30px;
-    min-width: 20%;
-}
 
 .footer {
     display: flex;
@@ -165,3 +98,8 @@
     width: 100%;
     margin-top: 30px;
 } 
+
+/* .map-list-container > .map-container, .map-list-container > .list-column {
+
+height: 100%;
+} */

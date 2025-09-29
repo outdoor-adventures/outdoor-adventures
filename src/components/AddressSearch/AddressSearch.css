@@ -1,27 +1,110 @@
-/* Main container */
-.location-search {
-    display: flex;
-    flex-direction: column;
-    padding: 1rem;
-    font-family: 'Rockwell', serif;
-    overflow-x: auto;
-    width: 100%;
-    justify-content: space-evenly;
-  }
-  
+ 
   /* Search + Filter bar */
-  .search-box-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    align-items: center;
-    justify-content: space-between;
-    background-color: white;
-    border-radius: 10px;
-    padding: 15px;
-    margin: 10px;
-  }
-  
+.search-box-container {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  /* justify-content: space-between; */
+  background-color: white;
+  border-radius: 10px;
+  padding: 0.5rem;
+  margin: 10px 1px 1px -5px;
+  width: 66.5%;
+}
+  .search-input-group {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  flex: 1;
+  margin: 2px;
+}
+
+.search-input-group .autocomplete-input {
+  border-radius: 0;
+}
+
+
+.filters-button {
+  padding: 0.5rem 1rem;
+  margin-left: 10px;
+  border-radius: 6px;
+  font-size: 1rem;
+  border: 1px solid rgb(18, 37, 72);
+  background-color: rgb(18, 37, 72);
+  color: rgb(210, 224, 250);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: block;
+  flex-shrink: 0;
+  border-left: none;
+}
+
+.location-search {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+  font-family: 'Rockwell', serif;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+
+.filters-dropdown {
+  position: absolute;
+  top: 65px;
+  left: 20%;
+  background-color: white;
+  border: 1px solid rgb(18, 37, 72);
+  border-radius: 6px;
+  padding: 1rem;
+  display: none;
+  z-index: 100;
+  min-width: 320px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  margin-top: 5px;
+}
+
+.filters-dropdown.show {
+  display: block;
+}
+
+.filters-dropdown .radius-filter,
+.filters-dropdown .category-filter,
+.filters-dropdown .ability-filter,
+.filters-dropdown .cost-filter {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.filters-dropdown .radius-filter select,
+.filters-dropdown .category-filter select,
+.filters-dropdown .ability-filter select,
+.filters-dropdown .cost-filter select {
+  width: 100%;
+  flex: none;
+}
+
+.filters-button:hover {
+  background-color: rgb(210, 224, 250);
+  color: rgb(18, 37, 72);
+}
+
+
+/* Styling for the actual map div inside of the map container */
+  .map-container > div,
+.map-container > div > div {
+  width: 100% !important;
+  height:100% !important;
+}
+
+.radius-filter,
+.category-filter,
+.ability-filter,
+.cost-filter {
+  display: none;
+}
   /* Consistent input + select styles */
   .autocomplete-input,
   .radius-filter select,
@@ -65,34 +148,40 @@
   }
   
   /* Map and list layout */
-  .map-list-container {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap; /* Force side-by-side */
-    gap: 0.5rem;
-    width: 100%;
-    box-sizing: border-box;
-  }
+.map-list-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: 0;
+  width: 99%;
+  box-sizing: border-box;
+  height: calc(75vh);
+}
   
-  .map-list-container > .map-container,
-  .map-list-container > .list-column {
-    height: 42vw;
-  }
-  
+/* .map-list-container > .map-container,
+.map-list-container > .list-column {
+  height: 100%;
+} */
+
+/* .map-list-container {
+  height: 100%;
+} */
   /* Map section */
-  .map-container {
-    flex: 1 1 60%;
-    /* min-width: 400px; */
-  }
-  
+.map-container {
+  flex: 1 1 50%;
+}
+
+
+
   /* List section */
   .list-column {
-    flex: 1 1 35%;
     width: 30vw;
     background-color: #f9f5f0;
     padding: 1rem;
     border-radius: 8px;
     overflow-y: auto;
+    height: calc(100% + 60px);
+    margin-top: -83px;
   }
   
   /* List items */
@@ -101,10 +190,10 @@
     padding: 1rem 1rem 1rem 1rem;
     border-radius: 6px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
     overflow: visible;
     position: relative;
-    min-height: 400px;
+    min-height: 300px;
     height: auto;
     min-width: 90%;
   }
@@ -126,10 +215,16 @@
     display: flex;
     align-items: center;
     gap: 1rem;
-    margin-top: 0.5rem;
+    /* margin-top: 0.5rem; */
     width: 100%;
   }
-  
+
+  .adventure-list {
+  overflow-y: auto;
+  max-height: 100%;
+  height: 100%;
+  }
+
   .adventure-link {
     flex: 1;
     margin: 0;
@@ -173,6 +268,101 @@
     text-overflow: ellipsis;
     white-space: nowrap;
   }
+/* 
+  @media (max-width: 1475px) {
+  .radius-filter,
+  .category-filter,
+  .ability-filter,
+  .cost-filter {
+    display: none;
+  }
+  
+  .search-box-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+  background-color: white;
+  border-radius: 10px;
+  padding: 5px;
+  margin: 10px 10px 1px 1px;
+  width: 99%;
+  position: relative; 
+  }
+  
+  .autocomplete-input {
+    flex: 1;
+    max-width: 300px;
+  }
+  
+  .search-button {
+    flex: 0 0 auto;
+  }
+} */
+
+
+@media (max-width: 1400px) {
+
+  .location-search {
+    overflow: visible; 
+    height: 90vh; 
+    display: flex;
+    flex-direction: column;
+  }
+
+  .search-box-container {
+    position: absolute;
+    top: 35vh;
+    left: 30px;
+    z-index: 1000;
+    width: calc(100% - 90px);
+    margin: 0;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    transform: translateY(-50%);
+  }
+
+  .map-list-container {
+    flex-direction: column;
+    height: calc(100vh - 140px);
+    margin: 0 auto;
+    align-items: center;
+  }
+
+  .map-container {
+    flex: 0 0 30vh;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    background-color: #e0e0e0;
+    display: block;
+    z-index: 10;
+    position: relative;
+    margin-bottom: 60px;
+  }
+
+  .map-container > div,
+  .map-container > div > div {
+    width: 100% !important;
+    height: 30vh !important;
+    display: block !important;
+    visibility: visible !important;
+  }
+
+  .list-column {
+    flex: 1;
+    width: 95%;
+    /* height: calc(80vh - 200px); */
+    overflow-y: auto;
+    background-color: #f9f5f0;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-top: 25px;
+    min-height: 0;
+    max-height: calc(65vh - 240px);
+  }
+}
+
   
   @media (min-width: 768px) {
     .browse-title {
@@ -185,30 +375,88 @@
   }
   
   @media (max-width: 480px) {
+
+    .map-list-container {
+    flex-direction: column;
+    width: 96%;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+    }
+
+  .map-container {
+    width: 99%;
+    margin: 0 auto;
+  }
+
     .browse-title {
       font-size: 5vw;
+      text-align: center;
     }
     
     .adventure-info p {
       font-size: 3.5vw;
+      text-align: center;
     }
-  }
   
-  /* Responsive behavior */
-  @media (max-width: 768px) {
-    .search-box-container {
-      flex-direction: column;
-      align-items: stretch;
+  .search-box-container {
+    position: absolute;
+    top: 38.5vh;
+    left: 48%;
+    transform: translate(-50%, -50%);
+    width: 86%;
+    margin: 0;
+  }
+
+    .search-button {
+      flex: none;
+      width: auto;
+      margin: 0 auto;
     }
   
     .map-list-container {
       flex-direction: column;
+      padding-bottom: 20px;
+      align-items: center;
     }
   
-    .map-container,
-    .list-column {
-      flex: 1 1 100%;
-      width: 100%;
-    }
+  .map-list-container .list-column {
+    margin: 100px auto 0;
+    width: 90%;
+    height: calc(100vh - 30vh - 20px);
+    overflow-y: auto;
   }
+
+.adventure-card {
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  min-height: 80px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* .title-favorite-container {
+  display: none;
+} */
+
+.link-button-container {
+  display: none;
+}
+
+.title-favorite-container {
+  display: block;
+}
+
+  .filters-button {
+    display: none;
+  }
+  
+  .filters-dropdown {
+    display: none !important;
+  }
+
+
+
+}
+  
   

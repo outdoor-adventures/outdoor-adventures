@@ -1,24 +1,14 @@
 .about-container {
-    max-width: 80%;
-    margin: 100px auto;
-    padding: 3rem;
-    padding-top: 100px;
-}
-
-.about-hero {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
     text-align: center;
-    margin-bottom: 3rem;
 }
 
-.about-hero h1 {
-    font-size: 2.5rem;
-    color: #2c5530;
-    margin-bottom: 1rem;
-}
-
-.hero-subtitle {
-    font-size: 1.2rem;
-    color: #666;
+.about-logo {
+    width: 200px;
+    height: auto;
+    margin: 2rem 0;
 }
 
 .about-content {
@@ -26,42 +16,30 @@
     gap: 2rem;
 }
 
+.about-content section {
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
 .about-content h2 {
     color: #2c5530;
-    border-bottom: 2px solid #4a7c59;
-    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
 }
 
 .about-content p {
     line-height: 1.6;
     font-size: 1.1rem;
-}
-
-.features-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1.5rem;
-    margin-top: 1rem;
-}
-
-.feature-card {
-    padding: 1.5rem;
-    background-color: #f8f9fa;
-    border-radius: 8px;
-    border: 1px solid #e9ecef;
-}
-
-.feature-card h3 {
-    color: #2c5530;
-    margin-bottom: 0.5rem;
+    color: #333;
 }
 
 .steps-container {
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
+    gap: 2rem;
     margin-top: 2rem;
     flex-wrap: wrap;
-    gap: 1rem;
 }
 
 .step {
@@ -85,58 +63,14 @@
 
 .step h3 {
     color: #2c5530;
+    margin-bottom: 0.5rem;
 }
 
 .get-started {
-    text-align: center;
     background-color: #f8f9fa;
-    padding: 2rem;
-    border-radius: 8px;
-    margin-top: 2rem;
 }
 
 .get-started h2 {
     color: #2c5530;
     margin-bottom: 1rem;
-    border: none;
-}
-
-.get-started p {
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-.about-content p {
-    line-height: 1.6;
-    font-size: 1.1rem;
-    color: #333;
-    font-weight: 500;
-}
-
-.about-content section {
-    background-color: #ffffff;
-    padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.step p {
-    color: #333;
-    font-weight: 500;
-}
-
-.tech-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    margin-top: 1rem;
-}
-
-.tech-item {
-    background-color: #4a7c59;
-    color: white;
-    padding: 0.5rem 1rem;
-    border-radius: 20px;
-    font-size: 0.9rem;
-    font-weight: 500;
 }
