@@ -4,10 +4,10 @@
   display: flex;
   gap: 1rem;
   align-items: center;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   background-color: white;
   border-radius: 10px;
-  padding: 5px;
+  padding: 0.5rem;
   margin: 15px 1px 1px 1px;
   width: 66.5%;
 }
@@ -42,7 +42,8 @@
 .location-search {
   display: flex;
   flex-direction: column;
-  padding: 0;
+  gap: 1rem;
+  padding: 1rem;
   font-family: 'Rockwell', serif;
   width: 100%;
   overflow: hidden;
@@ -91,10 +92,11 @@
 }
 
 
+/* Styling for the actual map div inside of the map container */
   .map-container > div,
 .map-container > div > div {
   width: 100% !important;
-  height: 97% !important;
+  height:100% !important;
 }
 
 .radius-filter,
@@ -151,9 +153,9 @@
   flex-direction: row;
   flex-wrap: nowrap;
   gap: 0;
-  width: 99.5%;
+  width: 99%;
   box-sizing: border-box;
-  height: calc(82vh);
+  height: calc(75vh);
 }
   
 .map-list-container > .map-container,
