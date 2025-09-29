@@ -185,7 +185,10 @@ const getUserLocation = () => {
               placeholder="Enter an address"
               className="autocomplete-input"
             />
+          
+          
           </StandaloneSearchBox>
+
 
       {/* FILTERS  */}
         <div style={{ position: 'relative' }}></div>
@@ -204,6 +207,7 @@ const getUserLocation = () => {
             </select>
           </div>
          {/*END RADIUS FILTER*/}
+         
         
           <div className='category-filter'>
             <select onChange={(e) => setSelectedCategory(e.target.value)}>
@@ -231,8 +235,10 @@ const getUserLocation = () => {
               ))}
             </select>
           </div> {/*END COST FILTER*/}
+          </div>          
           </div>
-          </div>
+
+
   
 
           <button //on click api call to get adventures
@@ -241,12 +247,14 @@ const getUserLocation = () => {
             className="search-button"
           >
             {isLoading ? 'Searching...' : 'Find Adventures'}
-          </button>
+          </button> 
+
+
         </div>
 
         <div className='map-list-container'>
           <div className='map-container'>
-            <div className='google-map'>
+
         <GoogleMap //actual map component
           mapContainerStyle={mapContainerStyle}
           center={centerRef.current} //center map on selected address
@@ -395,7 +403,7 @@ const getUserLocation = () => {
           )}
         </GoogleMap>
         </div>
-        </div>
+
         
 
       
@@ -404,7 +412,7 @@ const getUserLocation = () => {
       <div className='list-section'>
       {adventures.length > 0 && (
         <div className="adventure-list">
-          <h3>Adventures within {selectedRadius} miles</h3>
+          <h3 className='adventures-within-text'>Adventures within {selectedRadius} miles</h3>
 
             {adventures.map(adventure => (
               

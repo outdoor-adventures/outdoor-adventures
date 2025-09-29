@@ -224,3 +224,13 @@ CREATE TABLE IF NOT EXISTS "favorite_adventures" (
 	"adventure_id" INTEGER NOT NULL REFERENCES "adventures"(id),
 	PRIMARY KEY ("id")
 );
+
+--CREATE NEWSLETTER SUBSCRIBERS TABLE
+CREATE TABLE IF NOT EXISTS "newsletter_subscribers" (
+	"id" serial NOT NULL UNIQUE,
+	"email" VARCHAR(255) NOT NULL,
+	"name" VARCHAR(255) NOT NULL,
+	"subscribed_on" TIMESTAMPTZ DEFAULT now(),
+	"user_id" INTEGER REFERENCES "user"(id),	
+	PRIMARY KEY ("id")
+);
