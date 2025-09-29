@@ -4,9 +4,9 @@ import Nav from '../Nav/Nav';
 const ContactUs = () => {
     return (
         <>
-            <Nav pageTitle="Contact Us" />
+            <Nav pageTitle="Contact our Team" />
             <div className="contact-container">
-                <h1>Contact Us</h1>
+
                 <div className="contact-form">
                     <form>
                         <div className="form-group">
@@ -18,6 +18,17 @@ const ContactUs = () => {
                                 placeholder="Enter your name"
                             />
                         </div>
+
+                        <div className="form-group">
+                            <label htmlFor="name">Reason for Contacting</label>
+                            <input 
+                                type="text"
+                                id="name"
+                                name="name"
+                                placeholder="Experiencing Issues? Support? Anything Else?"
+                            />
+                        </div>
+
                         <div className="form-group">
                             <label htmlFor="email">Email:</label>
                             <input
