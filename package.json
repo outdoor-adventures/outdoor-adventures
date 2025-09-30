@@ -33,6 +33,7 @@
   },
   "scripts": {
     "start": "node server/server.js",
+    "heroku-postbuild": "npm run build",
     "client": "vite",
     "server": "nodemon --watch server server/server.js",
     "build": "vite build",
