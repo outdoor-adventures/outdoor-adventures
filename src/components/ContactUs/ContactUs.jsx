@@ -88,7 +88,7 @@ const ContactUs = () => {
             <div className="contact-container">
                 {showLoginPrompt ? (
                     <div className="login-prompt">
-                        <p>Please login or create an account before sending a message.</p>
+                        <p>Please login or create an account to contact our team.</p>
                         <div className="form-buttons">
                             <button type="button" onClick={handleLogin}>Log in / Register</button>
                         </div>
