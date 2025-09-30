@@ -24,6 +24,9 @@ const dropdownRouter = require('./routes/dropdowns.router');
 //require newsletter router file
 const newsletterRouter = require('./routes/newsletter.router');
 
+//require newsletter router file
+const contactRouter = require('./routes/contact.router');
+
 // Apply middleware:
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
@@ -48,6 +51,9 @@ app.use('/api/recent/recent', dropdownRouter);
 
 //apply newsletter router
 app.use('/api/newsletter', newsletterRouter);
+
+//apply contact router
+app.use('/api/contact', contactRouter);
 
 // Start the server:
 app.listen(PORT, () => {
