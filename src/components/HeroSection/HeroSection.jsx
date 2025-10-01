@@ -20,7 +20,8 @@ const HeroSection = () => {
                 </Link>
 
                 {/* ----------- == NEWS LETTER == --------------*/}
-                <div className="cta-card" onClick={() => setIsNewsletterModalOpen(true)}>
+                {/* Un-Comment to enable newsletter signup */}
+                {/* <div className="cta-card" onClick={() => setIsNewsletterModalOpen(true)}>
                     <span className="cta-icon">📰</span>
                     <h2 className="cta-title">
                         Stay Informed: Join the Newsletter
@@ -28,7 +29,7 @@ const HeroSection = () => {
                     <p className="cta-sub">
                         Never miss local events, deals & safety updates.
                     </p>
-                </div>
+                </div> */}
 
                 {/* ----------- == ADD ADVENTURE --------------*/}
 
@@ -36,7 +37,7 @@ const HeroSection = () => {
                     <span className="cta-icon">📍</span>
                     <h2 className="cta-title">Add Your Own Adventure</h2>
                     <p className="cta-sub">
-                        Never miss local events, deals & safety updates.
+                        Share your own adventures so others can enjoy them too!
                     </p>
                 </Link>
             </div>
