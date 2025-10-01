@@ -42,6 +42,7 @@ const uploadToS3 = async (req, res, next) => {
     // This is why we use crypto to generate a random name for the image.
     try {
         const randomName = crypto.randomBytes(32).toString('hex');
+        const folderPrefix = process.env.S3_FOLDER_PREFIX || '';
         const fileName = `${randomName}-${req.file.originalname}`;
 
         // Set up parameters for the S3 upload

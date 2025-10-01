@@ -85,6 +85,28 @@ CREATE TABLE "favorite_adventures" (
 	PRIMARY KEY ("id")
 );
 
+--CREATE NEWSLETTER SUBSCRIBERS TABLE
+CREATE TABLE IF NOT EXISTS "newsletter_subscribers" (
+	"id" serial NOT NULL UNIQUE,
+	"email" VARCHAR(255) NOT NULL,
+	"name" VARCHAR(255) NOT NULL,
+	"subscribed_on" TIMESTAMPTZ DEFAULT now(),
+	"user_id" INTEGER REFERENCES "user"(id),	
+	PRIMARY KEY ("id")
+);
+
+CREATE TABLE "contact_submissions" (
+    "id" SERIAL PRIMARY KEY,
+    "name" VARCHAR(255) NOT NULL,
+    "email" VARCHAR(255) NOT NULL,
+    "reason" VARCHAR(255) NOT NULL,
+    "message" TEXT NOT NULL,
+    "user_id" INTEGER REFERENCES "user"("id"),
+    "submitted_at" TIMESTAMP DEFAULT NOW(),
+    "is_resolved" BOOLEAN DEFAULT FALSE
+);
+
+
 -- INSERT DATA FOR CATEGORY TABLE
 INSERT INTO "category_table" ("category_name") VALUES
 ('Hiking & Nature Walks'),
