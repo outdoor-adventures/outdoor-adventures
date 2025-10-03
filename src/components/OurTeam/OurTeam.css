@@ -18,7 +18,7 @@
 }
 
 .team-content section {
-    background-color: #ffffff;
+    background-color: #dbdbdb;
     padding: 2rem;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
@@ -47,7 +47,7 @@
 .team-content p {
     line-height: 1.6;
     font-size: 1rem;
-    color: #555;
+    color: #464646;
     margin-bottom: 1rem;
 }
 

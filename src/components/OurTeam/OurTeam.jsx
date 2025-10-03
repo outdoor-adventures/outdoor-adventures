@@ -14,7 +14,7 @@ const OurTeam = () => {
                             <img className="dev-image" src="" alt="Charlotte Ganske" />
                             <h3>Full-Stack Developer</h3>
                             <p>
-                                Charlotte is cool
+                                Hello, I'm Charlotte! When im not coding, you can find me Skiing, relaxing with my three cats, or hiking to my favorite swimming hole!
                             </p>
                         </section>
 
@@ -23,7 +23,7 @@ const OurTeam = () => {
                             <img className="dev-image" src="" alt="Johnny De Luna" />
                             <h3>Full-Stack Developer</h3>
                             <p>
-                                Johnny is cool
+                                Hey there! I'm Johnny, When I'm not coding, you can find me eating some good thai food, at the skate park, or hanging out with my friends!
                             </p>
                         </section>
                     </div>
