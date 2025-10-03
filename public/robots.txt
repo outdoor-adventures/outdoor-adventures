@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /api/
+Disallow: /.env
+Disallow: /server/
+Disallow: /uploads/
+
+# Allow public content
+Allow: /images/
+Allow: /favicon.ico
+
+# Sitemap (add when you create one)
+# Sitemap: https://yoursite.com/sitemap.xml
