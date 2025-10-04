@@ -36,6 +36,9 @@ const Footer = () => {
             <li>
             <NavLink to="/about" className="about-button">About</NavLink>
             </li>
+            <li>
+            <NavLink to="/team" className="team-button">Meet the Team</NavLink>
+            </li>
         </ul>
       
 
@@ -44,6 +47,7 @@ const Footer = () => {
           <div className="dropdown-content">
             <NavLink to="/contact">Contact</NavLink>
             <NavLink to="/about">About</NavLink>
+            <NavLink to="/team">Meet the Team</NavLink>"
           </div>
         </div>
         

@@ -11,6 +11,7 @@ import BrowseAdventuresPage from '../BrowseAdventuresPage/BrowseAdventuresPage';
 import MyAdventuresViews from '../MyAdventuresViews/MyAdventuresViews';
 import PendingAdventure from '../PendingAdventure/PendingAdventure';
 import ContactUs from '../ContactUs/ContactUs';
+import OurTeam from '../OurTeam/OurTeam';
 
 import AboutUs from '../AboutUs/AboutUs';
 import AddAdventureForm from '../AddAdventureForm/AddAdventureForm';
@@ -50,6 +51,12 @@ function App() {
                         exact
                         path="/contact"
                         element={<ContactUs />}
+                    />
+
+                    <Route
+                        exact
+                        path="/team"
+                        element={<OurTeam />}
                     />
 
                     <Route
