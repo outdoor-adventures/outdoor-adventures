@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+  Outdoor Adventures Sitemap
+  
+  Next Steps:
+  1. Submit sitemap to Google Search Console
+  2. Test at: www.myoutdooradventures.org/sitemap.xml
+-->
+
+<!-- 
+EXPLANATION:
+  loc: exact URL of the page (required)
+  lastmod: when the page was last modified in YYYY/MM/DD format
+  changefreq: how often the page content changes
+  priority: importance of a page relative to the other pages
+-->
+
+<!-- urlset: Root element that contains all URL entries -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <!-- Home Page -->
+  <url>
+    <loc>https://www.myoutdooradventures.org/</loc>
+    <lastmod>2025-10-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  
+  <!-- Browse Adventures -->
+  <url>
+    <loc>https://www.myoutdooradventures.org/browse</loc>
+    <lastmod>2025-10-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+  <!-- About Us -->
+  <url>
+    <loc>https://www.myoutdooradventures.org/about</loc>
+    <lastmod>2025-10-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <!-- Contact Us -->
+  <url>
+    <loc>https://www.myoutdooradventures.org/contact</loc>
+    <lastmod>2025-10-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <!-- Login -->
+  <url>
+    <loc>https://www.myoutdooradventures.org/login</loc>
+    <lastmod>2025-10-09</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <!-- Registration -->
+  <url>
+    <loc>https://www.myoutdooradventures.org/registration</loc>
+    <lastmod>2025-10-09</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+</urlset>

@@ -1,0 +1,22 @@
+# Outdoor Adventures - Robots.txt Configuration
+# Controls web crawler access to site content
+
+# Apply rules to all web crawlers
+User-agent: *
+
+# Allow access to all public content by default
+Allow: /
+
+# Block access to sensitive areas
+Disallow: /admin          # Admin dashboard and controls
+Disallow: /api/           # API endpoints
+Disallow: /.env           # Environment variables
+Disallow: /server/        # Server-side code
+Disallow: /uploads/       # User uploaded content
+
+# Explicitly allow important public resources
+Allow: /images/           # Site images for SEO
+Allow: /favicon.ico       # Site icon
+
+# Sitemap location
+Sitemap: https://www.myoutdooradventures.org/sitemap.xml
