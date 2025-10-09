@@ -240,7 +240,11 @@ router.get('/my/favorites/:userId', async (req,res) => {
 router.get('/recents/recent', async (req, res) => {
 
     const sqlText = `
-    SELECT * FROM "adventures"
+    SELECT "adventures".*, "category_table"."category_name", "cost_table"."cost_level", "ability_table"."ability_level" 
+    FROM "adventures"
+    JOIN "category_table" ON "adventures"."category_id" = "category_table"."id"
+    JOIN "cost_table" ON "adventures"."cost_level_id" = "cost_table"."id"
+    JOIN "ability_table" ON "adventures"."ability_level_id" = "ability_table"."id"
     WHERE "status" = 'accepted'
     ORDER BY "created_at" DESC
     LIMIT 3;`;
