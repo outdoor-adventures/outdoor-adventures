@@ -19,4 +19,4 @@ Allow: /images/           # Site images for SEO
 Allow: /favicon.ico       # Site icon
 
 # Sitemap location
-Sitemap: https://yoursite.com/sitemap.xml
+Sitemap: https://www.myoutdooradventures.org/sitemap.xml
