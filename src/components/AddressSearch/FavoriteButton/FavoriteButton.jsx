@@ -2,15 +2,31 @@ import React, { useState, useEffect } from 'react'
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 import useStore from '../../../zustand/store'
 
 export default function FavoriteButton({ adventureId }) {
     const user = useStore((store) => store.user);
     const [liked, setLiked] = useState(false);
 
-    // Don't render if user is not logged in
+    // Show login link if user is not logged in
     if (!user || !user.id) {
-        return null;
+        return (
+            <Link 
+                to="/login" 
+                style={{
+                    padding: '0.5em 1em',
+                    fontSize: '0.9rem',
+                    textDecoration: 'none',
+                    backgroundColor: 'rgb(18, 37, 72)',
+                    color: 'rgb(210, 224, 250)',
+                    borderRadius: '4px',
+                    whiteSpace: 'nowrap'
+                }}
+            >
+                Login
+            </Link>
+        );
     }
 
     // Check if adventure is already favorited
