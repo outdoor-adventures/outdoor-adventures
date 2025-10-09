@@ -35,6 +35,14 @@ const OurTeam = () => {
                                 Hello, I'm Charlotte! When im not coding, you can find me Skiing, relaxing with my three cats, or hiking to my favorite swimming hole!
                             </p>
                         </section>
+
+                        <section className="about-rocky-mountain">
+                            <h2>Shout-Out</h2>
+                            <p>
+                                We want to give out a special thanks to all other members of the Rocky Mountain Cohort that were able to lend a hand with kickstarting the development of My Outdoor Adventures. 
+                                Without them, this project wouldnt have been possible. In no special order, thank you, Nat Koch, Patricia Kennedy, Teairra Craig, Jorge Lazaro, Bryan McGee.
+                            </p>
+                        </section>
                     </div>
                 </div>
             </div>
