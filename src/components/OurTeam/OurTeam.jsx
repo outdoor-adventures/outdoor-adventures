@@ -8,13 +8,13 @@ const OurTeam = () => {
             <Nav pageTitle="Meet the Team" />
             <div className="team-container">
                 <div className="team-content">
-                    <div className="two-column-section">
+                    <div className="three-column-section">
                         <section>
-                            <h2>Charlotte Ganske</h2>
-                            <img className="dev-image" src="" alt="Charlotte Ganske" />
-                            <h3>Full-Stack Developer</h3>
+                            <h2>Matt Bissonette</h2>
+                            <img className="dev-image" src="" alt="Matt Bissonette" />
+                            <h3>Founder</h3>
                             <p>
-                                Hello, I'm Charlotte! When im not coding, you can find me Skiing, relaxing with my three cats, or hiking to my favorite swimming hole!
+                                Hi, I'm Matt. Founder of My Outdoor Adventures!
                             </p>
                         </section>
 
@@ -24,6 +24,23 @@ const OurTeam = () => {
                             <h3>Full-Stack Developer</h3>
                             <p>
                                 Hey there! I'm Johnny, When I'm not coding, you can find me eating some good thai food, at the skate park, or hanging out with my friends!
+                            </p>
+                        </section>
+
+                        <section>
+                            <h2>Charlotte Ganske</h2>
+                            <img className="dev-image" src="" alt="Charlotte Ganske" />
+                            <h3>Full-Stack Developer</h3>
+                            <p>
+                                Hello, I'm Charlotte! When im not coding, you can find me Skiing, relaxing with my three cats, or hiking to my favorite swimming hole!
+                            </p>
+                        </section>
+
+                        <section className="about-rocky-mountain">
+                            <h2>Shout-Out</h2>
+                            <p>
+                                We want to give out a special thanks to all other members of the Rocky Mountain Cohort that were able to lend a hand with kickstarting the development of My Outdoor Adventures. 
+                                Without them, this project wouldnt have been possible. In no special order, thank you, Nat Koch, Patricia Kennedy, Teairra Craig, Jorge Lazaro, Bryan McGee.
                             </p>
                         </section>
                     </div>
