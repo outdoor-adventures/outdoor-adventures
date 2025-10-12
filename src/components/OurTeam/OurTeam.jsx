@@ -20,10 +20,10 @@ const OurTeam = () => {
 
                         <section>
                             <h2>Johnny De Luna</h2>
-                            <img className="dev-image" src="" alt="Johnny De Luna" />
+                            <img className="dev-image" src="johnny.jpeg" alt="Johnny De Luna" />
                             <h3>Full-Stack Developer</h3>
                             <p>
-                                Hey there! I'm Johnny, When I'm not coding, you can find me eating some good thai food, at the skate park, or hanging out with my friends!
+                                Hey there, I'm Johnny! When I'm not developing, you can find me traveling, doing photography, or hanging with friends. 
                             </p>
                         </section>
 
