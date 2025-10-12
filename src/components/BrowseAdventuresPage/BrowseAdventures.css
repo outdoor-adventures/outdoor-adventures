@@ -8,7 +8,7 @@
     padding-top: 110px;
   }
   
-  .search-container {
+.search-box-container {
     display: flex;
     justify-content: center;
     gap: 1rem;
@@ -17,7 +17,14 @@
     margin-top: 1.5rem;
     flex-wrap: wrap;
     box-sizing: border-box;
-  }
+    position: fixed;
+    top: 120px;
+    left: 10px;
+    right: 0;
+    z-index: 998;
+    padding: 1rem;
+}
+
   
   /* Drop-down styling */
   .search-container select,
@@ -85,7 +92,7 @@
     border-width: 1px;
     height: 100%;
     width: 100%;
-    margin-top: 5px;
+    margin-bottom: 500px;
     /* margin-bottom: 50px; */
     /* padding: 30px; */
     margin-right: 10px;
@@ -103,3 +110,7 @@
 
 height: 100%;
 } */
+
+.location-search {
+  height: 90vh;
+}

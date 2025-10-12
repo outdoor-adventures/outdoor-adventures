@@ -8,8 +8,8 @@
   background-color: white;
   border-radius: 10px;
   padding: 0.5rem;
-  margin: 10px 1px 1px -5px;
-  width: 66.5%;
+  margin: 10px;
+  width: 66%;
 }
   .search-input-group {
   display: flex;
@@ -39,15 +39,32 @@
   border-left: none;
 }
 
-.location-search {
+
+  .location-search {
   display: flex;
   flex-direction: column;
   gap: 1rem;
   padding: 1rem;
   font-family: 'Rockwell', serif;
-  width: 100%;
+  width: calc(100vw - 2rem); /* Full viewport width minus margins */
+  margin: 0 1rem; /* Add even margins on sides */
   overflow: hidden;
-  position: relative;
+  position: fixed; /* Fix position so it doesn't scroll */
+  top: 0;
+  left: 0;
+  z-index: 50; /* Ensure it stays above other content */
+}
+
+/* Adjust map-list-container to account for fixed location-search */
+.map-list-container {
+
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: 0;
+  width: 99%;
+  box-sizing: border-box;
+  min-height: 100vh;
 }
 
 
@@ -147,7 +164,6 @@
     color: rgb(18, 37, 72);
   }
   
-  /* Map and list layout */
 .map-list-container {
   display: flex;
   flex-direction: row;
@@ -155,34 +171,26 @@
   gap: 0;
   width: 99%;
   box-sizing: border-box;
-  height: calc(75vh);
+  height: calc(100vh - 200px);
+  min-height: calc(100vh - 200px);
+  margin-top: 120px;
 }
   
-/* .map-list-container > .map-container,
-.map-list-container > .list-column {
-  height: 100%;
-} */
-
-/* .map-list-container {
-  height: 100%;
-} */
-  /* Map section */
 .map-container {
   flex: 1 1 50%;
+  height: 100%;
 }
 
 
 
-  /* List section */
-  .list-column {
+.list-column {
     width: 30vw;
     background-color: #f9f5f0;
     padding: 1rem;
     border-radius: 8px;
     overflow-y: auto;
-    height: calc(100% + 60px);
-    margin-top: -83px;
-  }
+    height: 95%;
+}
   
   /* List items */
   .adventure-card {
@@ -313,10 +321,10 @@
 
   .search-box-container {
     position: absolute;
-    top: 35vh;
-    left: 30px;
+    top: 36vh;
+    left: 10px;
     z-index: 1000;
-    width: calc(100% - 90px);
+    width: 93%;
     margin: 0;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     transform: translateY(-50%);
@@ -324,7 +332,7 @@
 
   .map-list-container {
     flex-direction: column;
-    height: calc(100vh - 140px);
+    height: 100%;
     margin: 0 auto;
     align-items: center;
   }
@@ -339,6 +347,7 @@
     z-index: 10;
     position: relative;
     margin-bottom: 60px;
+    margin-right: 30px;
   }
 
   .map-container > div,
@@ -358,8 +367,9 @@
     padding: 1rem;
     border-radius: 8px;
     margin-top: 25px;
+    margin-right: 30px;
     min-height: 0;
-    max-height: calc(65vh - 240px);
+    max-height: 90vh;
   }
 }
 
