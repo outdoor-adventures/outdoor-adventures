@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './PendingAdventure.css';
+import Nav from '../Nav/Nav';
 
 const PendingAdventure = () => {
     // Helper function to get correct image URL
@@ -93,9 +94,10 @@ const PendingAdventure = () => {
     if (loading) {
         return (
             <section className="pending-page">
-                <header className="pending-header">
+            <Nav pageTitle="Pending Adventures" />
+                {/* <header className="pending-header">
                     <h1>Pending Adventures</h1>
-                </header>
+                </header> */}
                 <p>Loading pending adventures…</p>
             </section>
         );
@@ -105,9 +107,10 @@ const PendingAdventure = () => {
     if (error) {
         return (
             <section className="pending-page">
-                <header className="pending-header">
+            <Nav pageTitle="Pending Adventures" />
+                {/* <header className="pending-header">
                     <h1>Pending Adventures</h1>
-                </header>
+                </header> */}
                 <p>Error loading adventures: {error}</p>
             </section>
         );
@@ -117,9 +120,10 @@ const PendingAdventure = () => {
     if (adventures.length === 0) {
         return (
             <section className="pending-page">
-                <header className="pending-header">
+            <Nav pageTitle="Pending Adventures" />
+                {/* <header className="pending-header">
                     <h1>Pending Adventures</h1>
-                </header>
+                </header> */}
                 <p>No pending adventures at the moment.</p>
             </section>
         );
@@ -128,7 +132,7 @@ const PendingAdventure = () => {
     // Main render
     return (
         <section className="pending-page">
-            <span></span>
+            <Nav pageTitle="Pending Adventures" />
             <header className="pending-header">
                 <h1>Pending Adventures</h1>
             </header>
