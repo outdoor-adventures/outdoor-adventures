@@ -20,7 +20,7 @@
     "bcryptjs": "^3.0.2",
     "connect-pg-simple": "^9.0.1",
     "dotenv": "^16.0.3",
-    "express": "^4.17.1",
+    "express": "^5.1.0",
     "express-session": "^1.18.0",
     "multer": "^2.0.0",
     "multer-s3": "^3.0.1",
