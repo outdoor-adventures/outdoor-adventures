@@ -5,7 +5,7 @@ let pool;
 // When our app is deployed to the internet, we'll use the
 // DATABASE_URL environment variable to set the connection info.
 // Example of a valid DATABASE_URL: 
-  //  DATABASE_URL=postgresql://jDoe354:secretPw123@some.db.com/prime_app
+//  DATABASE_URL=postgresql://jDoe354:secretPw123@some.db.com/prime_app
 if (process.env.DATABASE_URL) {
   pool = new pg.Pool({
     connectionString: process.env.DATABASE_URL,

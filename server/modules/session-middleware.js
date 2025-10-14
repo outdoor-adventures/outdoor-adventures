@@ -43,9 +43,9 @@ module.exports = expressSession({
   name: 'user', // this is the name of the req.variable. 'user' is convention, but not required
   saveUninitialized: false,
   resave: false,
-  cookie: {
+    cookie: {
     maxAge: 1000 * 60 * 60 * 24 * 7, // cookie expires after 7 days 
     httpOnly: true, // prevents client-side JS from accessing cookie 
-    secure: false // can only be set to true if the app utilizes https
+    secure: process.env.NODE_ENV === 'production' // secure cookies in production
   },
 });
