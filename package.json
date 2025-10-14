@@ -17,7 +17,7 @@
     "@vis.gl/react-google-maps": "^1.5.2",
     "aws-sdk": "^2.1692.0",
     "axios": "^1.12.2",
-    "bcryptjs": "^2.4.3",
+    "bcryptjs": "^3.0.2",
     "connect-pg-simple": "^9.0.1",
     "dotenv": "^16.0.3",
     "express": "^4.17.1",
