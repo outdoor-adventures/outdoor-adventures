@@ -29,10 +29,10 @@ const OurTeam = () => {
 
                         <section>
                             <h2>Charlotte Ganske</h2>
-                            <img className="dev-image" src="" alt="Charlotte Ganske" />
+                            <img className="dev-image" src="charlotte.png" alt="Charlotte Ganske" />
                             <h3>Full-Stack Developer</h3>
                             <p>
-                                Hello, I'm Charlotte! When im not coding, you can find me Skiing, relaxing with my three cats, or hiking to my favorite swimming hole!
+                                Hello, I'm Charlotte! When im not programming or tinkering with hardware, you can find me relaxing with my three cats, out on the slopes, or having a picnic at my favorite park!
                             </p>
                         </section>
 

@@ -118,11 +118,15 @@ const getUserLocation = () => {
         // Automatically search for adventures around user's location
         await searchAdventures(userPos);
       },
-      (error) => {
+      async (error) => {
         console.log('Geolocation error:', error);
-        // Keep default center if geolocation fails
+        // Automatically search with default Minneapolis location if geolocation fails
+        await searchAdventures(center);
       }
     );
+  } else {
+    // If geolocation is not supported, search with default location
+    searchAdventures(center);
   }
 };
 
