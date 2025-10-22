@@ -74,15 +74,17 @@ function AddressSearch() {
 
 useEffect(() => {
   axios.get('/api/dropdown/category')
-        .then(response => {console.log('category data:', response.data)
-          setCategories(response.data)});
+        .then(response => {
+          // console.log('category data:', response.data)
+          setCategories(response.data)
+        });
 
   axios.get('/api/dropdown/ability')
-        .then(response => {console.log('ability data:', response.data)
+        .then(response => {//console.log('ability data:', response.data)
           setAbilities(response.data)});
 
   axios.get('/api/dropdown/cost')
-        .then(response => {console.log('cost data:', response.data)
+        .then(response => {//console.log('cost data:', response.data)
           setCosts(response.data)});
   
     // Get user's location on component mount
@@ -119,7 +121,7 @@ const getUserLocation = () => {
         await searchAdventures(userPos);
       },
       async (error) => {
-        console.log('Geolocation error:', error);
+        //console.log('Geolocation error:', error);
         // Automatically search with default Minneapolis location if geolocation fails
         await searchAdventures(center);
       }
@@ -156,9 +158,9 @@ const getUserLocation = () => {
     setIsLoading(true);
     
     try {
-      console.log('Searching with coordinates:', location);
+      //console.log('Searching with coordinates:', location);
       const adventuresResponse = await axios.get(`/api/adventures/nearby?lat=${location.lat}&lng=${location.lng}&radius=${selectedRadius}&category=${selectedCategory}&abilityLevel=${selectedAbilityLevel}&costLevel=${selectedCostLevel}`);
-      console.log('Response:', adventuresResponse.data);
+      //console.log('Response:', adventuresResponse.data);
       setAdventures(adventuresResponse.data);
     } catch (error) {
       console.error('Error searching adventures:', error);

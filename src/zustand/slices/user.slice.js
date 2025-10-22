@@ -15,7 +15,7 @@ const createUserSlice = (set, get) => ({
       const { data } = await axios.get('/api/user');
       set({ user: data });
     } catch (err) {
-      console.log('fetchUser error:', err);
+      //console.log('fetchUser error:', err);
       set({user : {}});
     }
   },
@@ -27,7 +27,7 @@ const createUserSlice = (set, get) => ({
       await axios.post('/api/user/register', newUserCredentials);
       get().logIn(newUserCredentials);
     } catch (err) {
-      console.log('register error:', err);
+      //console.log('register error:', err);
       get().setAuthErrorMessage('Oops! Registration failed. That username might already be taken. Try again!');
     }
   },
@@ -39,7 +39,7 @@ const createUserSlice = (set, get) => ({
       await axios.post('/api/user/login', userCredentials);
       get().fetchUser();
     } catch (err) {
-      console.log('logIn error:', err);
+      //console.log('logIn error:', err);
       if (err.response.status === 401) {
         // 401 is the status code sent from passport if user isn't in the database or
         // if the username and password don't match in the database, so:
@@ -57,7 +57,7 @@ const createUserSlice = (set, get) => ({
       await axios.post('/api/user/logout');
       set({user : {}});
     } catch (err) {
-      console.log('logOut error:', err);
+      //console.log('logOut error:', err);
     }
   },
   setAuthErrorMessage: (message) => {

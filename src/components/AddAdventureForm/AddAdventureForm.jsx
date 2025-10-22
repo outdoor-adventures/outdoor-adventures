@@ -100,7 +100,7 @@ const AddAdventureForm = () => {
     e.preventDefault(); 
 
     if (!formData.photo) {
-      console.log('Setting alert for missing photo');
+      // console.log('Setting alert for missing photo');
       setAlert({ show: true, type: 'error', message: 'Please select an image before submitting' });
       return;
     }
@@ -132,7 +132,7 @@ const AddAdventureForm = () => {
       setAlert({ show: true, type: 'success', message: 'Adventure Submitted Successfully' });
 
       // Handle successful form submission
-      console.log('Adventure submitted:', response.data, form);
+      // console.log('Adventure submitted:', response.data, form);
 
       setFormData({
         price: '',          
@@ -172,7 +172,7 @@ const AddAdventureForm = () => {
             }))
             setValidLocation(true);
           } else {
-            console.log('ERROR: places geometry is missing', place)
+            // console.log('ERROR: places geometry is missing', place)
           }
         }
       }
