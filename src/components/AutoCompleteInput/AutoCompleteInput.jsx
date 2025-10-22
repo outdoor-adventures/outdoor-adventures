@@ -25,11 +25,11 @@ function AutoCompleteInput() {
                 const lat = location.lat(); //this sets our variable "lat" to the lat value of the full location
                 const lng = location.lng(); //this does the same as one above but for lng
 
-                //set useStates to store lat and lng *IN PROGRESS*
+                //set useStates to store lat and lng
                 setLatitude(lat);
                 setLongitude(lng);
-                console.log('latitude', lat);
-                console.log('longitude', lng);
+                //console.log('latitude', lat);
+                //console.log('longitude', lng);
             }
         }
     } //end onPlacesChanged

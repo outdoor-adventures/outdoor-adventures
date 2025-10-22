@@ -34,7 +34,7 @@ const RecentActivitySection = () => {
                 return res.json();
             })
             .then((data) => {
-                console.log('RecentActivitySection fetched adventures:', data);
+                //console.log('RecentActivitySection fetched adventures:', data);
                 setAdventures(data);
                 setLoading(false);
             })
