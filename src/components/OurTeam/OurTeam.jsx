@@ -11,10 +11,10 @@ const OurTeam = () => {
                     <div className="three-column-section">
                         <section>
                             <h2>Matt Bissonette</h2>
-                            <img className="dev-image" src="" alt="Matt Bissonette" />
+                            <img className="dev-image" src="MattProfile.png" alt="Matt Bissonette" />
                             <h3>Founder</h3>
                             <p>
-                                Hi, I'm Matt. Founder of My Outdoor Adventures!
+                                Hi, I'm Matt Bissonette, welcome to My Outdoor Adventures! As an outdoor enthusiast and dad to three kids, I founded My Outdoor Adventures because I believe that some of life’s best memories happen under an open sky. I'll see you out there!
                             </p>
                         </section>
 
