@@ -41,9 +41,9 @@ const PendingAdventure = () => {
             fetch('/api/dropdown/cost').then((res) => res.json()),
         ])
             .then(([advs, cats, abils, costs]) => {
-                console.log('Adventures loaded:', advs);
+                //console.log('Adventures loaded:', advs);
                 advs.forEach(adv => {
-                    console.log(`Adventure ${adv.id} photo:`, adv.photo);
+                    //console.log(`Adventure ${adv.id} photo:`, adv.photo);
                 });
                 setAdventures(advs);
                 setCategories(cats);
@@ -104,7 +104,7 @@ const PendingAdventure = () => {
                 latitude: adventure.latitude,
                 longitude: adventure.longitude
             });
-            console.log('edited data', editData);
+            //console.log('edited data', editData);
         }
     };
 

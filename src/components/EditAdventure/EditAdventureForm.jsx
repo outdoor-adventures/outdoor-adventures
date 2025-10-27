@@ -114,7 +114,7 @@ const EditAdventureForm = () => {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
 
-      console.log('Adventure updated:', res.data);
+      //console.log('Adventure updated:', res.data);
       setMessage('Adventure updated successfully!');
     } catch (error) {
       console.error('Update failed:', error);
@@ -139,7 +139,7 @@ const EditAdventureForm = () => {
             longitude: place.geometry.location.lng(),
           }))
         } else {
-          console.log('ERROR: places geometry is missing', place)
+          //console.log('ERROR: places geometry is missing', place)
         }
       }
     }
