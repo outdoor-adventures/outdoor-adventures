@@ -41,6 +41,11 @@ const ContactUs = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        if (!user || !user.id) {
+            setShowLoginPrompt(true);
+            return;
+        }
+
         try {
             await axios.post(`/api/contact/${user.id}`, {
                 name: formData.name,
@@ -58,11 +63,12 @@ const ContactUs = () => {
     };
 
     const handleCloseModal = () => {
-        setIsSubmitted(false);
-        setShowLoginPrompt(false);
-           if (isSubmitted) {
+        if (isSubmitted) {
+            setIsSubmitted(false);
             navigate('/');
-    }
+        } else if (showLoginPrompt) {
+            navigate('/');
+        }
     };
 
     const handleReset = () => {
