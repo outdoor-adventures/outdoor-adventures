@@ -166,7 +166,17 @@ router.get('/my/:createdby', async (req,res) => {
 
 //GET ROUTE FOR THE ROUTE BASED OF THE PENDING STATUS:
 router.get('/admin/pending', async (req, res) => {
-    const sqlText = `SELECT * FROM "adventures"
+    const sqlText = `
+    SELECT "adventures".*, 
+           "category_table"."category_name" as "category", 
+           "cost_table"."cost_level" as "price", 
+           "ability_table"."ability_level" as "difficulty",
+           "adventures"."activity_name" as "title",
+           "adventures"."address" as "location"
+    FROM "adventures" 
+    JOIN "category_table" ON "adventures"."category_id" = "category_table"."id"
+    JOIN "cost_table" ON "adventures"."cost_level_id" = "cost_table"."id"
+    JOIN "ability_table" ON "adventures"."ability_level_id" = "ability_table"."id"
     WHERE "status" = 'pending'
     ORDER BY "id" DESC;`;
 
