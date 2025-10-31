@@ -57,7 +57,7 @@ app.use('/api/newsletter', newsletterRouter);
 app.use('/api/contact', contactRouter);
 
 // Serve React App for all non-API routes
-app.get('*', (req, res) => {
+app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, '../build/index.html'), (err) => {
     if (err) {
       console.error('Cannot find build/index.html:', err.message);
@@ -65,6 +65,7 @@ app.get('*', (req, res) => {
     }
   });
 });
+
 
 
 
