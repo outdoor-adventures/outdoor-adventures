@@ -1,5 +1,6 @@
 require('dotenv').config();
 const express = require('express');
+const path = require('path');
 const { S3Client} = require('@aws-sdk/client-s3');
 
 // Instantiate an express server:
@@ -54,6 +55,11 @@ app.use('/api/newsletter', newsletterRouter);
 
 //apply contact router
 app.use('/api/contact', contactRouter);
+
+// Serve React App for all non-API routes
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, '..', 'build', 'index.html'));
+});
 
 // Start the server:
 app.listen(PORT, () => {
