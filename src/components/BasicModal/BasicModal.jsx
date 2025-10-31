@@ -153,38 +153,6 @@ export default function BasicModal({ adv, open: externalOpen, onClose: externalO
                   {adventureData.activity_name}
                 </Typography>
 
-                <Typography sx={{
-                  ...sectionStyle, 
-                  marginBottom: '25px', 
-                  '@media (max-width: 1200px)': { 
-                    marginBottom: '15px',
-                    overflow: 'hidden',
-                    display: '-webkit-box',
-                    WebkitLineClamp: 4,
-                    WebkitBoxOrient: 'vertical'
-                  }
-                }} variant="body1">
-                   {adventureData.description}
-                </Typography>
-
-                <Box sx={{ 
-                  display: 'flex', 
-                  flexDirection: 'row', 
-                  flexWrap: 'wrap',
-                  gap: 2, 
-                  marginBottom: '20px', 
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  marginTop: 'auto',
-                  marginBottom: '5px',
-                  '@media (max-width: 600px)': {
-                    flexDirection: 'column',
-                    gap: 0.5
-                  }
-                }}>
-                
-                </Box>
-
                   <Box sx={{ 
                   marginTop: 'auto',
                   marginBottom: '10px',
@@ -203,6 +171,10 @@ export default function BasicModal({ adv, open: externalOpen, onClose: externalO
                     marginBottom: 0
                   }
                 }} className="location-website">
+                  <Typography sx={{...sectionStyle, marginBottom: '15px', wordWrap: 'break-word', whiteSpace: 'normal'}} variant="body1">
+                    <strong>Description:</strong> {adventureData.description}
+                  </Typography>
+                  
                   <Typography sx={sectionStyle} variant="body1" >
                     <strong>Location:</strong> {adventureData.address || `${adventureData.city || ''}, ${adventureData.state || ''} ${adventureData.zip || ''}`}
                   </Typography>
