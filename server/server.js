@@ -58,14 +58,14 @@ app.use('/api/contact', contactRouter);
 
 // Serve React App for all non-API routes
 app.get('*', (req, res) => {
-  const indexPath = path.resolve(__dirname, '..', 'build', 'index.html');
-  res.sendFile(indexPath, (err) => {
+  res.sendFile(path.join(__dirname, '../build/index.html'), (err) => {
     if (err) {
-      console.error('Error serving index.html:', err);
-      res.status(500).send('Server Error');
+      console.error('Cannot find build/index.html:', err.message);
+      res.status(404).send('App not built yet');
     }
   });
 });
+
 
 
 // Start the server:
