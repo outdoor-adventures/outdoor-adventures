@@ -58,8 +58,15 @@ app.use('/api/contact', contactRouter);
 
 // Serve React App for all non-API routes
 app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '..', 'build', 'index.html'));
+  const indexPath = path.resolve(__dirname, '..', 'build', 'index.html');
+  res.sendFile(indexPath, (err) => {
+    if (err) {
+      console.error('Error serving index.html:', err);
+      res.status(500).send('Server Error');
+    }
+  });
 });
+
 
 // Start the server:
 app.listen(PORT, () => {
