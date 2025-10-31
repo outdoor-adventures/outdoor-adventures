@@ -56,19 +56,6 @@ app.use('/api/newsletter', newsletterRouter);
 //apply contact router
 app.use('/api/contact', contactRouter);
 
-// Serve React App for all non-API routes
-app.get('/*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../build/index.html'), (err) => {
-    if (err) {
-      console.error('Cannot find build/index.html:', err.message);
-      res.status(404).send('App not built yet');
-    }
-  });
-});
-
-
-
-
 // Start the server:
 app.listen(PORT, () => {
   console.log(`Listening on port: ${PORT}`);
