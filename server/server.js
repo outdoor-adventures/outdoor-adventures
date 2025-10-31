@@ -56,6 +56,11 @@ app.use('/api/newsletter', newsletterRouter);
 //apply contact router
 app.use('/api/contact', contactRouter);
 
+// Handle React routing, return all requests to React app
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, '..', 'build', 'index.html'));
+});
+
 // Start the server:
 app.listen(PORT, () => {
   console.log(`Listening on port: ${PORT}`);
