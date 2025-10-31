@@ -99,7 +99,7 @@ function App() {
                         path="/admin"
                         element={
                           user.id && user.user_rank === 1 ? (
-                            <PendingAdventure />
+                            <AdminPage />
                           ) : (
                             <Navigate to="/404" replace />
                           )
